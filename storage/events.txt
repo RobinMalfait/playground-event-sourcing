@@ -1,0 +1,7 @@
+{"KBC\\Accounts\\Events\\AccountWasOpened":{"account":{"type":"KBC\\Accounts\\Account","value":{"name":{"type":"KBC\\Accounts\\ValueObjects\\Name","value":{"firstName":"Robin","lastName":"Malfait"}},"id":"3b41a947-364c-4008-b7ce-39e344841674","recordedEvents":[]}}}}
+{"KBC\\Accounts\\Events\\MoneyWasDeposited":{"accountId":"3b41a947-364c-4008-b7ce-39e344841674","amount":200}}
+{"KBC\\Accounts\\Events\\MoneyWasDeposited":{"accountId":"3b41a947-364c-4008-b7ce-39e344841674","amount":100}}
+{"KBC\\Accounts\\Events\\MoneyHasBeenCollected":{"accountId":"3b41a947-364c-4008-b7ce-39e344841674","amount":30}}
+{"KBC\\Accounts\\Events\\AccountWasOpened":{"account":{"type":"KBC\\Accounts\\Account","value":{"name":{"type":"KBC\\Accounts\\ValueObjects\\Name","value":{"firstName":"Sarah","lastName":"Dekeyzer"}},"id":"09bbef66-908c-4172-ae0b-38d92d8ba7d6","recordedEvents":[]}}}}
+{"KBC\\Accounts\\Events\\MoneyWasDeposited":{"accountId":"09bbef66-908c-4172-ae0b-38d92d8ba7d6","amount":400}}
+{"KBC\\Accounts\\Events\\MoneyHasBeenCollected":{"accountId":"09bbef66-908c-4172-ae0b-38d92d8ba7d6","amount":20}}

@@ -1,0 +1,10 @@
+{
+    "require": {
+        "rhumsaa/uuid": "2.8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "KBC\\": "src/"
+        }
+    }
+}
