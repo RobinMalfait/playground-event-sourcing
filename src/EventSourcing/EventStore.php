@@ -1,11 +1,11 @@
-<?php namespace KBC\Accounts;
+<?php namespace KBC\EventSourcing;
 
 use KBC\EventSourcing\Events\DomainEvent;
 use KBC\EventSourcing\Serialization\Deserializer;
 use KBC\EventSourcing\Serialization\Serializer;
 use KBC\Storages\EventStorage;
 
-class AccountRepository {
+class EventStore {
 
     use Serializer, Deserializer;
 

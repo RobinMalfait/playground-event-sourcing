@@ -4,15 +4,16 @@ error_reporting(-1);
 ini_set('display_errors', 'On');
 
 use KBC\Accounts\Account;
-use KBC\Accounts\AccountRepository;
 use KBC\Accounts\ValueObjects\Name;
+use KBC\EventSourcing\EventStore;
 use KBC\Storages\FileStorage;
 
-// Clear the events, never ever do this in production
+/* -- DO NOT DO THIS -- */
 file_put_contents('storage/events.txt', '');
+/* -- DO NOT DO THIS -- */
 
 // Setup some stuff
-$accountsRepository = new AccountRepository(new FileStorage());
+$eventStore = new EventStore(new FileStorage());
 
 // Open some accounts
 $robin = Account::open(new Name('Robin', 'Malfait'));
@@ -28,7 +29,7 @@ $sarah->withdraw(20);
 $robin->withdraw(30);
 
 // Save the accounts
-$accountsRepository->save($robin);
-$accountsRepository->save($sarah);
+$eventStore->save($robin);
+$eventStore->save($sarah);
 
-$accountsRepository->replayAll();
+$eventStore->replayAll();
