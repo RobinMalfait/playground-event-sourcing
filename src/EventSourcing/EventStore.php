@@ -34,18 +34,10 @@ final class EventStore {
      * @param $id
      * @return array
      */
-    public function replayFor($id)
+    public function getEventsFor($id)
     {
-        $events = [];
-        foreach($this->storage->loadAll() as $event)
-        {
-            $event = json_decode($event);
-            if ($event->aggregateId == $id)
-            {
-                $events[] = $this->deserialize($event->data);
-            }
-        }
-
-        return $events;
+        return $this->storage->searchEventsFor($id, function($data) {
+            return $this->deserialize($data);
+        });
     }
 }

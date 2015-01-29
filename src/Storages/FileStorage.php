@@ -17,4 +17,19 @@ final class FileStorage implements EventStorage {
     {
         return explode("\n", file_get_contents($this->file));
     }
+
+    public function searchEventsFor($id, Callable $cb)
+    {
+        $events = [];
+        foreach($this->loadAll() as $event)
+        {
+            $event = json_decode($event);
+            if ($event->aggregateId == $id)
+            {
+                $events[] = $cb($event->data);
+            }
+        }
+
+        return $events;
+    }
 }

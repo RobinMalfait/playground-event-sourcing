@@ -39,8 +39,8 @@ $eventStore->save($robin);
 $eventStore->save($sarah);
 
 // Replay events that are stored.
-$robinRestored = Account::replayEvents($eventStore->replayFor($robinId));
+$robinRestored = Account::replayEvents($eventStore->getEventsFor($robinId));
 var_dump($robinRestored == $robin); // true
 
-$sarahRestored = Account::replayEvents($eventStore->replayFor($sarahId));
+$sarahRestored = Account::replayEvents($eventStore->getEventsFor($sarahId));
 var_dump($sarahRestored == $sarah); // true
