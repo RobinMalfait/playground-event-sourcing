@@ -6,6 +6,6 @@ interface EventStorage {
 
     public function loadAll();
 
-    public function searchEventsFor($id, Callable $cb);
+    public function searchEventsFor($id, Callable $map);
 
 }

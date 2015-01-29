@@ -5,6 +5,7 @@
     "autoload": {
         "psr-4": {
             "KBC\\": "src/"
-        }
+        },
+        "files": ["helper.php"]
     }
 }

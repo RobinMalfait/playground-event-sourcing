@@ -40,7 +40,7 @@ $eventStore->save($sarah);
 
 // Replay events that are stored.
 $robinRestored = Account::replayEvents($eventStore->getEventsFor($robinId));
-var_dump($robinRestored == $robin); // true
+it('should restore the object in the exact same state', $robinRestored == $robin);
 
 $sarahRestored = Account::replayEvents($eventStore->getEventsFor($sarahId));
-var_dump($sarahRestored == $sarah); // true
+it('should restore the object in the exact same state', $sarahRestored == $sarah);
