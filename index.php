@@ -5,8 +5,10 @@ ini_set('display_errors', 'On');
 
 use KBC\Accounts\Account;
 use KBC\Accounts\Name;
+use KBC\EventSourcing\AggregateHistory;
 use KBC\EventSourcing\EventStore;
 use KBC\Storages\FileStorage;
+use Rhumsaa\Uuid\Uuid;
 
 /* -- DO NOT DO THIS -- */
 file_put_contents('storage/events.txt', '');
@@ -15,9 +17,13 @@ file_put_contents('storage/events.txt', '');
 // Setup some stuff
 $eventStore = new EventStore(new FileStorage());
 
+// Generate some UUIDs
+$robinId = (String) Uuid::uuid4();
+$sarahId = (String) Uuid::uuid4();
+
 // Open some accounts
-$robin = Account::open(new Name('Robin', 'Malfait'));
-$sarah = Account::open(new Name('Sarah', 'Dekeyzer'));
+$robin = Account::open($robinId, new Name('Robin', 'Malfait'));
+$sarah = Account::open($sarahId, new Name('Sarah', 'Dekeyzer'));
 
 // Deposit some money
 $robin->deposit(200);
@@ -32,4 +38,9 @@ $robin->withdraw(30);
 $eventStore->save($robin);
 $eventStore->save($sarah);
 
-$eventStore->replayAll();
+// Replay events that are stored.
+$robinRestored = Account::replayEvents($eventStore->replayFor($robinId));
+var_dump($robinRestored == $robin); // true
+
+$sarahRestored = Account::replayEvents($eventStore->replayFor($sarahId));
+var_dump($sarahRestored == $sarah); // true

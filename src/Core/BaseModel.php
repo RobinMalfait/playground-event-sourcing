@@ -1,9 +1,12 @@
 <?php namespace KBC\Core;
 
 use KBC\EventSourcing\Events\EventGenerator;
+use KBC\EventSourcing\Replayer;
 
-class BaseModel {
+abstract class BaseModel {
 
-    use EventGenerator;
+    public $id;
+
+    use EventGenerator, Replayer;
 
 }

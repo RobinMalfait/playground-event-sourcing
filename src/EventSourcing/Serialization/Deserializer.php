@@ -1,7 +1,6 @@
 <?php namespace KBC\EventSourcing\Serialization;
 
 use ReflectionClass;
-use ReflectionException;
 
 trait Deserializer {
 

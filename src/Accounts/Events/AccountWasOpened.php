@@ -1,15 +1,22 @@
 <?php namespace KBC\Accounts\Events;
 
-use KBC\Accounts\Account;
+use KBC\Accounts\Name;
 use KBC\EventSourcing\Events\DomainEvent;
 
 class AccountWasOpened implements DomainEvent {
 
-    protected $account;
+    public $id;
 
-    function __construct(Account $account)
+    public $name;
+
+    public $balance;
+
+    function __construct($id, Name $name, $balance)
     {
-        $this->account = $account;
+        $this->id = $id;
+        $this->name = $name;
+        $this->balance = $balance;
     }
+
 
 }

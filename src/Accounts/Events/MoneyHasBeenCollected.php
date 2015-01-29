@@ -4,9 +4,9 @@ use KBC\EventSourcing\Events\DomainEvent;
 
 class MoneyHasBeenCollected implements DomainEvent {
 
-    protected $accountId;
+    public $accountId;
 
-    protected $amount;
+    public $amount;
 
     function __construct($accountId, $amount)
     {

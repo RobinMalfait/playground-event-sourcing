@@ -1,9 +1,11 @@
 <?php namespace KBC\EventSourcing;
 
+use DateTime;
 use KBC\EventSourcing\Events\DomainEvent;
 use KBC\EventSourcing\Serialization\Deserializer;
 use KBC\EventSourcing\Serialization\Serializer;
 use KBC\Storages\EventStorage;
+use Rhumsaa\Uuid\Uuid;
 
 class EventStore {
 
@@ -19,25 +21,33 @@ class EventStore {
     public function save($model)
     {
         $events = $model->releaseEvents();
+        $rootId = $model->id;
 
-        array_map(function(DomainEvent $event) {
-
-            $this->storage->storeEvent(
-                $this->serialize($event)
-            );
-
+        array_map(function(DomainEvent $event) use ($rootId)
+        {
+            $this->storage->storeEvent(json_encode([
+                'aggregateId'   => $rootId,
+                'data'          => $this->serialize($event)
+            ]));
         }, $events);
     }
 
-    public function replayAll()
+    /**
+     * @param $id
+     * @return array
+     */
+    public function replayFor($id)
     {
-        $events = $this->storage->loadAll();
-
-        foreach($events as $event) {
-            if ($event) {
-                $object = $this->deserialize($event);
-                var_dump($object);
+        $events = [];
+        foreach($this->storage->loadAll() as $event)
+        {
+            $event = json_decode($event);
+            if ($event->aggregateId == $id)
+            {
+                $events[] = $this->deserialize($event->data);
             }
         }
+
+        return $events;
     }
 }
