@@ -10,9 +10,9 @@ use KBC\EventSourcing\EventStore;
 use KBC\Storages\FileStorage;
 use Rhumsaa\Uuid\Uuid;
 
-/* -- DO NOT DO THIS -- */
+/* ---- DO NOT DO THIS IN PRODUCTION ---- */
 file_put_contents('storage/events.txt', '');
-/* -- DO NOT DO THIS -- */
+/* ---- DO NOT DO THIS IN PRODUCTION ---- */
 
 // Setup some stuff
 $eventStore = new EventStore(new FileStorage());
@@ -33,6 +33,7 @@ $robin->deposit(100);
 // Withdraw some money
 $sarah->withdraw(20);
 $robin->withdraw(30);
+$robin->withdraw(100);
 
 // Save the accounts
 $eventStore->save($robin);
