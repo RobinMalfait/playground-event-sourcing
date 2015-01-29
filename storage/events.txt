@@ -1,7 +1,7 @@
-{"KBC\\Accounts\\Events\\AccountWasOpened":{"account":{"type":"KBC\\Accounts\\Account","value":{"name":{"type":"KBC\\Accounts\\ValueObjects\\Name","value":{"firstName":"Robin","lastName":"Malfait"}},"id":"dd2f0fee-a06d-4468-95a6-090814229db9","recordedEvents":[]}}}}
-{"KBC\\Accounts\\Events\\MoneyWasDeposited":{"accountId":"dd2f0fee-a06d-4468-95a6-090814229db9","amount":200}}
-{"KBC\\Accounts\\Events\\MoneyWasDeposited":{"accountId":"dd2f0fee-a06d-4468-95a6-090814229db9","amount":100}}
-{"KBC\\Accounts\\Events\\MoneyHasBeenCollected":{"accountId":"dd2f0fee-a06d-4468-95a6-090814229db9","amount":30}}
-{"KBC\\Accounts\\Events\\AccountWasOpened":{"account":{"type":"KBC\\Accounts\\Account","value":{"name":{"type":"KBC\\Accounts\\ValueObjects\\Name","value":{"firstName":"Sarah","lastName":"Dekeyzer"}},"id":"9628fdf1-904d-47f8-a797-766c572e55d8","recordedEvents":[]}}}}
-{"KBC\\Accounts\\Events\\MoneyWasDeposited":{"accountId":"9628fdf1-904d-47f8-a797-766c572e55d8","amount":400}}
-{"KBC\\Accounts\\Events\\MoneyHasBeenCollected":{"accountId":"9628fdf1-904d-47f8-a797-766c572e55d8","amount":20}}
+{"KBC\\Accounts\\Events\\AccountWasOpened":{"account":{"type":"KBC\\Accounts\\Account","value":{"name":{"type":"KBC\\Accounts\\Name","value":{"firstName":"Robin","lastName":"Malfait"}},"id":"f350ea96-73f5-431e-aab5-cae53d8384e0","recordedEvents":[]}}}}
+{"KBC\\Accounts\\Events\\MoneyWasDeposited":{"accountId":"f350ea96-73f5-431e-aab5-cae53d8384e0","amount":200}}
+{"KBC\\Accounts\\Events\\MoneyWasDeposited":{"accountId":"f350ea96-73f5-431e-aab5-cae53d8384e0","amount":100}}
+{"KBC\\Accounts\\Events\\MoneyHasBeenCollected":{"accountId":"f350ea96-73f5-431e-aab5-cae53d8384e0","amount":30}}
+{"KBC\\Accounts\\Events\\AccountWasOpened":{"account":{"type":"KBC\\Accounts\\Account","value":{"name":{"type":"KBC\\Accounts\\Name","value":{"firstName":"Sarah","lastName":"Dekeyzer"}},"id":"717e9356-2201-4e5b-be20-38510cd3d81d","recordedEvents":[]}}}}
+{"KBC\\Accounts\\Events\\MoneyWasDeposited":{"accountId":"717e9356-2201-4e5b-be20-38510cd3d81d","amount":400}}
+{"KBC\\Accounts\\Events\\MoneyHasBeenCollected":{"accountId":"717e9356-2201-4e5b-be20-38510cd3d81d","amount":20}}

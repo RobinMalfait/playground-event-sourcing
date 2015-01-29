@@ -1,4 +1,4 @@
-<?php namespace KBC\Accounts\ValueObjects;
+<?php namespace KBC\Accounts;
 
 class Name {
 

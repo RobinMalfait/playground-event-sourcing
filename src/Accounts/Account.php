@@ -3,7 +3,6 @@
 use KBC\Accounts\Events\AccountWasOpened;
 use KBC\Accounts\Events\MoneyHasBeenCollected;
 use KBC\Accounts\Events\MoneyWasDeposited;
-use KBC\Accounts\ValueObjects\Name;
 use KBC\Core\BaseModel;
 use Rhumsaa\Uuid\Uuid;
 

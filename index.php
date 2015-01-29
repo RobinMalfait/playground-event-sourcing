@@ -4,7 +4,7 @@ error_reporting(-1);
 ini_set('display_errors', 'On');
 
 use KBC\Accounts\Account;
-use KBC\Accounts\ValueObjects\Name;
+use KBC\Accounts\Name;
 use KBC\EventSourcing\EventStore;
 use KBC\Storages\FileStorage;
 

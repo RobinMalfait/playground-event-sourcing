@@ -21,7 +21,11 @@ class EventStore {
         $events = $model->releaseEvents();
 
         array_map(function(DomainEvent $event) {
-            $this->storage->storeEvent($this->serialize($event));
+
+            $this->storage->storeEvent(
+                $this->serialize($event)
+            );
+
         }, $events);
     }
 
@@ -31,7 +35,8 @@ class EventStore {
 
         foreach($events as $event) {
             if ($event) {
-                $this->deserialize($event);
+                $object = $this->deserialize($event);
+                var_dump($object);
             }
         }
     }
