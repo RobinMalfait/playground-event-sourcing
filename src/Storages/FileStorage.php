@@ -1,6 +1,6 @@
 <?php namespace KBC\Storages;
 
-class FileStorage implements EventStorage {
+final class FileStorage implements EventStorage {
 
     protected $file = 'storage/events.txt';
 

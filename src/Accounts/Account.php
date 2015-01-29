@@ -5,7 +5,7 @@ use KBC\Accounts\Events\MoneyHasBeenCollected;
 use KBC\Accounts\Events\MoneyWasDeposited;
 use KBC\Core\BaseModel;
 
-class Account extends BaseModel {
+final class Account extends BaseModel {
 
     public $name;
 

@@ -1,6 +1,6 @@
 <?php namespace KBC\Accounts;
 
-class Name {
+final class Name {
 
     protected $firstName;
 

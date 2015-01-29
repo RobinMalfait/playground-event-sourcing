@@ -3,7 +3,7 @@
 use KBC\Accounts\Name;
 use KBC\EventSourcing\Events\DomainEvent;
 
-class AccountWasOpened implements DomainEvent {
+final class AccountWasOpened implements DomainEvent {
 
     public $id;
 

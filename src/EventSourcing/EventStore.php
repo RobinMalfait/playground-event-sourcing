@@ -1,13 +1,11 @@
 <?php namespace KBC\EventSourcing;
 
-use DateTime;
 use KBC\EventSourcing\Events\DomainEvent;
 use KBC\EventSourcing\Serialization\Deserializer;
 use KBC\EventSourcing\Serialization\Serializer;
 use KBC\Storages\EventStorage;
-use Rhumsaa\Uuid\Uuid;
 
-class EventStore {
+final class EventStore {
 
     use Serializer, Deserializer;
 
