@@ -28,7 +28,7 @@ file_put_contents($projectionDatabase, ''); // json db
 /* ---- DO NOT DO THIS IN PRODUCTION ---- */
 
 // Who doesn't like queues
-//$queue = new Queue('127.0.0.1', 'default');
+$queue = new Queue('127.0.0.1', 'default');
 
 // Setup some stuff
 $eventStore = new EventStore(new FileStorage($eventStorageDatabase), $dispatcher = new Dispatcher());
@@ -46,6 +46,7 @@ $johnDoeId = (String) Uuid::uuid4();
 
 // Open Account
 $johnDoe = Account::open($johnDoeId, new Name('John', 'Doe'));
+it('should be the exact same id', $johnDoe->id ==  $johnDoeId);
 
 // Deposit some money, via queue
 $johnDoe->deposit(20);

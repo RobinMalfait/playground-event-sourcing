@@ -13,8 +13,6 @@ final class Queue {
         $this->pheanstalk = new Pheanstalk($address);
         $this->pheanstalk->useTube($tube);
         $this->serializer = new Serializer();
-
-        $this->run($tube);
     }
 
     public function push(Closure $callback)
@@ -25,12 +23,13 @@ final class Queue {
 
     public function run($tube)
     {
-        $job = $this->pheanstalk->watch($tube)->reserve();
-        $cb = $this->serializer->unserialize($job->getData());
+        $this->pheanstalk->watch($tube);
 
-        $cb($job);
-
-        $this->pheanstalk->delete($job);
+        while ($job = $this->pheanstalk->reserve()) {
+            $cb = $this->serializer->unserialize($job->getData());
+            $cb($job);
+            $this->pheanstalk->delete($job);
+        }
     }
 
 }
