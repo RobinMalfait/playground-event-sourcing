@@ -5,11 +5,12 @@ ini_set('display_errors', 'On');
 
 use KBC\Accounts\Account;
 use KBC\Accounts\Events\AccountWasOpened;
-use KBC\Accounts\Events\MoneyHasBeenCollected;
 use KBC\Accounts\Events\MoneyWasDeposited;
+use KBC\Accounts\Events\TransactionHasBeenMade;
 use KBC\Accounts\Listeners\whenAccountWasOpened;
 use KBC\Accounts\Listeners\whenMoneyHasBeenCollected;
 use KBC\Accounts\Listeners\whenMoneyWasDeposited;
+use KBC\Accounts\Listeners\whenTransactionHasBeenMade;
 use KBC\Accounts\Name;
 use KBC\EventSourcing\AggregateHistory;
 use KBC\EventSourcing\Events\Dispatcher;
@@ -27,7 +28,6 @@ $eventStore = new EventStore(new FileStorage($storageFile), $dispatcher = new Di
 // Register some DomainEvent Listeners
 $dispatcher->addListener(AccountWasOpened::class, new whenAccountWasOpened());
 $dispatcher->addListener(MoneyWasDeposited::class, new whenMoneyWasDeposited());
-$dispatcher->addListener(MoneyHasBeenCollected::class, new whenMoneyHasBeenCollected());
 
 // Generate some UUIDs
 $robinId = (String) Uuid::uuid4();
@@ -47,7 +47,7 @@ $sarah->withdraw(20);
 $robin->withdraw(30);
 $robin->withdraw(100);
 
-// Save the accounts
+// Save the account events
 $eventStore->save($robin);
 $eventStore->save($sarah);
 

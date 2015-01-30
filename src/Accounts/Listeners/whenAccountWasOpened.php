@@ -3,7 +3,7 @@
 use KBC\EventSourcing\Events\DomainEvent;
 use KBC\EventSourcing\Events\Listener;
 
-class whenAccountWasOpened implements Listener {
+final class whenAccountWasOpened implements Listener {
 
     public function handle(DomainEvent $event)
     {

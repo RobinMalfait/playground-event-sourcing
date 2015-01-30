@@ -9,8 +9,6 @@ final class Account extends BaseModel {
 
     public $name;
 
-    public $id;
-
     public $balance;
 
     public function __construct($id)
@@ -66,4 +64,5 @@ final class Account extends BaseModel {
 
         return $state;
     }
+
 }

@@ -7,4 +7,8 @@ abstract class BaseModel {
 
     use EventGenerator, Replayer;
 
+    public $id;
+
+    abstract function __construct($id);
+
 }
