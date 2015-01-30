@@ -3,10 +3,10 @@
 use KBC\EventSourcing\Events\DomainEvent;
 use KBC\EventSourcing\Events\Listener;
 
-final class WhenMoneyWasDeposited implements Listener {
+final class WhenMoneyHasBeenCollected implements Listener {
 
     public function handle(DomainEvent $event)
     {
-        var_dump("€{$event->amount} has been deposited.");
+        var_dump("€{$event->amount} has been withdrawn.");
     }
 }

@@ -5,12 +5,13 @@ ini_set('display_errors', 'On');
 
 use KBC\Accounts\Account;
 use KBC\Accounts\Events\AccountWasOpened;
+use KBC\Accounts\Events\MoneyHasBeenCollected;
 use KBC\Accounts\Events\MoneyWasDeposited;
 use KBC\Accounts\Events\TransactionHasBeenMade;
-use KBC\Accounts\Listeners\whenAccountWasOpened;
-use KBC\Accounts\Listeners\whenMoneyHasBeenCollected;
-use KBC\Accounts\Listeners\whenMoneyWasDeposited;
-use KBC\Accounts\Listeners\whenTransactionHasBeenMade;
+use KBC\Accounts\Listeners\WhenAccountWasOpened;
+use KBC\Accounts\Listeners\WhenMoneyHasBeenCollected;
+use KBC\Accounts\Listeners\WhenMoneyWasDeposited;
+use KBC\Accounts\Listeners\WhenTransactionHasBeenMade;
 use KBC\Accounts\Name;
 use KBC\EventSourcing\AggregateHistory;
 use KBC\EventSourcing\Events\Dispatcher;
@@ -26,8 +27,9 @@ file_put_contents($storageFile = '.events', '');
 $eventStore = new EventStore(new FileStorage($storageFile), $dispatcher = new Dispatcher());
 
 // Register some DomainEvent Listeners
-$dispatcher->addListener(AccountWasOpened::class, new whenAccountWasOpened());
-$dispatcher->addListener(MoneyWasDeposited::class, new whenMoneyWasDeposited());
+$dispatcher->addListener(AccountWasOpened::class, new WhenAccountWasOpened());
+$dispatcher->addListener(MoneyWasDeposited::class, new WhenMoneyWasDeposited());
+$dispatcher->addListener(MoneyHasBeenCollected::class, new WhenMoneyHasBeenCollected());
 
 // Generate some UUIDs
 $robinId = (String) Uuid::uuid4();
