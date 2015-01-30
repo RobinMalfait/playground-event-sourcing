@@ -35,7 +35,7 @@ $dispatcher->addListener(MoneyWasDeposited::class, new WhenMoneyWasDeposited());
 $dispatcher->addListener(MoneyHasBeenCollected::class, new WhenMoneyHasBeenCollected());
 
 // Register projectors
-$dispatcher->addProjector(Account::class, new AccountProjector(new JsonDatabase($database)));
+$dispatcher->addProjector(Account::class, new AccountProjector($jsonDatabase = new JsonDatabase($database)));
 
 // Generate some UUIDs
 $robinId = (String) Uuid::uuid4();
@@ -59,21 +59,19 @@ $robin->withdraw(100);
 $eventStore->save($robin);
 $eventStore->save($sarah);
 
-// Show the current state
-echo "\n";
-var_dump("Current balance for {$robin->name->getFullName()} is €{$robin->balance}");
-var_dump("Current balance for {$sarah->name->getFullName()} is €{$sarah->balance}");
-echo "\n";
+// Get Projection Data
+$currentRobinState = $jsonDatabase->find($robinId);
+var_dump($currentRobinState);
+
+// Clear it, because you can...
+file_put_contents($database, '');
 
 // Replay events that are stored.
 $robinRestored = Account::replayEvents($eventStore->getEventsFor($robinId));
 $sarahRestored = Account::replayEvents($eventStore->getEventsFor($sarahId));
 
-// Show the current state of the restored states
-echo "\n";
-var_dump("Current balance for {$robinRestored->name->getFullName()} is €{$robinRestored->balance}");
-var_dump("Current balance for {$sarahRestored->name->getFullName()} is €{$sarahRestored->balance}");
-echo "\n";
+// Re-project from events
+
 
 // Maybe some testing #TestFrameworkInATweet
 it('should restore the object in the exact same state', $robinRestored == $robin);

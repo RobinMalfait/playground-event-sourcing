@@ -1,6 +1,7 @@
 <?php namespace KBC\Storages;
 
 use Closure;
+use Rhumsaa\Uuid\Console\Exception;
 
 class JsonDatabase {
 
@@ -13,27 +14,38 @@ class JsonDatabase {
 
     public function insert($data)
     {
-        $rows = $this->readContents();
+        $rows = $this->all();
         $rows[] = $data;
         $this->writeContents($rows);
     }
 
-    public function update($accountId, Callable $callback)
+    public function update($id, Callable $callback)
     {
-        $rows = $this->readContents();
+        $rows = $this->all();
+
         foreach($rows as &$row)
         {
-            if ($row['id'] == $accountId) {
+            if ($row['id'] == $id) {
                 $row = $callback($row);
             }
         }
         $this->writeContents($rows);
     }
 
-    /**
-     * @return mixed
-     */
-    private function readContents()
+    public function find($id)
+    {
+        $rows = $this->all();
+        foreach($rows as &$row)
+        {
+            if ($row['id'] == $id) {
+                return $row;
+            }
+        }
+
+        throw new Exception('Record not found.');
+    }
+
+    public function all()
     {
         return json_decode(file_get_contents($this->file), true);
     }
