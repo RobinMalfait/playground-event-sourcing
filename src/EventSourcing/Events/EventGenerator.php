@@ -13,7 +13,7 @@ trait EventGenerator {
         return $events;
     }
 
-    public function recordThat(DomainEvent $event)
+    public function apply(DomainEvent $event)
     {
         $this->recordedEvents[] = $event;
     }

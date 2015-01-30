@@ -1,6 +1,7 @@
 <?php namespace KBC\EventSourcing;
 
 use KBC\EventSourcing\Events\DomainEvent;
+use ReflectionClass;
 
 trait Replayer {
 
@@ -10,17 +11,16 @@ trait Replayer {
 
         foreach ($events as $event)
         {
-            $state = static::apply($state, $event);
+            $state = self::applyAnEvent($state, $event);
         }
 
         return $state;
     }
 
-    private static function apply($state, DomainEvent $event)
+    private static function applyAnEvent($state, DomainEvent $event)
     {
-        $classParts = explode('\\', get_class($event));
-
-        $method = "apply" . array_pop($classParts);
+        $reflection = new ReflectionClass($event);
+        $method = "apply" . $reflection->getShortName();
 
         return static::$method($state, $event);
     }

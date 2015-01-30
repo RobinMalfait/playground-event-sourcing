@@ -20,7 +20,7 @@ final class EventStore {
         $this->dispatcher = $dispatcher;
     }
 
-    public function save($model)
+    public function save(&$model)
     {
         $events = $model->releaseEvents();
         $rootId = $model->id;
@@ -31,6 +31,8 @@ final class EventStore {
         }, $events);
 
         $this->dispatcher->dispatch($events);
+
+        $model = $model->replayEvents($events);
     }
 
     /**

@@ -19,26 +19,22 @@ final class Account extends BaseModel {
     public static function open($id, Name $name)
     {
         $account = new Static($id);
-        $account->balance = 0;
         $account->name = $name;
+        $account->balance = 0;
 
-        $account->recordThat(new AccountWasOpened($account->id, $account->name, $account->balance));
+        $account->apply(new AccountWasOpened($id, $name, 0));
 
         return $account;
     }
 
     public function deposit($amount)
     {
-        $this->recordThat(new MoneyWasDeposited($this->id, $amount));
-
-        $this->balance += $amount;
+        $this->apply(new MoneyWasDeposited($this->id, $amount));
     }
 
     public function withdraw($amount)
     {
-        $this->recordThat(new MoneyHasBeenCollected($this->id, $amount));
-
-        $this->balance -= $amount;
+        $this->apply(new MoneyHasBeenCollected($this->id, $amount));
     }
 
     /* Respond to events */

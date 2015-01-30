@@ -63,6 +63,12 @@ echo "\n";
 $robinRestored = Account::replayEvents($eventStore->getEventsFor($robinId));
 $sarahRestored = Account::replayEvents($eventStore->getEventsFor($sarahId));
 
+// Show the current state of the restored states
+echo "\n";
+var_dump("Current balance for {$robinRestored->name->getFullName()} is €{$robinRestored->balance}");
+var_dump("Current balance for {$sarahRestored->name->getFullName()} is €{$sarahRestored->balance}");
+echo "\n";
+
 // Maybe some testing #TestFrameworkInATweet
 it('should restore the object in the exact same state', $robinRestored == $robin);
 it('should restore the object in the exact same state', $sarahRestored == $sarah);
