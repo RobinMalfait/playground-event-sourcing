@@ -45,3 +45,5 @@ it('should restore the object in the exact same state', $robinRestored == $robin
 
 $sarahRestored = Account::replayEvents($eventStore->getEventsFor($sarahId));
 it('should restore the object in the exact same state', $sarahRestored == $sarah);
+
+dd($sarahRestored);
