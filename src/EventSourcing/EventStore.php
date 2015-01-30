@@ -1,5 +1,6 @@
 <?php namespace KBC\EventSourcing;
 
+use KBC\EventSourcing\Events\Dispatcher;
 use KBC\EventSourcing\Events\DomainEvent;
 use KBC\EventSourcing\Serialization\Deserializer;
 use KBC\EventSourcing\Serialization\Serializer;
@@ -11,9 +12,12 @@ final class EventStore {
 
     protected $storage;
 
-    public function __construct(EventStorage $storage)
+    protected $dispatcher;
+
+    public function __construct(EventStorage $storage, Dispatcher $dispatcher)
     {
         $this->storage = $storage;
+        $this->dispatcher = $dispatcher;
     }
 
     public function save($model)
@@ -25,6 +29,8 @@ final class EventStore {
         {
             $this->storage->storeEvent($rootId, $this->serialize($event));
         }, $events);
+
+        $this->dispatcher->dispatch($events);
     }
 
     /**

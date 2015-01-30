@@ -4,8 +4,15 @@ error_reporting(-1);
 ini_set('display_errors', 'On');
 
 use KBC\Accounts\Account;
+use KBC\Accounts\Events\AccountWasOpened;
+use KBC\Accounts\Events\MoneyHasBeenCollected;
+use KBC\Accounts\Events\MoneyWasDeposited;
+use KBC\Accounts\Listeners\whenAccountWasOpened;
+use KBC\Accounts\Listeners\whenMoneyHasBeenCollected;
+use KBC\Accounts\Listeners\whenMoneyWasDeposited;
 use KBC\Accounts\Name;
 use KBC\EventSourcing\AggregateHistory;
+use KBC\EventSourcing\Events\Dispatcher;
 use KBC\EventSourcing\EventStore;
 use KBC\Storages\FileStorage;
 use Rhumsaa\Uuid\Uuid;
@@ -15,7 +22,12 @@ file_put_contents('storage/events.txt', '');
 /* ---- DO NOT DO THIS IN PRODUCTION ---- */
 
 // Setup some stuff
-$eventStore = new EventStore(new FileStorage());
+$eventStore = new EventStore(new FileStorage(), $dispatcher = new Dispatcher());
+
+// Register some DomainEvent Listeners
+$dispatcher->addListener(AccountWasOpened::class, new whenAccountWasOpened());
+$dispatcher->addListener(MoneyWasDeposited::class, new whenMoneyWasDeposited());
+$dispatcher->addListener(MoneyHasBeenCollected::class, new whenMoneyHasBeenCollected());
 
 // Generate some UUIDs
 $robinId = (String) Uuid::uuid4();
@@ -41,9 +53,8 @@ $eventStore->save($sarah);
 
 // Replay events that are stored.
 $robinRestored = Account::replayEvents($eventStore->getEventsFor($robinId));
-it('should restore the object in the exact same state', $robinRestored == $robin);
-
 $sarahRestored = Account::replayEvents($eventStore->getEventsFor($sarahId));
-it('should restore the object in the exact same state', $sarahRestored == $sarah);
 
-dd($sarahRestored);
+// Maybe some testing #TestFrameworkInATweet
+it('should restore the object in the exact same state', $robinRestored == $robin);
+it('should restore the object in the exact same state', $sarahRestored == $sarah);

@@ -14,5 +14,4 @@ final class MoneyWasDeposited implements DomainEvent {
         $this->amount = $amount;
     }
 
-
 }
