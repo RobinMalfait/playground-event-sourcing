@@ -6,23 +6,23 @@ trait Replayer {
 
     public static function replayEvents($events)
     {
-        $object = (new \ReflectionClass(static::class))->newInstanceWithoutConstructor();
+        $state = null;
 
         foreach ($events as $event)
         {
-            $object->apply($event);
+            $state = static::apply($state, $event);
         }
 
-        return $object;
+        return $state;
     }
 
-    private function apply(DomainEvent $event)
+    private static function apply($state, DomainEvent $event)
     {
         $classParts = explode('\\', get_class($event));
 
         $method = "apply" . array_pop($classParts);
 
-        $this->$method($event);
+        return static::$method($state, $event);
     }
 
 }

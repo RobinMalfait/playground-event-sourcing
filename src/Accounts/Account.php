@@ -44,20 +44,26 @@ final class Account extends BaseModel {
     }
 
     /* Respond to events */
-    public function applyAccountWasOpened(AccountWasOpened $event)
+    public static function applyAccountWasOpened($state, AccountWasOpened $event)
     {
-        $this->balance = $event->balance;
-        $this->name = $event->name;
-        $this->id = $event->id;
+        $state = new self($event->id);
+        $state->balance = $event->balance;
+        $state->name = $event->name;
+
+        return $state;
     }
 
-    public function applyMoneyWasDeposited(MoneyWasDeposited $event)
+    public static function applyMoneyWasDeposited($state, MoneyWasDeposited $event)
     {
-        $this->balance += $event->amount;
+        $state->balance += $event->amount;
+
+        return $state;
     }
 
-    public function applyMoneyHasBeenCollected(MoneyHasBeenCollected $event)
+    public static function applyMoneyHasBeenCollected($state, MoneyHasBeenCollected $event)
     {
-        $this->balance -= $event->amount;
+        $state->balance -= $event->amount;
+
+        return $state;
     }
 }
