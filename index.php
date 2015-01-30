@@ -48,12 +48,12 @@ $johnDoeId = (String) Uuid::uuid4();
 $johnDoe = Account::open($johnDoeId, new Name('John', 'Doe'));
 it('should be the exact same id', $johnDoe->id ==  $johnDoeId);
 
-// Deposit some money, via queue
+// Deposit some money
 $johnDoe->deposit(20);
 $johnDoe->deposit(10);
 $johnDoe->deposit(30);
 
-// Withdraw some money, via queue
+// Withdraw some money
 $johnDoe->withdraw(50);
 
 // Save the account events
