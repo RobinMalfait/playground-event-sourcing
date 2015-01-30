@@ -18,11 +18,11 @@ use KBC\Storages\FileStorage;
 use Rhumsaa\Uuid\Uuid;
 
 /* ---- DO NOT DO THIS IN PRODUCTION ---- */
-file_put_contents('storage/events.txt', '');
+file_put_contents($storageFile = '.events', '');
 /* ---- DO NOT DO THIS IN PRODUCTION ---- */
 
 // Setup some stuff
-$eventStore = new EventStore(new FileStorage(), $dispatcher = new Dispatcher());
+$eventStore = new EventStore(new FileStorage($storageFile), $dispatcher = new Dispatcher());
 
 // Register some DomainEvent Listeners
 $dispatcher->addListener(AccountWasOpened::class, new whenAccountWasOpened());

@@ -4,7 +4,12 @@ use DateTime;
 
 final class FileStorage implements EventStorage {
 
-    protected $file = 'storage/events.txt';
+    protected $file;
+
+    public function __construct($file)
+    {
+        $this->file = $file;
+    }
 
     public function storeEvent($rootId, $event)
     {
@@ -47,4 +52,5 @@ final class FileStorage implements EventStorage {
     {
         return json_decode($event);
     }
+
 }
