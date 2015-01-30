@@ -2,7 +2,7 @@
 
 interface EventStorage {
 
-    public function storeEvent($event);
+    public function storeEvent($rootId, $event);
 
     public function loadAll();
 

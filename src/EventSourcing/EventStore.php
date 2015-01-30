@@ -23,10 +23,7 @@ final class EventStore {
 
         array_map(function(DomainEvent $event) use ($rootId)
         {
-            $this->storage->storeEvent(json_encode([
-                'aggregateId'   => $rootId,
-                'data'          => $this->serialize($event)
-            ]));
+            $this->storage->storeEvent($rootId, $this->serialize($event));
         }, $events);
     }
 

@@ -1,11 +1,19 @@
 <?php namespace KBC\Storages;
 
+use DateTime;
+
 final class FileStorage implements EventStorage {
 
     protected $file = 'storage/events.txt';
 
-    public function storeEvent($event)
+    public function storeEvent($rootId, $event)
     {
+        $event = json_encode([
+            'aggregate_id' => $rootId,
+            'recorded_at' => new DateTime(),
+            'data' => $event
+        ]);
+
         $contents = file_get_contents($this->file);
 
         $contents = ( ! $contents) ? $contents . $event : $contents . PHP_EOL . $event;
@@ -21,12 +29,12 @@ final class FileStorage implements EventStorage {
     public function searchEventsFor($id, Callable $map)
     {
         $events = [];
-        
+
         foreach($this->loadAll() as $event)
         {
             $event = $this->objectifyEvent($event);
 
-            if ($event->aggregateId == $id)
+            if ($event->aggregate_id == $id)
             {
                 $events[] = $map($event->data);
             }
