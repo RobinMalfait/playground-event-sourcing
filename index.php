@@ -2,9 +2,11 @@
 
 use KBC\Accounts\Account;
 use KBC\Accounts\AccountProjector;
+use KBC\Accounts\Events\AccountWasDeleted;
 use KBC\Accounts\Events\AccountWasOpened;
 use KBC\Accounts\Events\MoneyHasBeenCollected;
 use KBC\Accounts\Events\MoneyWasDeposited;
+use KBC\Accounts\Listeners\WhenAccountWasDeleted;
 use KBC\Accounts\Listeners\WhenAccountWasOpened;
 use KBC\Accounts\Listeners\WhenMoneyHasBeenCollected;
 use KBC\Accounts\Listeners\WhenMoneyWasDeposited;
@@ -37,16 +39,20 @@ $eventStore = new EventStore(new FileStorage($eventStorageDatabase), $dispatcher
 $dispatcher->addListener(AccountWasOpened::class, new WhenAccountWasOpened());
 $dispatcher->addListener(MoneyWasDeposited::class, new WhenMoneyWasDeposited());
 $dispatcher->addListener(MoneyHasBeenCollected::class, new WhenMoneyHasBeenCollected());
+$dispatcher->addListener(AccountWasDeleted::class, new WhenAccountWasDeleted());
 
 // Register projectors
 $dispatcher->addProjector(Account::class, new AccountProjector(new JsonDatabase($projectionDatabase)));
 
 // Generate UUID
 $johnDoeId = (String) Uuid::uuid4();
+$accountToDeleteId = (String) Uuid::uuid4();
 
 // Open Account
 $johnDoe = Account::open($johnDoeId, new Name('John', 'Doe'));
 it('should be the exact same id', $johnDoe->id ==  $johnDoeId);
+
+$toDelete = Account::open($accountToDeleteId, new Name('Delete', 'Me'));
 
 // Deposit some money
 $johnDoe->deposit(20);
@@ -56,8 +62,12 @@ $johnDoe->deposit(30);
 // Withdraw some money
 $johnDoe->withdraw(50);
 
+// Delete account
+$toDelete->delete();
+
 // Save the account events
 $eventStore->save($johnDoe);
+$eventStore->save($toDelete);
 
 // Replay events that are stored.
 $johnDoeRestored = Account::replayEvents($eventStore->getEventsFor($johnDoeId));

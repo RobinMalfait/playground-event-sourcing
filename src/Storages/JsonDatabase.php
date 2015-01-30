@@ -45,6 +45,16 @@ class JsonDatabase {
         throw new Exception('Record not found.');
     }
 
+    public function delete($id)
+    {
+        $rows = array_filter($this->all(), function($row) use ($id)
+        {
+            return $row['id'] != $id;
+        });
+
+        $this->writeContents($rows);
+    }
+
     public function all()
     {
         return json_decode(file_get_contents($this->file), true);

@@ -1,5 +1,6 @@
 <?php namespace KBC\Accounts;
 
+use KBC\Accounts\Events\AccountWasDeleted;
 use KBC\Accounts\Events\AccountWasOpened;
 use KBC\Accounts\Events\MoneyHasBeenCollected;
 use KBC\Accounts\Events\MoneyWasDeposited;
@@ -41,6 +42,11 @@ final class AccountProjector {
 
             return $row;
         });
+    }
+
+    public function projectAccountWasDeleted(AccountWasDeleted $event)
+    {
+        $this->jsonDatabase->delete($event->id);
     }
 
 }
