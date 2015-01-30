@@ -4,6 +4,7 @@ error_reporting(-1);
 ini_set('display_errors', 'On');
 
 use KBC\Accounts\Account;
+use KBC\Accounts\AccountProjector;
 use KBC\Accounts\Events\AccountWasOpened;
 use KBC\Accounts\Events\MoneyHasBeenCollected;
 use KBC\Accounts\Events\MoneyWasDeposited;
@@ -17,10 +18,12 @@ use KBC\EventSourcing\AggregateHistory;
 use KBC\EventSourcing\Events\Dispatcher;
 use KBC\EventSourcing\EventStore;
 use KBC\Storages\FileStorage;
+use KBC\Storages\JsonDatabase;
 use Rhumsaa\Uuid\Uuid;
 
 /* ---- DO NOT DO THIS IN PRODUCTION ---- */
 file_put_contents($storageFile = '.events', '');
+file_put_contents($database = '.accounts', ''); // json db
 /* ---- DO NOT DO THIS IN PRODUCTION ---- */
 
 // Setup some stuff
@@ -30,6 +33,9 @@ $eventStore = new EventStore(new FileStorage($storageFile), $dispatcher = new Di
 $dispatcher->addListener(AccountWasOpened::class, new WhenAccountWasOpened());
 $dispatcher->addListener(MoneyWasDeposited::class, new WhenMoneyWasDeposited());
 $dispatcher->addListener(MoneyHasBeenCollected::class, new WhenMoneyHasBeenCollected());
+
+// Register projectors
+$dispatcher->addProjector(Account::class, new AccountProjector(new JsonDatabase($database)));
 
 // Generate some UUIDs
 $robinId = (String) Uuid::uuid4();

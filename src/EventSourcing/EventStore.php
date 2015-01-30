@@ -5,6 +5,7 @@ use KBC\EventSourcing\Events\DomainEvent;
 use KBC\EventSourcing\Serialization\Deserializer;
 use KBC\EventSourcing\Serialization\Serializer;
 use KBC\Storages\EventStorage;
+use ReflectionClass;
 
 final class EventStore {
 
@@ -30,7 +31,7 @@ final class EventStore {
             $this->storage->storeEvent($rootId, $this->serialize($event));
         }, $events);
 
-        $this->dispatcher->dispatch($events);
+        $this->dispatcher->dispatch((new ReflectionClass($model))->getName(), $events);
 
         $model = $model->replayEvents($events);
     }
