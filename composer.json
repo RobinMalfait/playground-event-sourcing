@@ -1,11 +1,16 @@
 {
     "require": {
-        "rhumsaa/uuid": "2.8.0"
+        "rhumsaa/uuid": "2.8.0",
+        "pda/pheanstalk": "~3.0",
+        "jeremeamia/superclosure": "~2.0"
     },
     "autoload": {
         "psr-4": {
             "KBC\\": "src/"
         },
-        "files": ["helpers.php"]
+        "files": [
+            "helpers.php",
+            "Queue.php"
+        ]
     }
 }

@@ -1,5 +1,6 @@
 <?php namespace KBC\Accounts\Listeners;
 
+use KBC\Accounts\AccountProjector;
 use KBC\EventSourcing\Events\DomainEvent;
 use KBC\EventSourcing\Events\Listener;
 

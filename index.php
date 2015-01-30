@@ -1,33 +1,37 @@
 <?php require 'vendor/autoload.php';
 
-error_reporting(-1);
-ini_set('display_errors', 'On');
-
 use KBC\Accounts\Account;
 use KBC\Accounts\AccountProjector;
 use KBC\Accounts\Events\AccountWasOpened;
 use KBC\Accounts\Events\MoneyHasBeenCollected;
 use KBC\Accounts\Events\MoneyWasDeposited;
-use KBC\Accounts\Events\TransactionHasBeenMade;
 use KBC\Accounts\Listeners\WhenAccountWasOpened;
 use KBC\Accounts\Listeners\WhenMoneyHasBeenCollected;
 use KBC\Accounts\Listeners\WhenMoneyWasDeposited;
-use KBC\Accounts\Listeners\WhenTransactionHasBeenMade;
 use KBC\Accounts\Name;
-use KBC\EventSourcing\AggregateHistory;
 use KBC\EventSourcing\Events\Dispatcher;
 use KBC\EventSourcing\EventStore;
 use KBC\Storages\FileStorage;
 use KBC\Storages\JsonDatabase;
 use Rhumsaa\Uuid\Uuid;
 
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
+
+// Some Databases
+$projectionDatabase = 'accounts.db.json';
+$eventStorageDatabase = '.events';
+
 /* ---- DO NOT DO THIS IN PRODUCTION ---- */
-file_put_contents($storageFile = '.events', '');
-file_put_contents($database = 'accounts.db.json', ''); // json db
+file_put_contents($eventStorageDatabase, '');
+file_put_contents($projectionDatabase, ''); // json db
 /* ---- DO NOT DO THIS IN PRODUCTION ---- */
 
+// Who doesn't like queues
+//$queue = new Queue('127.0.0.1', 'default');
+
 // Setup some stuff
-$eventStore = new EventStore(new FileStorage($storageFile), $dispatcher = new Dispatcher());
+$eventStore = new EventStore(new FileStorage($eventStorageDatabase), $dispatcher = new Dispatcher());
 
 // Register some DomainEvent Listeners
 $dispatcher->addListener(AccountWasOpened::class, new WhenAccountWasOpened());
@@ -35,44 +39,27 @@ $dispatcher->addListener(MoneyWasDeposited::class, new WhenMoneyWasDeposited());
 $dispatcher->addListener(MoneyHasBeenCollected::class, new WhenMoneyHasBeenCollected());
 
 // Register projectors
-$dispatcher->addProjector(Account::class, new AccountProjector($jsonDatabase = new JsonDatabase($database)));
+$dispatcher->addProjector(Account::class, new AccountProjector(new JsonDatabase($projectionDatabase)));
 
-// Generate some UUIDs
-$robinId = (String) Uuid::uuid4();
-$sarahId = (String) Uuid::uuid4();
+// Generate UUID
+$johnDoeId = (String) Uuid::uuid4();
 
-// Open some accounts
-$robin = Account::open($robinId, new Name('Robin', 'Malfait'));
-$sarah = Account::open($sarahId, new Name('Sarah', 'Dekeyzer'));
+// Open Account
+$johnDoe = Account::open($johnDoeId, new Name('John', 'Doe'));
 
-// Deposit some money
-$robin->deposit(200);
-$sarah->deposit(400);
-$robin->deposit(100);
+// Deposit some money, via queue
+$johnDoe->deposit(20);
+$johnDoe->deposit(10);
+$johnDoe->deposit(30);
 
-// Withdraw some money
-$sarah->withdraw(20);
-$robin->withdraw(30);
-$robin->withdraw(100);
+// Withdraw some money, via queue
+$johnDoe->withdraw(50);
 
 // Save the account events
-$eventStore->save($robin);
-$eventStore->save($sarah);
-
-// Get Projection Data
-$currentRobinState = $jsonDatabase->find($robinId);
-var_dump($currentRobinState);
-
-// Clear it, because you can...
-file_put_contents($database, '');
+$eventStore->save($johnDoe);
 
 // Replay events that are stored.
-$robinRestored = Account::replayEvents($eventStore->getEventsFor($robinId));
-$sarahRestored = Account::replayEvents($eventStore->getEventsFor($sarahId));
-
-// Re-project from events
-
+$johnDoeRestored = Account::replayEvents($eventStore->getEventsFor($johnDoeId));
 
 // Maybe some testing #TestFrameworkInATweet
-it('should restore the object in the exact same state', $robinRestored == $robin);
-it('should restore the object in the exact same state', $sarahRestored == $sarah);
+it('should restore the object in the exact same state', $johnDoeRestored == $johnDoe);
