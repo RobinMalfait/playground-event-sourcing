@@ -1,5 +1,7 @@
 <?php namespace KBC\EventSourcing\Events;
 
+use ReflectionClass;
+
 final class Dispatcher {
 
     private $listeners = [];
@@ -43,7 +45,7 @@ final class Dispatcher {
     {
         foreach($this->projectors[$model] as $projector)
         {
-            $method = 'project' .(new \ReflectionClass($event))->getShortName();
+            $method = 'project' .(new ReflectionClass($event))->getShortName();
 
             $projector->$method($event);
         }
