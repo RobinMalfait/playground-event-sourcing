@@ -53,6 +53,7 @@ $robin->withdraw(100);
 $eventStore->save($robin);
 $eventStore->save($sarah);
 
+// Show the current state
 echo "\n";
 var_dump("Current balance for {$robin->name->getFullName()} is €{$robin->balance}");
 var_dump("Current balance for {$sarah->name->getFullName()} is €{$sarah->balance}");
