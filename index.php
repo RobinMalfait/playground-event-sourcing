@@ -53,6 +53,11 @@ $robin->withdraw(100);
 $eventStore->save($robin);
 $eventStore->save($sarah);
 
+echo "\n";
+var_dump("Current balance for {$robin->name->getFullName()} is €{$robin->balance}");
+var_dump("Current balance for {$sarah->name->getFullName()} is €{$sarah->balance}");
+echo "\n";
+
 // Replay events that are stored.
 $robinRestored = Account::replayEvents($eventStore->getEventsFor($robinId));
 $sarahRestored = Account::replayEvents($eventStore->getEventsFor($sarahId));
