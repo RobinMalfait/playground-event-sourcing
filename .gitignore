@@ -1,4 +1,5 @@
 /.idea
 /vendor
 .events
+accounts.db.json
 composer.phar
