@@ -19,11 +19,7 @@ final class Account extends BaseModel {
     public static function open($id, Name $name)
     {
         $account = new Static($id);
-        $account->name = $name;
-        $account->balance = 0;
-
         $account->apply(new AccountWasOpened($id, $name, 0));
-
         return $account;
     }
 
