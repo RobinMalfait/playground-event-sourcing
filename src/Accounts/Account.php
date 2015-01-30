@@ -33,7 +33,7 @@ final class Account extends BaseModel {
     {
         $this->recordThat(new MoneyWasDeposited($this->id, $amount));
 
-        $this->balance += $amount; // Now we are here.
+        $this->balance += $amount;
     }
 
     public function withdraw($amount)
