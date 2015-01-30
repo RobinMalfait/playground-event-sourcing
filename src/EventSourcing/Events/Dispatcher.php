@@ -21,14 +21,9 @@ final class Dispatcher {
         $this->project($class, $event);
     }
 
-    private function project($model, $event)
+    public function addProjector($name, $projector)
     {
-        foreach($this->projectors[$model] as $projector)
-        {
-            $method = 'project' .(new \ReflectionClass($event))->getShortName();
-
-            $projector->$method($event);
-        }
+        $this->projectors[$name][] = $projector;
     }
 
     public function addListeners($name, $listeners)
@@ -44,9 +39,14 @@ final class Dispatcher {
         $this->listeners[$name][] = $listener;
     }
 
-    public function addProjector($name, $projector)
+    private function project($model, $event)
     {
-        $this->projectors[$name][] = $projector;
+        foreach($this->projectors[$model] as $projector)
+        {
+            $method = 'project' .(new \ReflectionClass($event))->getShortName();
+
+            $projector->$method($event);
+        }
     }
 
     private function fireEvent(DomainEvent $event)
