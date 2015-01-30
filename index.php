@@ -23,7 +23,7 @@ use Rhumsaa\Uuid\Uuid;
 
 /* ---- DO NOT DO THIS IN PRODUCTION ---- */
 file_put_contents($storageFile = '.events', '');
-file_put_contents($database = '.accounts', ''); // json db
+file_put_contents($database = 'accounts.db.json', ''); // json db
 /* ---- DO NOT DO THIS IN PRODUCTION ---- */
 
 // Setup some stuff
