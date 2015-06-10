@@ -22,8 +22,8 @@ ini_set('display_errors', 'On');
 date_default_timezone_set("Europe/Brussels");
 
 // Some Databases
-$projectionDatabase = 'accounts.db.json';
-$eventStorageDatabase = '.events';
+$projectionDatabase = 'database/accounts.db.json';
+$eventStorageDatabase = 'database/.events';
 
 /* ---- DO NOT DO THIS IN PRODUCTION ---- */
 file_put_contents($eventStorageDatabase, '');
