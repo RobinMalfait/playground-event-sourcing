@@ -3,13 +3,14 @@
 use Pheanstalk\Pheanstalk;
 use SuperClosure\Serializer;
 
-final class Queue {
-
+final class Queue
+{
     protected $pheanstalk;
 
     protected $serializer;
 
-    public function __construct($address = '127.0.0.1', $tube = 'default') {
+    public function __construct($address = '127.0.0.1', $tube = 'default')
+    {
         $this->pheanstalk = new Pheanstalk($address);
         $this->pheanstalk->useTube($tube);
         $this->serializer = new Serializer();
@@ -31,5 +32,4 @@ final class Queue {
             $this->pheanstalk->delete($job);
         }
     }
-
 }

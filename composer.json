@@ -14,5 +14,11 @@
         "files": [
             "Queue.php"
         ]
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/Specification.php",
+            "tests/Documentation.php"
+        ]
     }
 }

@@ -16,7 +16,7 @@ trait Replayer
         return $state;
     }
 
-    private static function applyAnEvent($state, DomainEvent $event)
+    public static function applyAnEvent($state, DomainEvent $event)
     {
         $reflection = new ReflectionClass($event);
         $method = "apply" . $reflection->getShortName();
