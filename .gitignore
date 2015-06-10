@@ -4,3 +4,4 @@ database/accounts.db.json
 database/.events
 vendor
 docs
+!tests/Docs
