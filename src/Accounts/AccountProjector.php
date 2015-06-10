@@ -2,7 +2,7 @@
 
 use KBC\Accounts\Events\AccountWasDeleted;
 use KBC\Accounts\Events\AccountWasOpened;
-use KBC\Accounts\Events\MoneyHasBeenCollected;
+use KBC\Accounts\Events\MoneyWasWithdrawn;
 use KBC\Accounts\Events\MoneyWasDeposited;
 use KBC\Storages\JsonDatabase;
 
@@ -33,7 +33,7 @@ final class AccountProjector
         });
     }
 
-    public function projectMoneyHasBeenCollected(MoneyHasBeenCollected $event)
+    public function projectMoneyWasWithdrawn(MoneyWasWithdrawn $event)
     {
         $this->jsonDatabase->update($event->accountId, function ($row) use ($event) {
             $row['balance'] -= $event->amount;

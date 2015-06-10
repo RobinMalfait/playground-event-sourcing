@@ -10,39 +10,46 @@ abstract class Specification extends PHPUnit_Framework_TestCase
 
     protected $producedEvents = [];
 
+    /**
+     * Current state
+     *
+     * @var
+     */
+    protected $state;
+
+    /**
+     * Given events
+     *
+     * @return array
+     */
     abstract public function given();
 
+    /**
+     * @return Command
+     */
     abstract public function when();
 
+    /**
+     * @param $repository
+     * @return mixed
+     */
     abstract public function handler($repository);
 
     public function setUp()
     {
         try {
-            $events = $this->getGiven();
+            $events = $this->given();
 
             $fakeRepository = new FakeRepository($events);
 
             $this->handler($fakeRepository)->handle($this->when());
 
             $this->producedEvents = $fakeRepository->produced;
+
+            $this->state = $fakeRepository->state;
         } catch (Exception $e) {
             $this->exception = $e;
         }
-    }
-
-    /**
-     * @return array
-     */
-    private function getGiven()
-    {
-        $events = $this->given();
-
-        if (! is_array($events)) {
-            $events = [$events];
-        }
-
-        return $events;
     }
 }
 
@@ -51,6 +58,8 @@ class FakeRepository implements EventSourcingRepository
     protected $previousEvents;
 
     public $produced;
+
+    public $state;
 
     public function __construct($events)
     {
@@ -62,9 +71,20 @@ class FakeRepository implements EventSourcingRepository
         return $this->previousEvents;
     }
 
-
     public function save($aggregate)
     {
         $this->produced = $aggregate->releaseEvents();
+
+        $this->buildNewState($aggregate);
+    }
+
+    private function buildNewState($aggregate)
+    {
+        $class = get_class($aggregate);
+
+        $this->state = call_user_func([$class, 'replayEvents'], array_merge(
+            $this->previousEvents,
+            $this->produced
+        ));
     }
 }

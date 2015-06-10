@@ -8,7 +8,7 @@ use KBC\Accounts\Commands\OpenAccount;
 use KBC\Accounts\Commands\WithdrawMoney;
 use KBC\Accounts\Events\AccountWasDeleted;
 use KBC\Accounts\Events\AccountWasOpened;
-use KBC\Accounts\Events\MoneyHasBeenCollected;
+use KBC\Accounts\Events\MoneyWasWithdrawn;
 use KBC\Accounts\Events\MoneyWasDeposited;
 use KBC\Accounts\Listeners\WhenAccountWasDeleted;
 use KBC\Accounts\Listeners\WhenAccountWasOpened;
@@ -58,7 +58,7 @@ $eventDispatcher = app(Dispatcher::class);
 // Register some DomainEvent Listeners
 $eventDispatcher->addListener(AccountWasOpened::class, new WhenAccountWasOpened());
 $eventDispatcher->addListener(MoneyWasDeposited::class, new WhenMoneyWasDeposited());
-$eventDispatcher->addListener(MoneyHasBeenCollected::class, new WhenMoneyHasBeenCollected());
+$eventDispatcher->addListener(MoneyWasWithdrawn::class, new WhenMoneyHasBeenCollected());
 $eventDispatcher->addListener(AccountWasDeleted::class, new WhenAccountWasDeleted());
 
 // Register projectors

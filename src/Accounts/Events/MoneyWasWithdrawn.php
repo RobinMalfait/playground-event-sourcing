@@ -2,7 +2,7 @@
 
 use KBC\EventSourcing\Events\DomainEvent;
 
-final class MoneyHasBeenCollected implements DomainEvent
+final class MoneyWasWithdrawn implements DomainEvent
 {
     public $accountId;
 

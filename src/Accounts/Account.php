@@ -2,7 +2,7 @@
 
 use KBC\Accounts\Events\AccountWasDeleted;
 use KBC\Accounts\Events\AccountWasOpened;
-use KBC\Accounts\Events\MoneyHasBeenCollected;
+use KBC\Accounts\Events\MoneyWasWithdrawn;
 use KBC\Accounts\Events\MoneyWasDeposited;
 use KBC\Core\BaseModel;
 
@@ -42,7 +42,7 @@ final class Account extends BaseModel
 
     public function withdraw($amount)
     {
-        $this->apply(new MoneyHasBeenCollected($this->id, $amount));
+        $this->apply(new MoneyWasWithdrawn($this->id, $amount));
     }
 
     /* Respond to events */
@@ -63,7 +63,7 @@ final class Account extends BaseModel
         return $state;
     }
 
-    public static function applyMoneyHasBeenCollected($state, MoneyHasBeenCollected $event)
+    public static function applyMoneyWasWithdrawn($state, MoneyWasWithdrawn $event)
     {
         $state->balance -= $event->amount;
 

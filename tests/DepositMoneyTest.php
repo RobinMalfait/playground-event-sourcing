@@ -3,9 +3,10 @@
 use KBC\Accounts\Commands\DepositMoney;
 use KBC\Accounts\Commands\DepositMoneyHandler;
 use KBC\Accounts\Events\AccountWasOpened;
+use KBC\Accounts\Events\MoneyWasDeposited;
 use KBC\Accounts\Name;
 
-class MoneyAddedTest extends Specification
+class DepositMoneyTest extends Specification
 {
     public function given()
     {
@@ -35,8 +36,25 @@ class MoneyAddedTest extends Specification
     /**
      * @test
      */
+    public function an_money_was_deposited_event_was_produced()
+    {
+        $this->assertInstanceOf(MoneyWasDeposited::class, $this->producedEvents[0]);
+    }
+
+
+    /**
+     * @test
+     */
     public function the_account_has_been_deposited()
     {
         $this->assertEquals(50, $this->producedEvents[0]->amount);
+    }
+
+    /**
+     * @test
+     */
+    public function the_current_balance_should_be_50()
+    {
+        $this->assertEquals(50, $this->state->balance);
     }
 }
