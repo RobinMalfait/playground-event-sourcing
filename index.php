@@ -51,8 +51,6 @@ $janeDoeId = (String) Uuid::uuid4();
 
 // Open Account
 $johnDoe = Account::open($johnDoeId, new Name('John', 'Doe'));
-it('should be the exact same id', $johnDoe->id ==  $johnDoeId);
-
 $janeDoe = Account::open($janeDoeId, new Name('Jane', 'Doe'));
 
 // Deposit some money
@@ -72,6 +70,3 @@ $eventStore->save($janeDoe);
 
 // Replay events that are stored.
 $johnDoeRestored = Account::replayEvents($eventStore->getEventsFor($johnDoeId));
-
-// Maybe some testing #TestFrameworkInATweet
-it('should restore the object in the exact same state', $johnDoeRestored == $johnDoe);
