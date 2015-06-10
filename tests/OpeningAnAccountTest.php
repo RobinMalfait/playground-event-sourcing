@@ -53,5 +53,4 @@ class OpeningAnAccountTest extends Specification
     {
         $this->assertEquals("John Doe", $this->state->name->getFullName());
     }
-
 }

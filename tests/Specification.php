@@ -1,11 +1,11 @@
 <?php
 
+use Docs\Documentation;
+use Docs\MarkdownFormatter;
 use KBC\EventSourcing\EventSourcingRepository;
 
 abstract class Specification extends PHPUnit_Framework_TestCase
 {
-    protected $documentation;
-
     protected $exception;
 
     protected $producedEvents = [];
@@ -16,6 +16,13 @@ abstract class Specification extends PHPUnit_Framework_TestCase
      * @var
      */
     protected $state;
+
+    public function __construct()
+    {
+        $documentation = new Documentation('./docs', new MarkdownFormatter());
+
+        $documentation->generateFor($this);
+    }
 
     /**
      * Given events

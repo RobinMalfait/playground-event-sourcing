@@ -18,9 +18,11 @@
         ]
     },
     "autoload-dev": {
+        "psr-4": {
+            "Docs\\": "tests/Docs/"
+        },
         "classmap": [
-            "tests/Specification.php",
-            "tests/Documentation.php"
+            "tests/Specification.php"
         ]
     }
 }
