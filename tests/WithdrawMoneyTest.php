@@ -7,7 +7,7 @@ use KBC\Accounts\Events\MoneyWasWithdrawn;
 use KBC\Accounts\Events\MoneyWasDeposited;
 use KBC\Accounts\Name;
 
-class WithdrawnMoneyTest extends Specification
+class WithdrawMoneyTest extends Specification
 {
     public function given()
     {

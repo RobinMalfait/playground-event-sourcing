@@ -45,4 +45,13 @@ class OpeningAnAccountTest extends Specification
     {
         $this->assertEquals(0, $this->state->balance);
     }
+
+    /**
+     * @test
+     */
+    public function the_name_should_be_john_doe()
+    {
+        $this->assertEquals("John Doe", $this->state->name->getFullName());
+    }
+
 }
