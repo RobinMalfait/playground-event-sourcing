@@ -40,10 +40,16 @@ final class Dispatcher
 
     private function project($model, $event)
     {
-        foreach ($this->projectors[$model] as $projector) {
-            $method = 'project' .(new ReflectionClass($event))->getShortName();
+        if (isset($this->projectors[$model])) {
+            $projectors = $this->projectors[$model];
 
-            $projector->$method($event);
+            if ($projectors) {
+                foreach ($projectors as $projector) {
+                    $method = 'project' . (new ReflectionClass($event))->getShortName();
+
+                    $projector->$method($event);
+                }
+            }
         }
     }
 

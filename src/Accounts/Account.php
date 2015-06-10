@@ -12,6 +12,8 @@ final class Account extends BaseModel
 
     public $balance;
 
+    public $id;
+
     public function __construct($id)
     {
         $this->id = $id;
@@ -19,14 +21,15 @@ final class Account extends BaseModel
 
     public static function open($id, Name $name)
     {
-        $account = new static($id);
-        $account->apply(new AccountWasOpened($id, $name, 0));
-        return $account;
+        $me = new static($id);
+        $me->name = $name;
+        $me->balance = 0;
+
+        $me->apply(new AccountWasOpened($id, $name, 0));
+
+        return $me;
     }
 
-    /**
-     *
-     */
     public function delete()
     {
         $this->apply(new AccountWasDeleted($this->id));
@@ -46,6 +49,7 @@ final class Account extends BaseModel
     public static function applyAccountWasOpened($state, AccountWasOpened $event)
     {
         $state = new self($event->id);
+
         $state->balance = $event->balance;
         $state->name = $event->name;
 
