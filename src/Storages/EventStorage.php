@@ -1,11 +1,10 @@
 <?php namespace KBC\Storages;
 
-interface EventStorage {
-
+interface EventStorage
+{
     public function storeEvent($rootId, $event);
 
     public function loadAll();
 
-    public function searchEventsFor($id, Callable $map);
-
+    public function searchEventsFor($id, callable $map);
 }

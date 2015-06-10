@@ -6,8 +6,8 @@ use KBC\Accounts\Events\MoneyHasBeenCollected;
 use KBC\Accounts\Events\MoneyWasDeposited;
 use KBC\Core\BaseModel;
 
-final class Account extends BaseModel {
-
+final class Account extends BaseModel
+{
     public $name;
 
     public $balance;
@@ -19,7 +19,7 @@ final class Account extends BaseModel {
 
     public static function open($id, Name $name)
     {
-        $account = new Static($id);
+        $account = new static($id);
         $account->apply(new AccountWasOpened($id, $name, 0));
         return $account;
     }
@@ -71,5 +71,4 @@ final class Account extends BaseModel {
         // This is basically deleting.
         return null;
     }
-
 }

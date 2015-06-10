@@ -1,7 +1,7 @@
 <?php namespace KBC\EventSourcing\Events;
 
-trait EventGenerator {
-
+trait EventGenerator
+{
     protected $recordedEvents;
 
     public function releaseEvents()
@@ -17,5 +17,4 @@ trait EventGenerator {
     {
         $this->recordedEvents[] = $event;
     }
-
 }

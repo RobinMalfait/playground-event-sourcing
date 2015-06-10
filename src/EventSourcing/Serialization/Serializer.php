@@ -3,8 +3,8 @@
 use KBC\EventSourcing\Events\DomainEvent;
 use ReflectionClass;
 
-trait Serializer {
-
+trait Serializer
+{
     public function serialize(DomainEvent $event)
     {
         $data = $this->serializeRecursively($event);
@@ -12,12 +12,12 @@ trait Serializer {
         return json_encode([get_class($event) => $data]);
     }
 
-    private function serializeRecursively($class) {
+    private function serializeRecursively($class)
+    {
         $data = [];
         $properties = (new ReflectionClass($class))->getProperties();
 
-        foreach ($properties as $property)
-        {
+        foreach ($properties as $property) {
             $property->setAccessible(true);
             $value = $property->getValue($class);
 
@@ -33,5 +33,4 @@ trait Serializer {
 
         return $data;
     }
-
 }

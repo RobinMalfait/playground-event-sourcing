@@ -3,14 +3,13 @@
 use KBC\EventSourcing\Events\DomainEvent;
 use ReflectionClass;
 
-trait Replayer {
-
+trait Replayer
+{
     public static function replayEvents($events)
     {
         $state = null;
 
-        foreach ($events as $event)
-        {
+        foreach ($events as $event) {
             $state = self::applyAnEvent($state, $event);
         }
 
@@ -24,5 +23,4 @@ trait Replayer {
 
         return static::$method($state, $event);
     }
-
 }

@@ -47,13 +47,13 @@ $dispatcher->addProjector(Account::class, new AccountProjector(new JsonDatabase(
 
 // Generate UUID
 $johnDoeId = (String) Uuid::uuid4();
-$accountToDeleteId = (String) Uuid::uuid4();
+$janeDoeId = (String) Uuid::uuid4();
 
 // Open Account
 $johnDoe = Account::open($johnDoeId, new Name('John', 'Doe'));
 it('should be the exact same id', $johnDoe->id ==  $johnDoeId);
 
-$toDelete = Account::open($accountToDeleteId, new Name('Delete', 'Me'));
+$janeDoe = Account::open($janeDoeId, new Name('Jane', 'Doe'));
 
 // Deposit some money
 $johnDoe->deposit(20);
@@ -64,11 +64,11 @@ $johnDoe->deposit(30);
 $johnDoe->withdraw(50);
 
 // Delete account
-$toDelete->delete();
+$janeDoe->delete();
 
 // Save the account events
 $eventStore->save($johnDoe);
-$eventStore->save($toDelete);
+$eventStore->save($janeDoe);
 
 // Replay events that are stored.
 $johnDoeRestored = Account::replayEvents($eventStore->getEventsFor($johnDoeId));

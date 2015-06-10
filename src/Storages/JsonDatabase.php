@@ -1,10 +1,9 @@
 <?php namespace KBC\Storages;
 
-use Closure;
 use Rhumsaa\Uuid\Console\Exception;
 
-class JsonDatabase {
-
+class JsonDatabase
+{
     protected $file;
 
     public function __construct($file)
@@ -19,12 +18,11 @@ class JsonDatabase {
         $this->writeContents($rows);
     }
 
-    public function update($id, Callable $callback)
+    public function update($id, callable $callback)
     {
         $rows = $this->all();
 
-        foreach($rows as &$row)
-        {
+        foreach ($rows as &$row) {
             if ($row['id'] == $id) {
                 $row = $callback($row);
             }
@@ -35,8 +33,7 @@ class JsonDatabase {
     public function find($id)
     {
         $rows = $this->all();
-        foreach($rows as &$row)
-        {
+        foreach ($rows as &$row) {
             if ($row['id'] == $id) {
                 return $row;
             }
@@ -47,8 +44,7 @@ class JsonDatabase {
 
     public function delete($id)
     {
-        $rows = array_filter($this->all(), function($row) use ($id)
-        {
+        $rows = array_filter($this->all(), function ($row) use ($id) {
             return $row['id'] != $id;
         });
 
@@ -67,5 +63,4 @@ class JsonDatabase {
     {
         file_put_contents($this->file, json_encode($contents, JSON_PRETTY_PRINT));
     }
-
 }

@@ -3,12 +3,11 @@
 use KBC\EventSourcing\Events\EventGenerator;
 use KBC\EventSourcing\Replayer;
 
-abstract class BaseModel {
-
+abstract class BaseModel
+{
     use EventGenerator, Replayer;
 
     public $id;
 
-    abstract function __construct($id);
-
+    abstract public function __construct($id);
 }

@@ -2,8 +2,8 @@
 
 use DateTime;
 
-final class FileStorage implements EventStorage {
-
+final class FileStorage implements EventStorage
+{
     protected $file;
 
     public function __construct($file)
@@ -21,7 +21,7 @@ final class FileStorage implements EventStorage {
 
         $contents = file_get_contents($this->file);
 
-        $contents = ( ! $contents) ? $contents . $event : $contents . PHP_EOL . $event;
+        $contents = (! $contents) ? $contents . $event : $contents . PHP_EOL . $event;
 
         file_put_contents($this->file, $contents);
     }
@@ -31,16 +31,14 @@ final class FileStorage implements EventStorage {
         return explode("\n", file_get_contents($this->file));
     }
 
-    public function searchEventsFor($id, Callable $map)
+    public function searchEventsFor($id, callable $map)
     {
         $events = [];
 
-        foreach($this->loadAll() as $event)
-        {
+        foreach ($this->loadAll() as $event) {
             $event = $this->objectifyEvent($event);
 
-            if ($event->aggregate_id == $id)
-            {
+            if ($event->aggregate_id == $id) {
                 $events[] = $map($event->data);
             }
         }
@@ -52,5 +50,4 @@ final class FileStorage implements EventStorage {
     {
         return json_decode($event);
     }
-
 }

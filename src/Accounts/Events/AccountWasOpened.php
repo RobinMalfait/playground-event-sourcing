@@ -3,20 +3,18 @@
 use KBC\Accounts\Name;
 use KBC\EventSourcing\Events\DomainEvent;
 
-final class AccountWasOpened implements DomainEvent {
-
+final class AccountWasOpened implements DomainEvent
+{
     public $id;
 
     public $name;
 
     public $balance;
 
-    function __construct($id, Name $name, $balance)
+    public function __construct($id, Name $name, $balance)
     {
         $this->id = $id;
         $this->name = $name;
         $this->balance = $balance;
     }
-
-
 }

@@ -2,8 +2,8 @@
 
 use ReflectionClass;
 
-trait Deserializer {
-
+trait Deserializer
+{
     public function deserialize($data)
     {
         $data = json_decode($data, true);
@@ -22,8 +22,7 @@ trait Deserializer {
         $rc = new ReflectionClass($class);
         $obj = $rc->newInstanceWithoutConstructor();
 
-        foreach($rc->getProperties() as $property)
-        {
+        foreach ($rc->getProperties() as $property) {
             $property->setAccessible(true);
             $propertyName = $property->getName();
 
@@ -43,5 +42,4 @@ trait Deserializer {
 
         return $obj;
     }
-
 }

@@ -6,8 +6,8 @@ use KBC\Accounts\Events\MoneyHasBeenCollected;
 use KBC\Accounts\Events\MoneyWasDeposited;
 use KBC\Storages\JsonDatabase;
 
-final class AccountProjector {
-
+final class AccountProjector
+{
     protected $jsonDatabase;
 
     public function __construct(JsonDatabase $jsonDatabase)
@@ -26,8 +26,7 @@ final class AccountProjector {
 
     public function projectMoneyWasDeposited(MoneyWasDeposited $event)
     {
-        $this->jsonDatabase->update($event->accountId, function($row) use ($event)
-        {
+        $this->jsonDatabase->update($event->accountId, function ($row) use ($event) {
             $row['balance'] += $event->amount;
 
             return $row;
@@ -36,8 +35,7 @@ final class AccountProjector {
 
     public function projectMoneyHasBeenCollected(MoneyHasBeenCollected $event)
     {
-        $this->jsonDatabase->update($event->accountId, function($row) use ($event)
-        {
+        $this->jsonDatabase->update($event->accountId, function ($row) use ($event) {
             $row['balance'] -= $event->amount;
 
             return $row;
@@ -48,5 +46,4 @@ final class AccountProjector {
     {
         $this->jsonDatabase->delete($event->id);
     }
-
 }

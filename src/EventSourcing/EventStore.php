@@ -7,8 +7,8 @@ use KBC\EventSourcing\Serialization\Serializer;
 use KBC\Storages\EventStorage;
 use ReflectionClass;
 
-final class EventStore {
-
+final class EventStore
+{
     use Serializer, Deserializer;
 
     protected $storage;
@@ -26,8 +26,7 @@ final class EventStore {
         $events = $model->releaseEvents();
         $rootId = $model->id;
 
-        array_map(function(DomainEvent $event) use ($rootId)
-        {
+        array_map(function (DomainEvent $event) use ($rootId) {
             $this->storage->storeEvent($rootId, $this->serialize($event));
         }, $events);
 
@@ -42,7 +41,7 @@ final class EventStore {
      */
     public function getEventsFor($id)
     {
-        return $this->storage->searchEventsFor($id, function($data) {
+        return $this->storage->searchEventsFor($id, function ($data) {
             return $this->deserialize($data);
         });
     }

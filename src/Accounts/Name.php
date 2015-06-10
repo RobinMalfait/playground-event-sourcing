@@ -1,7 +1,7 @@
 <?php namespace KBC\Accounts;
 
-final class Name {
-
+final class Name
+{
     protected $firstName;
 
     protected $lastName;
@@ -16,5 +16,4 @@ final class Name {
     {
         return $this->firstName . ' ' . $this->lastName;
     }
-
 }

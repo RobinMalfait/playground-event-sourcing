@@ -2,18 +2,16 @@
 
 use ReflectionClass;
 
-final class Dispatcher {
-
+final class Dispatcher
+{
     private $listeners = [];
 
     private $projectors = [];
 
     public function dispatch($class, $event)
     {
-        if (is_array($event))
-        {
-            foreach($event as $e)
-            {
+        if (is_array($event)) {
+            foreach ($event as $e) {
                 $this->dispatch($class, $e);
             }
             return;
@@ -30,8 +28,7 @@ final class Dispatcher {
 
     public function addListeners($name, $listeners)
     {
-        foreach($listeners as $listener)
-        {
+        foreach ($listeners as $listener) {
             $this->addListener($name, $listener);
         }
     }
@@ -43,8 +40,7 @@ final class Dispatcher {
 
     private function project($model, $event)
     {
-        foreach($this->projectors[$model] as $projector)
-        {
+        foreach ($this->projectors[$model] as $projector) {
             $method = 'project' .(new ReflectionClass($event))->getShortName();
 
             $projector->$method($event);
@@ -55,21 +51,18 @@ final class Dispatcher {
     {
         $listeners = $this->getListeners(get_class($event));
 
-        if ( ! $listeners)
-        {
+        if (! $listeners) {
             return;
         }
 
-        foreach ($listeners as $listener)
-        {
+        foreach ($listeners as $listener) {
             $listener->handle($event);
         }
     }
 
     private function getListeners($name)
     {
-        if ( ! $this->hasListeners($name))
-        {
+        if (! $this->hasListeners($name)) {
             return;
         }
 

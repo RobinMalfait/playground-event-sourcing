@@ -2,13 +2,12 @@
 
 use KBC\EventSourcing\Events\DomainEvent;
 
-final class AccountWasDeleted implements DomainEvent {
-
+final class AccountWasDeleted implements DomainEvent
+{
     public $id;
 
-    function __construct($id)
+    public function __construct($id)
     {
         $this->id = $id;
     }
-
 }
