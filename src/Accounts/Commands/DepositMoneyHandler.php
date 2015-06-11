@@ -1,22 +1,19 @@
 <?php namespace KBC\Accounts\Commands;
 
-use KBC\Accounts\Account;
-use KBC\EventSourcing\EventSourcingRepository;
+use KBC\Accounts\AccountRepository;
 
 class DepositMoneyHandler
 {
     protected $repository;
 
-    public function __construct(EventSourcingRepository $repository)
+    public function __construct(AccountRepository $repository)
     {
         $this->repository = $repository;
     }
 
     public function handle(DepositMoney $command)
     {
-        $account = Account::replayEvents(
-            $this->repository->load($command->id)
-        );
+        $account = $this->repository->load($command->id);
 
         $account->deposit($command->amount);
 

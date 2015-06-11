@@ -2,7 +2,7 @@
 
 use KBC\Accounts\AccountRepository;
 
-class WithdrawMoneyHandler
+class CloseAccountHandler
 {
     protected $repository;
 
@@ -11,11 +11,11 @@ class WithdrawMoneyHandler
         $this->repository = $repository;
     }
 
-    public function handle(WithdrawMoney $command)
+    public function handle(CloseAccount $command)
     {
         $account = $this->repository->load($command->id);
 
-        $account->withdraw($command->amount);
+        $account->close();
 
         $this->repository->save($account);
     }

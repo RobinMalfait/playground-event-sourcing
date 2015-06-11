@@ -1,6 +1,6 @@
 <?php namespace KBC\Accounts\Commands;
 
-class DeleteAccount
+class CloseAccount
 {
     public $id;
 

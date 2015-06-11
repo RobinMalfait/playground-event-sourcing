@@ -1,6 +1,6 @@
 <?php namespace KBC\Accounts;
 
-use KBC\Accounts\Events\AccountWasDeleted;
+use KBC\Accounts\Events\AccountWasClosed;
 use KBC\Accounts\Events\AccountWasOpened;
 use KBC\Accounts\Events\MoneyWasWithdrawn;
 use KBC\Accounts\Events\MoneyWasDeposited;
@@ -14,25 +14,20 @@ final class Account extends BaseModel
 
     public $id;
 
-    public function __construct($id)
-    {
-        $this->id = $id;
-    }
+    public $closed;
 
     public static function open($id, Name $name)
     {
-        $me = new static($id);
-        $me->name = $name;
-        $me->balance = 0;
+        $me = new static();
 
         $me->apply(new AccountWasOpened($id, $name, 0));
 
         return $me;
     }
 
-    public function delete()
+    public function close()
     {
-        $this->apply(new AccountWasDeleted($this->id));
+        $this->apply(new AccountWasClosed($this->id));
     }
 
     public function deposit($amount)
@@ -46,33 +41,34 @@ final class Account extends BaseModel
     }
 
     /* Respond to events */
-    public static function applyAccountWasOpened($state, AccountWasOpened $event)
+    public function applyAccountWasOpened(AccountWasOpened $event)
     {
-        $state = new self($event->id);
-
-        $state->balance = $event->balance;
-        $state->name = $event->name;
-
-        return $state;
+        $this->id = $event->id;
+        $this->balance = $event->balance;
+        $this->name = $event->name;
+        $this->closed = false;
     }
 
-    public static function applyMoneyWasDeposited($state, MoneyWasDeposited $event)
+    public function applyMoneyWasDeposited(MoneyWasDeposited $event)
     {
-        $state->balance += $event->amount;
+        if ($this->closed) {
+            throw new AccountClosedException();
+        }
 
-        return $state;
+        $this->balance += $event->amount;
     }
 
-    public static function applyMoneyWasWithdrawn($state, MoneyWasWithdrawn $event)
+    public function applyMoneyWasWithdrawn(MoneyWasWithdrawn $event)
     {
-        $state->balance -= $event->amount;
+        if ($this->closed) {
+            throw new AccountClosedException();
+        }
 
-        return $state;
+        $this->balance -= $event->amount;
     }
 
-    public static function applyAccountWasDeleted($state, AccountWasDeleted $event)
+    public function applyAccountWasClosed(AccountWasClosed $event)
     {
-        // This is basically deleting.
-        return null;
+        $this->closed = true;
     }
 }

@@ -4,8 +4,11 @@ class EventStoreRepository implements EventSourcingRepository
 {
     protected $eventStore;
 
+    protected $aggregateClass;
+
     /**
      * @param EventStore $eventStore
+     * @internal param $aggregateClass
      */
     public function __construct(EventStore $eventStore)
     {
@@ -13,12 +16,28 @@ class EventStoreRepository implements EventSourcingRepository
     }
 
     /**
+     * @param $class
+     * @return mixed
+     */
+    public function setAggregateClass($class)
+    {
+        $this->aggregateClass = $class;
+    }
+
+    /**
      * @param $id
      * @return array
+     * @throws AggregateClassNotFoundException
      */
     public function load($id)
     {
-        return $this->eventStore->getEventsFor($id);
+        $subject = $this->aggregateClass;
+
+        if (! $subject) {
+            throw new AggregateClassNotFoundException();
+        }
+
+        return $subject::replayEvents($this->eventStore->getEventsFor($id));
     }
 
     /**

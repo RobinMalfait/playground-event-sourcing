@@ -1,5 +1,6 @@
 <?php
 
+use KBC\Accounts\AccountRepository;
 use KBC\Accounts\Commands\DepositMoney;
 use KBC\Accounts\Commands\DepositMoneyHandler;
 use KBC\Accounts\Events\AccountWasOpened;
@@ -22,7 +23,7 @@ class DepositMoneyTest extends Specification
 
     public function handler($repository)
     {
-        return new DepositMoneyHandler($repository);
+        return new DepositMoneyHandler(new AccountRepository($repository));
     }
 
     /**
@@ -55,6 +56,6 @@ class DepositMoneyTest extends Specification
      */
     public function the_current_balance_should_be_50()
     {
-        $this->assertEquals(50, $this->state->balance);
+        $this->assertEquals(50, $this->aggregate->balance);
     }
 }

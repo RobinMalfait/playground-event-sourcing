@@ -2,15 +2,15 @@
 
 use KBC\Accounts\Account;
 use KBC\Accounts\AccountProjector;
-use KBC\Accounts\Commands\DeleteAccount;
+use KBC\Accounts\Commands\CloseAccount;
 use KBC\Accounts\Commands\DepositMoney;
 use KBC\Accounts\Commands\OpenAccount;
 use KBC\Accounts\Commands\WithdrawMoney;
-use KBC\Accounts\Events\AccountWasDeleted;
+use KBC\Accounts\Events\AccountWasClosed;
 use KBC\Accounts\Events\AccountWasOpened;
 use KBC\Accounts\Events\MoneyWasWithdrawn;
 use KBC\Accounts\Events\MoneyWasDeposited;
-use KBC\Accounts\Listeners\WhenAccountWasDeleted;
+use KBC\Accounts\Listeners\WhenAccountWasClosed;
 use KBC\Accounts\Listeners\WhenAccountWasOpened;
 use KBC\Accounts\Listeners\WhenMoneyHasBeenCollected;
 use KBC\Accounts\Listeners\WhenMoneyWasDeposited;
@@ -59,7 +59,7 @@ $eventDispatcher = app(Dispatcher::class);
 $eventDispatcher->addListener(AccountWasOpened::class, new WhenAccountWasOpened());
 $eventDispatcher->addListener(MoneyWasDeposited::class, new WhenMoneyWasDeposited());
 $eventDispatcher->addListener(MoneyWasWithdrawn::class, new WhenMoneyHasBeenCollected());
-$eventDispatcher->addListener(AccountWasDeleted::class, new WhenAccountWasDeleted());
+$eventDispatcher->addListener(AccountWasClosed::class, new WhenAccountWasClosed());
 
 // Register projectors
 $eventDispatcher->addProjector(Account::class, new AccountProjector(new JsonDatabase($projectionDatabase)));
@@ -81,4 +81,4 @@ dispatch(new DepositMoney($johnDoeId, 30));
 dispatch(new WithdrawMoney($johnDoeId, 50));
 
 // Delete account
-dispatch(new DeleteAccount($janeDoeId));
+dispatch(new CloseAccount($janeDoeId));

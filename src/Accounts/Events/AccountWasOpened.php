@@ -11,10 +11,13 @@ final class AccountWasOpened implements DomainEvent
 
     public $balance;
 
+    public $closed;
+
     public function __construct($id, Name $name, $balance)
     {
         $this->id = $id;
         $this->name = $name;
         $this->balance = $balance;
+        $this->closed = false;
     }
 }

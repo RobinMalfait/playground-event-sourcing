@@ -1,6 +1,6 @@
 <?php namespace KBC\Accounts;
 
-use KBC\Accounts\Events\AccountWasDeleted;
+use KBC\Accounts\Events\AccountWasClosed;
 use KBC\Accounts\Events\AccountWasOpened;
 use KBC\Accounts\Events\MoneyWasWithdrawn;
 use KBC\Accounts\Events\MoneyWasDeposited;
@@ -20,7 +20,8 @@ final class AccountProjector
         $this->jsonDatabase->insert([
             'id' => $event->id,
             'name' => $event->name->getFullName(),
-            'balance' => $event->balance
+            'balance' => $event->balance,
+            'closed' => $event->closed
         ]);
     }
 
@@ -42,8 +43,12 @@ final class AccountProjector
         });
     }
 
-    public function projectAccountWasDeleted(AccountWasDeleted $event)
+    public function projectAccountWasClosed(AccountWasClosed $event)
     {
-        $this->jsonDatabase->delete($event->id);
+        $this->jsonDatabase->update($event->id, function ($row) use ($event) {
+            $row['closed'] = true;
+
+            return $row;
+        });
     }
 }

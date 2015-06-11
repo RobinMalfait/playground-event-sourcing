@@ -2,12 +2,19 @@
 
 use Docs\Documentation;
 use Docs\MarkdownFormatter;
+use KBC\EventSourcing\AggregateClassNotFoundException;
 use KBC\EventSourcing\EventSourcingRepository;
 
 abstract class Specification extends PHPUnit_Framework_TestCase
 {
-    protected $exception;
+    /**
+     *
+     */
+    protected $caughtException;
 
+    /**
+     * @var array
+     */
     protected $producedEvents = [];
 
     /**
@@ -15,14 +22,7 @@ abstract class Specification extends PHPUnit_Framework_TestCase
      *
      * @var
      */
-    protected $state;
-
-    public function __construct()
-    {
-        $documentation = new Documentation('./docs', new MarkdownFormatter());
-
-        $documentation->generateFor($this);
-    }
+    protected $aggregate;
 
     /**
      * Given events
@@ -37,13 +37,22 @@ abstract class Specification extends PHPUnit_Framework_TestCase
     abstract public function when();
 
     /**
-     * @param $repository
      * @return mixed
+     * @internal param $repository
      */
     abstract public function handler($repository);
 
+    public function tearDown()
+    {
+        $tests[] = $this->getName();
+    }
+
     public function setUp()
     {
+        $documentation = new Documentation('./docs', new MarkdownFormatter());
+
+        $documentation->generateFor($this);
+
         try {
             $events = $this->given();
 
@@ -52,46 +61,56 @@ abstract class Specification extends PHPUnit_Framework_TestCase
             $this->handler($fakeRepository)->handle($this->when());
 
             $this->producedEvents = $fakeRepository->produced;
-
-            $this->state = $fakeRepository->state;
+            $this->aggregate = $fakeRepository->aggregate;
         } catch (Exception $e) {
-            $this->exception = $e;
+            $this->caughtException = $e;
         }
     }
 }
 
 class FakeRepository implements EventSourcingRepository
 {
-    protected $previousEvents;
+    public $aggregate;
+
+    public $previousEvents;
 
     public $produced;
 
-    public $state;
+    public $aggregateClass;
 
     public function __construct($events)
     {
         $this->previousEvents = $events;
     }
 
+    /**
+     * @param $class
+     * @return mixed
+     */
+    public function setAggregateClass($class)
+    {
+        $this->aggregateClass = $class;
+    }
+
     public function load($id)
     {
-        return $this->previousEvents;
+        $subject = $this->aggregateClass;
+
+        if (! $subject) {
+            throw new AggregateClassNotFoundException();
+        }
+
+        return $subject::replayEvents($this->previousEvents);
     }
 
     public function save($aggregate)
     {
         $this->produced = $aggregate->releaseEvents();
 
-        $this->buildNewState($aggregate);
-    }
+        foreach ($this->produced as $event) {
+            $aggregate->applyAnEvent($event);
+        }
 
-    private function buildNewState($aggregate)
-    {
-        $class = get_class($aggregate);
-
-        $this->state = call_user_func([$class, 'replayEvents'], array_merge(
-            $this->previousEvents,
-            $this->produced
-        ));
+        $this->aggregate = $aggregate;
     }
 }

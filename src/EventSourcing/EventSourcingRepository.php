@@ -3,6 +3,12 @@
 interface EventSourcingRepository
 {
     /**
+     * @param $class
+     * @return mixed
+     */
+    public function setAggregateClass($class);
+
+    /**
      * @param $id
      * @return array
      */

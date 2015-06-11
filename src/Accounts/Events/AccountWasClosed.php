@@ -2,7 +2,7 @@
 
 use KBC\EventSourcing\Events\DomainEvent;
 
-final class AccountWasDeleted implements DomainEvent
+final class AccountWasClosed implements DomainEvent
 {
     public $id;
 

@@ -1,7 +1,7 @@
 <?php namespace Docs;
 
-interface Formatter {
-
+interface Formatter
+{
     /**
      * Get an extension
      *
@@ -27,5 +27,4 @@ interface Formatter {
      * @return string
      */
     public function render($given, $when, $then);
-
 }

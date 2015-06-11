@@ -21,16 +21,21 @@ final class EventStore
         $this->dispatcher = $dispatcher;
     }
 
-    public function save($model)
+    public function save($aggregate)
     {
-        $events = $model->releaseEvents();
-        $rootId = $model->id;
+        $events = $aggregate->releaseEvents();
+
+        foreach ($events as $event) {
+            $aggregate->applyAnEvent($event);
+        }
+
+        $rootId = $aggregate->id;
 
         array_map(function (DomainEvent $event) use ($rootId) {
             $this->storage->storeEvent($rootId, $this->serialize($event));
         }, $events);
 
-        $this->dispatcher->dispatch((new ReflectionClass($model))->getName(), $events);
+        $this->dispatcher->dispatch((new ReflectionClass($aggregate))->getName(), $events);
     }
 
     /**

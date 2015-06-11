@@ -28,7 +28,7 @@ class Documentation
 
         $when = $this->parseClassWithParameters($object->when());
 
-        $then = ["a", "b", "c"];
+        $then = $this->parseThen();
 
         $this->writeDocumentation($given, $when, $then, $filename);
     }
@@ -62,11 +62,16 @@ class Documentation
     private function parseGiven($given)
     {
         $rows = [];
-        foreach($given as $event) {
+        foreach ($given as $event) {
             $rows[] = $this->parseClassWithParameters($event);
         }
 
         return $rows;
+    }
+
+    private function parseThen()
+    {
+        return [];
     }
 
     private function parseParameters($className, $event)
@@ -77,7 +82,7 @@ class Documentation
 
         $data = [];
 
-        foreach($parameters as $param) {
+        foreach ($parameters as $param) {
             $data[] = $this->slug($param->name, ' ') . ' of ';
         }
 

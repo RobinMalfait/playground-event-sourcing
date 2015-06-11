@@ -2,7 +2,6 @@
 
 class MarkdownFormatter implements Formatter
 {
-
     protected $scenario;
 
     protected $given;
@@ -18,7 +17,7 @@ class MarkdownFormatter implements Formatter
      */
     public function getExtension()
     {
-        return 'md';
+        return 'txt';
     }
 
     /**
@@ -47,7 +46,7 @@ class MarkdownFormatter implements Formatter
         $text .= "> " . $this->scenario . PHP_EOL . PHP_EOL;
 
         $text .= "### Given:" . PHP_EOL . PHP_EOL;
-        foreach($given as $row) {
+        foreach ($given as $row) {
             $text .= "- " . $row . PHP_EOL;
         }
 
@@ -55,7 +54,7 @@ class MarkdownFormatter implements Formatter
         $text .= $when . PHP_EOL . PHP_EOL;
 
         $text .= "### Then:" . PHP_EOL . PHP_EOL;
-        foreach($then as $row) {
+        foreach ($then as $row) {
             $text .= "- " . $row . PHP_EOL;
         }
 

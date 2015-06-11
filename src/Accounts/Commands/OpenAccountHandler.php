@@ -1,13 +1,13 @@
 <?php namespace KBC\Accounts\Commands;
 
 use KBC\Accounts\Account;
-use KBC\EventSourcing\EventSourcingRepository;
+use KBC\Accounts\AccountRepository;
 
 class OpenAccountHandler
 {
     protected $repository;
 
-    public function __construct(EventSourcingRepository $repository)
+    public function __construct(AccountRepository $repository)
     {
         $this->repository = $repository;
     }

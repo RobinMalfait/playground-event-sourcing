@@ -7,16 +7,18 @@ trait Replayer
 {
     public static function replayEvents($events)
     {
-        return array_reduce($events, function ($state, $event) {
-            return self::applyAnEvent($state, $event);
-        }, null);
+        return array_reduce($events, function ($me, $event) {
+            $me->applyAnEvent($event);
+
+            return $me;
+        }, new static);
     }
 
-    public static function applyAnEvent($state, DomainEvent $event)
+    public function applyAnEvent(DomainEvent $event)
     {
         $reflection = new ReflectionClass($event);
         $method = "apply" . $reflection->getShortName();
 
-        return static::$method($state, $event);
+        return call_user_func([$this, $method], $event);
     }
 }
