@@ -47,10 +47,14 @@ class MarkdownFormatter implements Formatter
 
         $text .= "### Given:" . PHP_EOL . PHP_EOL;
 
-        foreach ($given as $event) {
-            $text .= "- " . $event['name'] . " with " . PHP_EOL;
+        if (! empty($given)) {
+            foreach ($given as $event) {
+                $text .= "- " . $event['name'] . " with " . PHP_EOL;
 
-            $text .= $this->parseParameters($event['parameters']) . PHP_EOL;
+                $text .= $this->parseParameters($event['parameters']) . PHP_EOL;
+            }
+        } else {
+            $text .= "/" . PHP_EOL;
         }
 
         $text .= PHP_EOL . "### When:" . PHP_EOL . PHP_EOL;

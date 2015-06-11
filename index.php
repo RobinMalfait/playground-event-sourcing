@@ -16,6 +16,11 @@ use KBC\Accounts\Listeners\WhenAccountWasOpened;
 use KBC\Accounts\Listeners\WhenMoneyHasBeenCollected;
 use KBC\Accounts\Listeners\WhenMoneyWasDeposited;
 use KBC\Accounts\Name;
+use KBC\Baskets\Basket;
+use KBC\Baskets\BasketProjector;
+use KBC\Baskets\Commands\CreateBasket;
+use KBC\Baskets\Events\BasketWasCreated;
+use KBC\Baskets\Listeners\WhenBasketWasCreated;
 use KBC\EventSourcing\Events\Dispatcher;
 use KBC\EventSourcing\EventSourcingRepository;
 use KBC\EventSourcing\EventStore;
@@ -30,12 +35,14 @@ ini_set('display_errors', 'On');
 date_default_timezone_set("Europe/Brussels");
 
 // Some Databases
-$projectionDatabase = 'database/accounts.db.json';
+$accountsDatabase = 'database/accounts.db.json';
+$basketsDatabase = 'database/baskets.db.json';
 $eventStorageDatabase = 'database/.events';
 
 /* ---- DO NOT DO THIS IN PRODUCTION ---- */
 file_put_contents($eventStorageDatabase, '');
-file_put_contents($projectionDatabase, ''); // json db
+file_put_contents($accountsDatabase, '');
+file_put_contents($basketsDatabase, '');
 /* ---- DO NOT DO THIS IN PRODUCTION ---- */
 
 // Doing some bindings
@@ -61,10 +68,15 @@ $eventDispatcher->addListener(AccountWasOpened::class, new WhenAccountWasOpened(
 $eventDispatcher->addListener(MoneyWasDeposited::class, new WhenMoneyWasDeposited());
 $eventDispatcher->addListener(MoneyWasWithdrawn::class, new WhenMoneyHasBeenCollected());
 $eventDispatcher->addListener(AccountWasClosed::class, new WhenAccountWasClosed());
+$eventDispatcher->addListener(BasketWasCreated::class, new WhenBasketWasCreated());
 
 // Register projectors
-$eventDispatcher->addProjector(Account::class, new AccountProjector(new JsonDatabase($projectionDatabase)));
+$eventDispatcher->addProjector(Account::class, new AccountProjector(new JsonDatabase($accountsDatabase)));
+$eventDispatcher->addProjector(Basket::class, new BasketProjector(new JsonDatabase($basketsDatabase)));
 
+/**
+ * Accounts
+ */
 // Generate UUID
 $johnDoeId = (String) Uuid::uuid4();
 $janeDoeId = (String) Uuid::uuid4();
@@ -83,3 +95,9 @@ dispatch(new WithdrawMoney($johnDoeId, new Amount(50)));
 
 // Delete account
 dispatch(new CloseAccount($janeDoeId));
+
+/**
+ * Baskets
+ */
+$basketId = (String) Uuid::uuid4();
+dispatch(new CreateBasket($basketId));

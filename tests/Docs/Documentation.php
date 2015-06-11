@@ -27,7 +27,11 @@ class Documentation
     {
         $class = get_class($object);
 
-        $filename = $this->slug($class);
+        $folder = explode("\\", $class);
+        $testFile = $folder[count($folder) - 1];
+
+        $filename = $this->slug($testFile);
+        unset($folder[count($folder) - 1]);
 
         $this->setScenario($this->createScenarioDescription($class));
 
@@ -37,13 +41,13 @@ class Documentation
 
         $then = $this->parseThen();
 
-        $this->writeDocumentation($given, $when, $then, $filename);
+        $this->writeDocumentation($given, $when, $then, implode("/", $folder), $filename);
     }
 
     private function makeDocsFolder()
     {
         if (! file_exists($this->docsFolder)) {
-            mkdir($this->docsFolder);
+            mkdir($this->docsFolder, 0777, true);
         }
     }
 
@@ -51,15 +55,16 @@ class Documentation
      * @param $given
      * @param $when
      * @param $then
+     * @param $directory
      * @param $filename
      */
-    private function writeDocumentation($given, $when, $then, $filename)
+    private function writeDocumentation($given, $when, $then, $directory, $filename)
     {
         foreach ($this->formatters as $formatter) {
-            $folder = $this->docsFolder . $formatter->getExtension() . '/';
+            $folder = $this->docsFolder . $formatter->getExtension() . '/' . $directory . '/';
 
             if (! file_exists($folder)) {
-                mkdir($folder);
+                mkdir($folder, 0777, true);
             }
 
             file_put_contents(

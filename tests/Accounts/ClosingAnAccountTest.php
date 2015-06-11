@@ -1,4 +1,4 @@
-<?php
+<?php namespace Test\Accounts;
 
 use KBC\Accounts\AccountRepository;
 use KBC\Accounts\Amount;
@@ -7,6 +7,7 @@ use KBC\Accounts\Commands\CloseAccountHandler;
 use KBC\Accounts\Events\AccountWasClosed;
 use KBC\Accounts\Events\AccountWasOpened;
 use KBC\Accounts\Name;
+use Specification;
 
 class ClosingAnAccountTest extends Specification
 {

@@ -44,12 +44,18 @@ class TextFormatter implements Formatter
     {
         $text = "Scenario: " . $this->scenario . PHP_EOL . PHP_EOL;
 
-        $text .= "Given:" . PHP_EOL;
+        $text .= "Given: ";
 
-        foreach ($given as $event) {
-            $text .= "\t" . $event['name'] . " with " . PHP_EOL;
+        if (! empty($given)) {
+            $text .= PHP_EOL;
 
-            $text .= $this->parseParameters($event['parameters']) . PHP_EOL;
+            foreach ($given as $event) {
+                $text .= "\t" . $event['name'] . " with " . PHP_EOL;
+
+                $text .= $this->parseParameters($event['parameters']) . PHP_EOL;
+            }
+        } else {
+            $text .= "/" . PHP_EOL . PHP_EOL;
         }
 
         $text .= "When:" . PHP_EOL;

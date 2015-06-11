@@ -19,7 +19,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Docs\\": "tests/Docs/"
+            "Docs\\": "tests/Docs/",
+            "Test\\": "tests/"
         },
         "classmap": [
             "tests/Specification.php"
