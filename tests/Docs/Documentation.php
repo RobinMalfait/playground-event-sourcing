@@ -83,7 +83,7 @@ class Documentation
         return [];
     }
 
-    private function parseParameters($className, $event)
+    private function parseParameters($className, $class)
     {
         $reflection = new ReflectionClass($className);
 
@@ -92,11 +92,24 @@ class Documentation
         $data = [];
 
         foreach ($parameters as $param) {
-            $data[] = $this->slug($param->name, ' ') . ' of ';
+            $value = "";
+
+            if ( ! $param->getClass()) {
+                $value = $class->{$param->name};
+            }
+
+            $data[] = $this->slug($param->name, ' ') . ' of ' . $value;
         }
 
         if (count($data) > 0) {
-            return " with " . implode(", ", $data);
+            $output = " with " . PHP_EOL . PHP_EOL;
+
+            foreach($data as $param) {
+                $output .= "\t - " . $param . PHP_EOL;
+            }
+
+
+            return $output;
         }
 
         return "";

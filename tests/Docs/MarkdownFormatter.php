@@ -47,11 +47,12 @@ class MarkdownFormatter implements Formatter
 
         $text .= "### Given:" . PHP_EOL . PHP_EOL;
         foreach ($given as $row) {
+            dd($row);
             $text .= "- " . $row . PHP_EOL;
         }
 
         $text .= PHP_EOL . "### When:" . PHP_EOL . PHP_EOL;
-        $text .= $when . PHP_EOL . PHP_EOL;
+        $text .= "- " . $when . PHP_EOL . PHP_EOL;
 
         $text .= "### Then:" . PHP_EOL . PHP_EOL;
         foreach ($then as $row) {

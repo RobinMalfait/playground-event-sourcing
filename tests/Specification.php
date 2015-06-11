@@ -37,8 +37,8 @@ abstract class Specification extends PHPUnit_Framework_TestCase
     abstract public function when();
 
     /**
+     * @param $repository
      * @return mixed
-     * @internal param $repository
      */
     abstract public function handler($repository);
 
