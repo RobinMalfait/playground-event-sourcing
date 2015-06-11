@@ -7,13 +7,9 @@ trait Replayer
 {
     public static function replayEvents($events)
     {
-        $state = null;
-
-        foreach ($events as $event) {
-            $state = self::applyAnEvent($state, $event);
-        }
-
-        return $state;
+        return array_reduce($events, function ($state, $event) {
+            return self::applyAnEvent($state, $event);
+        }, null);
     }
 
     public static function applyAnEvent($state, DomainEvent $event)
