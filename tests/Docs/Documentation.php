@@ -25,15 +25,9 @@ class Documentation
 
     public function generateFor($object)
     {
-        $class = get_class($object);
+        list($filename, $folder) = $this->getObjectInformation($object);
 
-        $folder = explode("\\", $class);
-        $testFile = $folder[count($folder) - 1];
-
-        $filename = $this->slug($testFile);
-        unset($folder[count($folder) - 1]);
-
-        $this->setScenario($this->createScenarioDescription($class));
+        $this->setScenario($this->createScenarioDescription($filename));
 
         $given = $this->parseGiven($object->given());
 
@@ -41,7 +35,7 @@ class Documentation
 
         $then = $this->parseThen();
 
-        $this->writeDocumentation($given, $when, $then, implode("/", $folder), $filename);
+        $this->writeDocumentation($given, $when, $then, $folder, $filename);
     }
 
     private function makeDocsFolder()
@@ -167,5 +161,18 @@ class Documentation
         foreach ($this->formatters as $formatter) {
             $formatter->setScenario($scenario);
         }
+    }
+
+    private function getObjectInformation($object)
+    {
+        $class = get_class($object);
+
+        $folder = explode("\\", $class);
+        $testFile = $folder[count($folder) - 1];
+
+        $filename = $this->slug($testFile);
+        unset($folder[count($folder) - 1]);
+
+        return [$filename, implode('/', $folder)];
     }
 }

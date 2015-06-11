@@ -3,7 +3,7 @@
 use KBC\Baskets\Events\BasketWasCreated;
 use KBC\Storages\JsonDatabase;
 
-class BasketProjector
+final class BasketProjector
 {
     protected $jsonDatabase;
 

@@ -2,7 +2,7 @@
 
 use KBC\EventSourcing\EventSourcingRepository;
 
-class AccountRepository
+final class AccountRepository
 {
     protected $repository;
 

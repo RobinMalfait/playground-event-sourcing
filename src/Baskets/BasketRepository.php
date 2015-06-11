@@ -2,7 +2,7 @@
 
 use KBC\EventSourcing\EventSourcingRepository;
 
-class BasketRepository
+final class BasketRepository
 {
     protected $repository;
 
