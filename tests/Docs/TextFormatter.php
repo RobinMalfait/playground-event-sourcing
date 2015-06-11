@@ -1,6 +1,6 @@
 <?php namespace Docs;
 
-class MarkdownFormatter implements Formatter
+class TextFormatter implements Formatter
 {
     protected $scenario;
 
@@ -17,7 +17,7 @@ class MarkdownFormatter implements Formatter
      */
     public function getExtension()
     {
-        return 'md';
+        return 'txt';
     }
 
     /**
@@ -42,27 +42,26 @@ class MarkdownFormatter implements Formatter
      */
     public function render($given, $when, $then)
     {
-        $text = "## Scenario:" . PHP_EOL . PHP_EOL;
-        $text .= "> " . $this->scenario . PHP_EOL . PHP_EOL;
+        $text = "Scenario: " . $this->scenario . PHP_EOL . PHP_EOL;
 
-        $text .= "### Given:" . PHP_EOL . PHP_EOL;
+        $text .= "Given:" . PHP_EOL;
 
         foreach ($given as $event) {
-            $text .= "- " . $event['name'] . " with " . PHP_EOL;
+            $text .= "\t" . $event['name'] . " with " . PHP_EOL;
 
             $text .= $this->parseParameters($event['parameters']) . PHP_EOL;
         }
 
-        $text .= PHP_EOL . "### When:" . PHP_EOL . PHP_EOL;
-        $text .= "- " . $when['name'] . PHP_EOL;
+        $text .= "When:" . PHP_EOL;
+        $text .= "\t" . $when['name'] . PHP_EOL;
         $text .= $this->parseParameters($when['parameters']) . PHP_EOL;
 
-        $text .= "### Expect:" . PHP_EOL . PHP_EOL;
+        $text .= "Expect:" . PHP_EOL;
         foreach ($then as $event) {
             $text .= "- " . $event . PHP_EOL;
         }
 
-        $text .= PHP_EOL . "---" . PHP_EOL . "*Rendered " . (new \DateTime())->format("d-m-Y") . ".*";
+        $text .= PHP_EOL . PHP_EOL . "Rendered " . (new \DateTime())->format("d-m-Y");
 
         return $text . PHP_EOL;
     }
@@ -76,11 +75,11 @@ class MarkdownFormatter implements Formatter
     {
         $text = "";
         foreach ($parameters as $param) {
-            for ($i = 0; $i < $level; $i++) {
+            for ($i = 0; $i <= $level; $i++) {
                 $text .= "\t";
             }
 
-            $text .= "- " . $param['name'];
+            $text .= $param['name'];
 
             $text = is_array($param['value'])
                 ? $text . PHP_EOL . $this->parseParameters($param['value'], $level + 1)

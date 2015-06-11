@@ -6,11 +6,18 @@ class Documentation
 {
     protected $docsFolder;
 
-    protected $formatter;
+    protected $formatters;
 
-    public function __construct($docsFolder, Formatter $formatter)
+    public function __construct($docsFolder, $formatters)
     {
-        $this->formatter = $formatter;
+        $formatters = is_array($formatters) ? $formatters : [$formatters];
+
+        foreach ($formatters as $formatter) {
+            if ($formatter instanceof Formatter) {
+                $this->formatters[] = $formatter;
+            }
+        }
+
         $this->docsFolder = trim($docsFolder, '/') . '/';
 
         $this->makeDocsFolder();
@@ -22,7 +29,7 @@ class Documentation
 
         $filename = $this->slug($class);
 
-        $this->formatter->setScenario($this->createScenarioDescription($class));
+        $this->setScenario($this->createScenarioDescription($class));
 
         $given = $this->parseGiven($object->given());
 
@@ -48,10 +55,18 @@ class Documentation
      */
     private function writeDocumentation($given, $when, $then, $filename)
     {
-        file_put_contents(
-            $this->docsFolder . $filename . "." . $this->formatter->getExtension(),
-            $this->formatter->render($given, $when, $then)
-        );
+        foreach ($this->formatters as $formatter) {
+            $folder = $this->docsFolder . $formatter->getExtension() . '/';
+
+            if (! file_exists($folder)) {
+                mkdir($folder);
+            }
+
+            file_put_contents(
+                $folder . $filename . "." . $formatter->getExtension(),
+                $formatter->render($given, $when, $then)
+            );
+        }
     }
 
     private function createScenarioDescription($class)
@@ -66,7 +81,12 @@ class Documentation
     {
         $rows = [];
         foreach ($given as $event) {
-            $rows[] = $this->parseClassWithParameters($event);
+            list($name, $parameters) = $this->parseClassWithParameters($event);
+
+            $rows[] = [
+                'name' => $name,
+                'parameters' => $parameters
+            ];
         }
 
         return $rows;
@@ -74,7 +94,12 @@ class Documentation
 
     private function parseWhen($when)
     {
-        return $this->parseClassWithParameters($when);
+        list($name, $parameters) = $this->parseClassWithParameters($when);
+
+        return [
+            'name' => $name,
+            'parameters' => $parameters
+        ];
     }
 
 
@@ -92,27 +117,20 @@ class Documentation
         $data = [];
 
         foreach ($parameters as $param) {
-            $value = "";
+            $value = ! $param->getClass()
+                ? $class->{$param->name}
+                : $this->parseParameters(
+                    get_class($class->{$param->name}),
+                    $class->{$param->name}
+                );
 
-            if ( ! $param->getClass()) {
-                $value = $class->{$param->name};
-            }
-
-            $data[] = $this->slug($param->name, ' ') . ' of ' . $value;
+            $data[] = [
+                'name' => $this->slug($param->name, ' '),
+                'value' => $value
+            ];
         }
 
-        if (count($data) > 0) {
-            $output = " with " . PHP_EOL . PHP_EOL;
-
-            foreach($data as $param) {
-                $output .= "\t - " . $param . PHP_EOL;
-            }
-
-
-            return $output;
-        }
-
-        return "";
+        return $data;
     }
 
     private function slug($input, $delimiter = '_')
@@ -136,6 +154,13 @@ class Documentation
         $parts = explode('\\', get_class($class));
         $className = ucfirst($this->slug($parts[count($parts) - 1], ' '));
 
-        return $className . $this->parseParameters(get_class($class), $class);
+        return [$className, $this->parseParameters(get_class($class), $class)];
+    }
+
+    private function setScenario($scenario)
+    {
+        foreach ($this->formatters as $formatter) {
+            $formatter->setScenario($scenario);
+        }
     }
 }

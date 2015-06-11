@@ -2,6 +2,7 @@
 
 use Docs\Documentation;
 use Docs\MarkdownFormatter;
+use Docs\TextFormatter;
 use KBC\EventSourcing\AggregateClassNotFoundException;
 use KBC\EventSourcing\EventSourcingRepository;
 
@@ -47,9 +48,15 @@ abstract class Specification extends PHPUnit_Framework_TestCase
         $tests[] = $this->getName();
     }
 
+    /**
+     *
+     */
     public function setUp()
     {
-        $documentation = new Documentation('./docs', new MarkdownFormatter());
+        $documentation = new Documentation('./docs', [
+            new TextFormatter(),
+            new MarkdownFormatter()
+        ]);
 
         $documentation->generateFor($this);
 
