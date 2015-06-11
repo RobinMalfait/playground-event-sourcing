@@ -2,6 +2,7 @@
 
 use KBC\Accounts\Account;
 use KBC\Accounts\AccountProjector;
+use KBC\Accounts\Amount;
 use KBC\Accounts\Commands\CloseAccount;
 use KBC\Accounts\Commands\DepositMoney;
 use KBC\Accounts\Commands\OpenAccount;
@@ -73,12 +74,12 @@ dispatch(new OpenAccount($johnDoeId, new Name('John', 'Doe')));
 dispatch(new OpenAccount($janeDoeId, new Name('Jane', 'Doe')));
 
 // Deposit some money
-dispatch(new DepositMoney($johnDoeId, 20));
-dispatch(new DepositMoney($johnDoeId, 10));
-dispatch(new DepositMoney($johnDoeId, 30));
+dispatch(new DepositMoney($johnDoeId, new Amount(20)));
+dispatch(new DepositMoney($johnDoeId, new Amount(10)));
+dispatch(new DepositMoney($johnDoeId, new Amount(30)));
 
 // Withdraw some money
-dispatch(new WithdrawMoney($johnDoeId, 50));
+dispatch(new WithdrawMoney($johnDoeId, new Amount(50)));
 
 // Delete account
 dispatch(new CloseAccount($janeDoeId));

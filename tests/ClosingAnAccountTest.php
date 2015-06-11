@@ -1,6 +1,7 @@
 <?php
 
 use KBC\Accounts\AccountRepository;
+use KBC\Accounts\Amount;
 use KBC\Accounts\Commands\CloseAccount;
 use KBC\Accounts\Commands\CloseAccountHandler;
 use KBC\Accounts\Events\AccountWasClosed;
@@ -12,7 +13,7 @@ class ClosingAnAccountTest extends Specification
     public function given()
     {
         return [
-            new AccountWasOpened(123, new Name("John", "Doe"), 0)
+            new AccountWasOpened(123, new Name("John", "Doe"), new Amount(0))
         ];
     }
 

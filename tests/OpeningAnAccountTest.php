@@ -6,7 +6,6 @@ use KBC\Accounts\Commands\OpenAccount;
 use KBC\Accounts\Commands\OpenAccountHandler;
 use KBC\Accounts\Events\AccountWasOpened;
 use KBC\Accounts\Name;
-use KBC\EventSourcing\Events\Dispatcher;
 
 class OpeningAnAccountTest extends Specification
 {
@@ -22,9 +21,7 @@ class OpeningAnAccountTest extends Specification
 
     public function handler($repository)
     {
-        $accRepo = new AccountRepository($repository);
-
-        return new OpenAccountHandler($accRepo);
+        return new OpenAccountHandler(new AccountRepository($repository));
     }
 
     /**
@@ -48,7 +45,7 @@ class OpeningAnAccountTest extends Specification
      */
     public function the_balance_should_be_0()
     {
-        $this->assertEquals(0, $this->aggregate->balance);
+        $this->assertEquals(0, $this->aggregate->balance->amount);
     }
 
     /**

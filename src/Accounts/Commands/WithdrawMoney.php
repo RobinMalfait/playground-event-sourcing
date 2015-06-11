@@ -1,14 +1,16 @@
 <?php namespace KBC\Accounts\Commands;
 
+use KBC\Accounts\Amount;
+
 class WithdrawMoney
 {
     public $id;
 
-    public $amount;
+    public $balance;
 
-    public function __construct($id, $amount)
+    public function __construct($id, Amount $balance)
     {
         $this->id = $id;
-        $this->amount = $amount;
+        $this->balance = $balance;
     }
 }

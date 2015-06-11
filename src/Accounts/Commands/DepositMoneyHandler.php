@@ -15,7 +15,7 @@ class DepositMoneyHandler
     {
         $account = $this->repository->load($command->id);
 
-        $account->deposit($command->amount);
+        $account->deposit($command->balance);
 
         $this->repository->save($account);
     }

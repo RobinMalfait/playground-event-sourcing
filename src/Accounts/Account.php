@@ -20,7 +20,7 @@ final class Account extends BaseModel
     {
         $me = new static();
 
-        $me->apply(new AccountWasOpened($id, $name, 0));
+        $me->apply(new AccountWasOpened($id, $name, new Amount(0)));
 
         return $me;
     }
@@ -30,14 +30,14 @@ final class Account extends BaseModel
         $this->apply(new AccountWasClosed($this->id));
     }
 
-    public function deposit($amount)
+    public function deposit($balance)
     {
-        $this->apply(new MoneyWasDeposited($this->id, $amount));
+        $this->apply(new MoneyWasDeposited($this->id, $balance));
     }
 
-    public function withdraw($amount)
+    public function withdraw($balance)
     {
-        $this->apply(new MoneyWasWithdrawn($this->id, $amount));
+        $this->apply(new MoneyWasWithdrawn($this->id, $balance));
     }
 
     /* Respond to events */
@@ -55,7 +55,7 @@ final class Account extends BaseModel
             throw new AccountClosedException();
         }
 
-        $this->balance += $event->amount;
+        $this->balance->amount += $event->balance->amount;
     }
 
     public function applyMoneyWasWithdrawn(MoneyWasWithdrawn $event)
@@ -64,7 +64,7 @@ final class Account extends BaseModel
             throw new AccountClosedException();
         }
 
-        $this->balance -= $event->amount;
+        $this->balance->amount -= $event->balance->amount;
     }
 
     public function applyAccountWasClosed(AccountWasClosed $event)

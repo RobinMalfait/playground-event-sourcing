@@ -20,7 +20,7 @@ final class AccountProjector
         $this->jsonDatabase->insert([
             'id' => $event->id,
             'name' => $event->name->getFullName(),
-            'balance' => $event->balance,
+            'balance' => $event->balance->amount,
             'closed' => $event->closed
         ]);
     }
@@ -28,7 +28,7 @@ final class AccountProjector
     public function projectMoneyWasDeposited(MoneyWasDeposited $event)
     {
         $this->jsonDatabase->update($event->accountId, function ($row) use ($event) {
-            $row['balance'] += $event->amount;
+            $row['balance'] += $event->balance->amount;
 
             return $row;
         });
@@ -37,7 +37,7 @@ final class AccountProjector
     public function projectMoneyWasWithdrawn(MoneyWasWithdrawn $event)
     {
         $this->jsonDatabase->update($event->accountId, function ($row) use ($event) {
-            $row['balance'] -= $event->amount;
+            $row['balance'] -= $event->balance->amount;
 
             return $row;
         });

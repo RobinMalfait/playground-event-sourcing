@@ -26,7 +26,7 @@ class Documentation
 
         $given = $this->parseGiven($object->given());
 
-        $when = $this->parseClassWithParameters($object->when());
+        $when = $this->parseWhen($object->when());
 
         $then = $this->parseThen();
 
@@ -41,6 +41,9 @@ class Documentation
     }
 
     /**
+     * @param $given
+     * @param $when
+     * @param $then
      * @param $filename
      */
     private function writeDocumentation($given, $when, $then, $filename)
@@ -68,6 +71,12 @@ class Documentation
 
         return $rows;
     }
+
+    private function parseWhen($when)
+    {
+        return $this->parseClassWithParameters($when);
+    }
+
 
     private function parseThen()
     {

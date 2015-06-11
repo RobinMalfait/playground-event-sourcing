@@ -1,6 +1,7 @@
 <?php
 
 use KBC\Accounts\AccountRepository;
+use KBC\Accounts\Amount;
 use KBC\Accounts\Commands\DepositMoney;
 use KBC\Accounts\Commands\DepositMoneyHandler;
 use KBC\Accounts\Events\AccountWasOpened;
@@ -12,13 +13,13 @@ class DepositMoneyTest extends Specification
     public function given()
     {
         return [
-            new AccountWasOpened(123, new Name("John", "Doe"), 0)
+            new AccountWasOpened(123, new Name("John", "Doe"), new Amount(0))
         ];
     }
 
     public function when()
     {
-        return new DepositMoney(123, 50);
+        return new DepositMoney(123, new Amount(50));
     }
 
     public function handler($repository)
@@ -48,7 +49,7 @@ class DepositMoneyTest extends Specification
      */
     public function the_account_has_been_deposited()
     {
-        $this->assertEquals(50, $this->producedEvents[0]->amount);
+        $this->assertEquals(50, $this->producedEvents[0]->balance->amount);
     }
 
     /**
@@ -56,6 +57,6 @@ class DepositMoneyTest extends Specification
      */
     public function the_current_balance_should_be_50()
     {
-        $this->assertEquals(50, $this->aggregate->balance);
+        $this->assertEquals(50, $this->aggregate->balance->amount);
     }
 }

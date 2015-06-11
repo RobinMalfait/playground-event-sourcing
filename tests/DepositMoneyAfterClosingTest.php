@@ -2,6 +2,7 @@
 
 use KBC\Accounts\AccountClosedException;
 use KBC\Accounts\AccountRepository;
+use KBC\Accounts\Amount;
 use KBC\Accounts\Commands\DepositMoney;
 use KBC\Accounts\Commands\DepositMoneyHandler;
 use KBC\Accounts\Events\AccountWasClosed;
@@ -14,14 +15,14 @@ class DepositMoneyAfterClosingTest extends Specification
     public function given()
     {
         return [
-            new AccountWasOpened(123, new Name("John", "Doe"), 0),
+            new AccountWasOpened(123, new Name("John", "Doe"), new Amount(0)),
             new AccountWasClosed(123)
         ];
     }
 
     public function when()
     {
-        return new DepositMoney(123, 50);
+        return new DepositMoney(123, new Amount(50));
     }
 
     public function handler($repository)

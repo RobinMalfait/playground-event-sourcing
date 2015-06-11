@@ -7,6 +7,6 @@ final class WhenMoneyWasDeposited implements Listener
 {
     public function handle(DomainEvent $event)
     {
-        var_dump("€{$event->amount} has been deposited.");
+        var_dump("€{$event->balance->amount} has been deposited.");
     }
 }

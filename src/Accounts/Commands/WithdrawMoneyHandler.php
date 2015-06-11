@@ -15,7 +15,7 @@ class WithdrawMoneyHandler
     {
         $account = $this->repository->load($command->id);
 
-        $account->withdraw($command->amount);
+        $account->withdraw($command->balance);
 
         $this->repository->save($account);
     }

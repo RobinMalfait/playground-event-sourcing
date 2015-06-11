@@ -1,6 +1,7 @@
 <?php
 
 use KBC\Accounts\AccountRepository;
+use KBC\Accounts\Amount;
 use KBC\Accounts\Commands\WithdrawMoney;
 use KBC\Accounts\Commands\WithdrawMoneyHandler;
 use KBC\Accounts\Events\AccountWasOpened;
@@ -13,14 +14,14 @@ class WithdrawMoneyTest extends Specification
     public function given()
     {
         return [
-            new AccountWasOpened(123, new Name("John", "Doe"), 0),
-            new MoneyWasDeposited(123, 100),
+            new AccountWasOpened(123, new Name("John", "Doe"), new Amount(0)),
+            new MoneyWasDeposited(123, new Amount(100)),
         ];
     }
 
     public function when()
     {
-        return new WithdrawMoney(123, 75);
+        return new WithdrawMoney(123, new Amount(75));
     }
 
     public function handler($repository)
@@ -49,6 +50,6 @@ class WithdrawMoneyTest extends Specification
      */
     public function the_new_saldo_is_25()
     {
-        $this->assertEquals(25, $this->aggregate->balance);
+        $this->assertEquals(25, $this->aggregate->balance->amount);
     }
 }
