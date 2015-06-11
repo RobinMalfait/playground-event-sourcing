@@ -5,9 +5,7 @@
 Do you trust me?
 
 ```
-git clone https://github.com/RobinMalfait/playground-event-sourcing.git &&
-cd playground-event-sourcing &&
-composer install
+git clone https://github.com/RobinMalfait/playground-event-sourcing.git && cd playground-event-sourcing && composer install && php index.php && vendor/bin/phpunit
 ```
 
 ## Run it
