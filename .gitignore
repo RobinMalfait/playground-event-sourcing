@@ -1,6 +1,6 @@
 /.idea
 composer.phar
-/database
+database/*
 vendor
 docs
 !tests/Docs
