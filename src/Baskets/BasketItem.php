@@ -1,13 +1,11 @@
 <?php namespace KBC\Baskets;
 
-class BasketItem {
-
+class BasketItem
+{
     public $id;
 
-    function __construct($id)
+    public function __construct($id)
     {
         $this->id = $id;
     }
-
-
 }

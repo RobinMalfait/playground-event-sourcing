@@ -47,7 +47,7 @@ class CreatingABasketTest extends Specification
     /**
      * @test
      */
-    public function an_basket_was_created_event_was_produced()
+    public function a_BasketWasCreated_event_was_produced()
     {
         $this->assertInstanceOf(BasketWasCreated::class, $this->producedEvents[0]);
     }

@@ -43,23 +43,38 @@ abstract class Specification extends PHPUnit_Framework_TestCase
      */
     abstract public function handler($repository);
 
-    public function tearDown()
+    protected static $tests = [];
+
+    public static function setUpBeforeClass()
     {
-        $tests[] = $this->getName();
+        static::$tests = [];
     }
 
-    /**
-     *
-     */
-    public function setUp()
+
+    public function tearDown()
+    {
+        static::$tests[] = [
+            'name' => $this->getName(),
+            'status' => $this->getStatus()
+        ];
+    }
+    
+    public static function tearDownAfterClass()
     {
         $documentation = new Documentation('./docs', [
             new TextFormatter(),
             new MarkdownFormatter()
         ]);
 
-        $documentation->generateFor($this);
+        $documentation->generateFor(new static, static::$tests);
+    }
+    
 
+    /**
+     *
+     */
+    public function setUp()
+    {
         try {
             $events = $this->given();
 

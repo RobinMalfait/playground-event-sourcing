@@ -23,17 +23,14 @@ class Documentation
         $this->makeDocsFolder();
     }
 
-    public function generateFor($object)
+    public function generateFor($object, $tests)
     {
         list($filename, $folder) = $this->getObjectInformation($object);
-
         $this->setScenario($this->createScenarioDescription($filename));
 
         $given = $this->parseGiven($object->given());
-
         $when = $this->parseWhen($object->when());
-
-        $then = $this->parseThen();
+        $then = $this->parseThen($tests);
 
         $this->writeDocumentation($given, $when, $then, $folder, $filename);
     }
@@ -102,9 +99,14 @@ class Documentation
     }
 
 
-    private function parseThen()
+    private function parseThen($tests)
     {
-        return [];
+        return array_map(function($test)
+        {
+            $test['name'] = trim(ucfirst(str_replace("_", " ", $test['name'])));
+
+            return $test;
+        }, $tests);
     }
 
     private function parseParameters($className, $class)

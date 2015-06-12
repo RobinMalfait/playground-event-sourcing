@@ -35,7 +35,7 @@ class OpeningAnAccountTest extends Specification
     /**
      * @test
      */
-    public function an_account_was_opened_event_was_produced()
+    public function an_AccountWasOpened_event_was_produced()
     {
         $this->assertInstanceOf(AccountWasOpened::class, $this->producedEvents[0]);
     }

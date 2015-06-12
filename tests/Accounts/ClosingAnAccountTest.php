@@ -39,7 +39,7 @@ class ClosingAnAccountTest extends Specification
     /**
      * @test
      */
-    public function an_account_was_closed_event_was_produced()
+    public function an_AccountWasClosed_event_was_produced()
     {
         $this->assertInstanceOf(AccountWasClosed::class, $this->producedEvents[0]);
     }

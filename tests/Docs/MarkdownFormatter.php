@@ -61,9 +61,9 @@ class MarkdownFormatter implements Formatter
         $text .= "- " . $when['name'] . PHP_EOL;
         $text .= $this->parseParameters($when['parameters']) . PHP_EOL;
 
-        $text .= "### Expect:" . PHP_EOL . PHP_EOL;
+        $text .= "### Then:" . PHP_EOL . PHP_EOL;
         foreach ($then as $event) {
-            $text .= "- " . $event . PHP_EOL;
+            $text .= "- <font style='color: " . ($event['status'] == 0 ? 'green' : 'red') . " !important;'>" . $event['name'] . '</font>' . PHP_EOL;
         }
 
         $text .= PHP_EOL . "---" . PHP_EOL . "*Rendered " . (new \DateTime())->format("d-m-Y") . ".*";

@@ -64,7 +64,7 @@ class TextFormatter implements Formatter
 
         $text .= "Expect:" . PHP_EOL;
         foreach ($then as $event) {
-            $text .= "- " . $event . PHP_EOL;
+            $text .= "\t" . $event['name'] . PHP_EOL;
         }
 
         $text .= PHP_EOL . PHP_EOL . "Rendered " . (new \DateTime())->format("d-m-Y");

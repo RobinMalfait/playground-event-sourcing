@@ -10,7 +10,7 @@ use KBC\Accounts\Events\AccountWasOpened;
 use KBC\Accounts\Name;
 use Specification;
 
-class DepositMoneyAfterClosingTest extends Specification
+class DepositMoneyAfterClosingAnAccountTest extends Specification
 {
     public function given()
     {
@@ -41,7 +41,7 @@ class DepositMoneyAfterClosingTest extends Specification
     /**
      * @test
      */
-    public function an_exception_was_thrown()
+    public function an_AccountClosedException_was_thrown()
     {
         $this->assertInstanceOf(AccountClosedException::class, $this->caughtException);
     }
