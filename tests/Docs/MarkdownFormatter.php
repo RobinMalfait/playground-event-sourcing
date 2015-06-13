@@ -50,7 +50,7 @@ class MarkdownFormatter implements Formatter
      */
     public function render($given, $when, $then)
     {
-        return $this->parse([
+        return $this->parseTemplate([
             'scenario' => $this->scenario,
             'given' => $this->getGiven($given),
             'when' => $this->getWhen($when),
@@ -117,7 +117,7 @@ class MarkdownFormatter implements Formatter
         return file_get_contents(realpath('./tests/Docs/' . $this->getExtension() . '.tpl'));
     }
 
-    private function parse($data)
+    private function parseTemplate($data)
     {
         $template = $this->template;
 
