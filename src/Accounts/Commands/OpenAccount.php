@@ -1,6 +1,6 @@
 <?php namespace KBC\Accounts\Commands;
 
-use KBC\Accounts\Name;
+use KBC\Accounts\VO\Name;
 
 final class OpenAccount
 {

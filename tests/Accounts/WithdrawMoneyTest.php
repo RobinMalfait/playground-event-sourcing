@@ -1,13 +1,13 @@
 <?php namespace Test\Accounts;
 
 use KBC\Accounts\AccountRepository;
-use KBC\Accounts\Amount;
 use KBC\Accounts\Commands\WithdrawMoney;
 use KBC\Accounts\Commands\WithdrawMoneyHandler;
 use KBC\Accounts\Events\AccountWasOpened;
 use KBC\Accounts\Events\MoneyWasWithdrawn;
 use KBC\Accounts\Events\MoneyWasDeposited;
-use KBC\Accounts\Name;
+use KBC\Accounts\VO\Amount;
+use KBC\Accounts\VO\Name;
 use Specification;
 
 class WithdrawMoneyTest extends Specification

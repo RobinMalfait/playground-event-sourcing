@@ -2,7 +2,6 @@
 
 use KBC\Accounts\Account;
 use KBC\Accounts\AccountProjector;
-use KBC\Accounts\Amount;
 use KBC\Accounts\Commands\CloseAccount;
 use KBC\Accounts\Commands\DepositMoney;
 use KBC\Accounts\Commands\OpenAccount;
@@ -15,7 +14,8 @@ use KBC\Accounts\Listeners\WhenAccountWasClosed;
 use KBC\Accounts\Listeners\WhenAccountWasOpened;
 use KBC\Accounts\Listeners\WhenMoneyHasBeenCollected;
 use KBC\Accounts\Listeners\WhenMoneyWasDeposited;
-use KBC\Accounts\Name;
+use KBC\Accounts\VO\Amount;
+use KBC\Accounts\VO\Name;
 use KBC\Baskets\Basket;
 use KBC\Baskets\BasketProjector;
 use KBC\Baskets\Commands\AddProduct;

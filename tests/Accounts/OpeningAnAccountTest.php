@@ -4,7 +4,7 @@ use KBC\Accounts\AccountRepository;
 use KBC\Accounts\Commands\OpenAccount;
 use KBC\Accounts\Commands\OpenAccountHandler;
 use KBC\Accounts\Events\AccountWasOpened;
-use KBC\Accounts\Name;
+use KBC\Accounts\VO\Name;
 use Specification;
 
 class OpeningAnAccountTest extends Specification

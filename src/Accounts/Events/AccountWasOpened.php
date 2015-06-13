@@ -1,7 +1,7 @@
 <?php namespace KBC\Accounts\Events;
 
-use KBC\Accounts\Amount;
-use KBC\Accounts\Name;
+use KBC\Accounts\VO\Amount;
+use KBC\Accounts\VO\Name;
 use KBC\EventSourcing\Events\DomainEvent;
 
 final class AccountWasOpened implements DomainEvent

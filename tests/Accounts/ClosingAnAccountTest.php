@@ -2,12 +2,12 @@
 
 use Command;
 use KBC\Accounts\AccountRepository;
-use KBC\Accounts\Amount;
 use KBC\Accounts\Commands\CloseAccount;
 use KBC\Accounts\Commands\CloseAccountHandler;
 use KBC\Accounts\Events\AccountWasClosed;
 use KBC\Accounts\Events\AccountWasOpened;
-use KBC\Accounts\Name;
+use KBC\Accounts\VO\Amount;
+use KBC\Accounts\VO\Name;
 use Specification;
 
 class ClosingAnAccountTest extends Specification

@@ -1,6 +1,6 @@
 <?php namespace KBC\Accounts\Events;
 
-use KBC\Accounts\Amount;
+use KBC\Accounts\VO\Amount;
 use KBC\EventSourcing\Events\DomainEvent;
 
 final class MoneyWasWithdrawn implements DomainEvent

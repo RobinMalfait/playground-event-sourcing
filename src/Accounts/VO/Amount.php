@@ -1,6 +1,6 @@
-<?php namespace KBC\Accounts;
+<?php namespace KBC\Accounts\VO;
 
-class Amount
+final class Amount
 {
     private $amount;
 

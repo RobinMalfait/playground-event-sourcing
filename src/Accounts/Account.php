@@ -4,6 +4,8 @@ use KBC\Accounts\Events\AccountWasClosed;
 use KBC\Accounts\Events\AccountWasOpened;
 use KBC\Accounts\Events\MoneyWasWithdrawn;
 use KBC\Accounts\Events\MoneyWasDeposited;
+use KBC\Accounts\VO\Amount;
+use KBC\Accounts\VO\Name;
 use KBC\Core\BaseModel;
 
 final class Account extends BaseModel

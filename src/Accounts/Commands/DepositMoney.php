@@ -1,6 +1,6 @@
 <?php namespace KBC\Accounts\Commands;
 
-use KBC\Accounts\Amount;
+use KBC\Accounts\VO\Amount;
 
 final class DepositMoney
 {
