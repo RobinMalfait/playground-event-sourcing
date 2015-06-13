@@ -1,5 +1,6 @@
 <?php namespace Test\Accounts;
 
+use KBC\Accounts\Account;
 use KBC\Accounts\AccountClosedException;
 use KBC\Accounts\AccountRepository;
 use KBC\Accounts\Amount;
@@ -10,7 +11,7 @@ use KBC\Accounts\Events\AccountWasOpened;
 use KBC\Accounts\Name;
 use Specification;
 
-class DepositMoneyAfterClosingAnAccountTest extends Specification
+class DepositMoneyAfterClosingAnAccountAnAccountTest extends Specification
 {
     public function given()
     {
@@ -43,6 +44,6 @@ class DepositMoneyAfterClosingAnAccountTest extends Specification
      */
     public function an_AccountClosedException_was_thrown()
     {
-        $this->assertInstanceOf(AccountClosedException::class, $this->caughtException);
+        $this->throws(new AccountClosedException);
     }
 }

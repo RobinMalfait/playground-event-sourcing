@@ -10,6 +10,8 @@ class TextFormatter implements Formatter
 
     protected $then;
 
+    protected $separator = "  ";
+
     /**
      * Get an extension
      *
@@ -44,54 +46,50 @@ class TextFormatter implements Formatter
     {
         $text = "Scenario: " . $this->scenario . PHP_EOL . PHP_EOL;
 
-        $text .= "Given: ";
+        $text .= "Given: " . PHP_EOL;
 
         if (! empty($given)) {
-            $text .= PHP_EOL;
-
             foreach ($given as $event) {
-                $text .= "\t" . $event['name'] . " with " . PHP_EOL;
+                $text .= $this->separator . $event['name'] . " with ";
 
                 $text .= $this->parseParameters($event['parameters']) . PHP_EOL;
             }
         } else {
-            $text .= "/" . PHP_EOL . PHP_EOL;
+            $text .= $this->separator . "/" . PHP_EOL;
         }
 
-        $text .= "When:" . PHP_EOL;
-        $text .= "\t" . $when['name'] . PHP_EOL;
-        $text .= $this->parseParameters($when['parameters']) . PHP_EOL;
+        $text .= PHP_EOL . "When:" . PHP_EOL . $this->separator . $when['name'] . " with " . $this->parseParameters($when['parameters']) . PHP_EOL . PHP_EOL;
 
-        $text .= "Expect:" . PHP_EOL;
+        $text .= "Then:" . PHP_EOL;
         foreach ($then as $event) {
-            $text .= "\t" . $event['name'] . PHP_EOL;
+            $text .= $this->separator . $event['name'] . "." . PHP_EOL;
         }
 
-        $text .= PHP_EOL . PHP_EOL . "Rendered " . (new \DateTime())->format("d-m-Y");
+        $text .= PHP_EOL . "Rendered " . (new \DateTime())->format("d-m-Y") . ".";
 
         return $text . PHP_EOL;
     }
 
     /**
      * @param $parameters
-     * @param int $level
+     * @param int $round
      * @return string
      */
-    private function parseParameters($parameters, $level = 1)
+    private function parseParameters($parameters, $round = 0)
     {
         $text = "";
         foreach ($parameters as $param) {
-            for ($i = 0; $i <= $level; $i++) {
-                $text .= "\t";
+            if (! is_array($param['value'])) {
+                $text .= $param['name'];
             }
 
-            $text .= $param['name'];
-
             $text = is_array($param['value'])
-                ? $text . PHP_EOL . $this->parseParameters($param['value'], $level + 1)
-                : $text . ' of ' . $param['value'];
+                ? $text . $this->parseParameters($param['value'], $round + 1)
+                : $text . ' of ' . $param['value'] . ', ';
+        }
 
-            $text .= PHP_EOL;
+        if ($round == 0) {
+            return rtrim($text, ', ') . '.';
         }
 
         return $text;

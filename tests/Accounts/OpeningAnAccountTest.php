@@ -51,7 +51,7 @@ class OpeningAnAccountTest extends Specification
     /**
      * @test
      */
-    public function the_name_should_be_john_doe()
+    public function the_full_name_should_be_john_doe()
     {
         $this->assertEquals("John Doe", $this->aggregate->name->getFullName());
     }

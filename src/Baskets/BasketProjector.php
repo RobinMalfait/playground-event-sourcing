@@ -1,6 +1,7 @@
 <?php namespace KBC\Baskets;
 
 use KBC\Baskets\Events\BasketWasCreated;
+use KBC\Baskets\Events\ItemWasAddedToBasket;
 use KBC\Storages\JsonDatabase;
 
 final class BasketProjector
@@ -16,7 +17,16 @@ final class BasketProjector
     {
         $this->jsonDatabase->insert([
             'id' => $event->id,
-            'items' => $event->items
+            'items' => []
         ]);
+    }
+
+    public function projectItemWasAddedToBasket(ItemWasAddedToBasket $event)
+    {
+        $this->jsonDatabase->update($event->id, function ($row) use ($event) {
+            $row['items'][] = $event->item;
+
+            return $row;
+        });
     }
 }

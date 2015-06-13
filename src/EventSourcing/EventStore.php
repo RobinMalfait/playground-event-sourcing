@@ -1,7 +1,6 @@
 <?php namespace KBC\EventSourcing;
 
 use KBC\EventSourcing\Events\Dispatcher;
-use KBC\EventSourcing\Events\DomainEvent;
 use KBC\EventSourcing\Serialization\Deserializer;
 use KBC\EventSourcing\Serialization\Serializer;
 use KBC\Storages\EventStorage;
@@ -31,9 +30,9 @@ final class EventStore
 
         $rootId = $aggregate->id;
 
-        array_map(function (DomainEvent $event) use ($rootId) {
-            $this->storage->storeEvent($rootId, $this->serialize($event));
-        }, $events);
+        foreach ($events as $event) {
+            $this->storage->storeEvent($rootId, $aggregate->playhead, $this->serialize($event));
+        }
 
         $this->dispatcher->dispatch((new ReflectionClass($aggregate))->getName(), $events);
     }

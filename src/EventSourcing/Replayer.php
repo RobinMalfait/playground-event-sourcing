@@ -8,9 +8,7 @@ trait Replayer
     public static function replayEvents($events)
     {
         return array_reduce($events, function ($me, $event) {
-            $me->applyAnEvent($event);
-
-            return $me;
+            return $me->applyAnEvent($event);
         }, new static);
     }
 
@@ -19,6 +17,10 @@ trait Replayer
         $reflection = new ReflectionClass($event);
         $method = "apply" . $reflection->getShortName();
 
-        return call_user_func([$this, $method], $event);
+        call_user_func([$this, $method], $event);
+
+        $this->playhead++;
+
+        return $this;
     }
 }

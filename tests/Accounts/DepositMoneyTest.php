@@ -48,7 +48,7 @@ class DepositMoneyTest extends Specification
     /**
      * @test
      */
-    public function the_account_has_been_deposited()
+    public function the_account_has_been_deposited_with_50()
     {
         $this->assertEquals(50, $this->producedEvents[0]->balance->amount);
     }

@@ -18,8 +18,10 @@ use KBC\Accounts\Listeners\WhenMoneyWasDeposited;
 use KBC\Accounts\Name;
 use KBC\Baskets\Basket;
 use KBC\Baskets\BasketProjector;
+use KBC\Baskets\Commands\AddItem;
 use KBC\Baskets\Commands\CreateBasket;
 use KBC\Baskets\Events\BasketWasCreated;
+use KBC\Baskets\Item;
 use KBC\Baskets\Listeners\WhenBasketWasCreated;
 use KBC\EventSourcing\Events\Dispatcher;
 use KBC\EventSourcing\EventSourcingRepository;
@@ -100,4 +102,11 @@ dispatch(new CloseAccount($janeDoeId));
  * Baskets
  */
 $basketId = (String) Uuid::uuid4();
+
+// Create a basket
 dispatch(new CreateBasket($basketId));
+
+// Add some items
+dispatch(new AddItem($basketId, new Item('Macbook Pro')));
+dispatch(new AddItem($basketId, new Item('iPhone 6')));
+dispatch(new AddItem($basketId, new Item('iPad Air')));

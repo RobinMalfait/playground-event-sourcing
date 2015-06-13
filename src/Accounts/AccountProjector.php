@@ -45,7 +45,7 @@ final class AccountProjector
 
     public function projectAccountWasClosed(AccountWasClosed $event)
     {
-        $this->jsonDatabase->update($event->id, function ($row) use ($event) {
+        $this->jsonDatabase->update($event->id, function ($row) {
             $row['closed'] = true;
 
             return $row;

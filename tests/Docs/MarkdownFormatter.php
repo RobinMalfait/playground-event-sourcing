@@ -49,7 +49,7 @@ class MarkdownFormatter implements Formatter
 
         if (! empty($given)) {
             foreach ($given as $event) {
-                $text .= "- " . $event['name'] . " with " . PHP_EOL;
+                $text .= "- " . $event['name'] . " with ";
 
                 $text .= $this->parseParameters($event['parameters']) . PHP_EOL;
             }
@@ -58,12 +58,11 @@ class MarkdownFormatter implements Formatter
         }
 
         $text .= PHP_EOL . "### When:" . PHP_EOL . PHP_EOL;
-        $text .= "- " . $when['name'] . PHP_EOL;
-        $text .= $this->parseParameters($when['parameters']) . PHP_EOL;
+        $text .=  $when['name'] . " with " . $this->parseParameters($when['parameters']) . PHP_EOL . PHP_EOL;
 
         $text .= "### Then:" . PHP_EOL . PHP_EOL;
         foreach ($then as $event) {
-            $text .= "- <font style='color: " . ($event['status'] == 0 ? 'green' : 'red') . " !important;'>" . $event['name'] . '</font>' . PHP_EOL;
+            $text .= "- <font style='color: " . ($event['status'] == 0 ? 'green' : 'red') . " !important;'>" . $event['name'] . '.</font>' . PHP_EOL;
         }
 
         $text .= PHP_EOL . "---" . PHP_EOL . "*Rendered " . (new \DateTime())->format("d-m-Y") . ".*";
@@ -73,24 +72,24 @@ class MarkdownFormatter implements Formatter
 
     /**
      * @param $parameters
-     * @param int $level
+     * @param int $round
      * @return string
      */
-    private function parseParameters($parameters, $level = 1)
+    private function parseParameters($parameters, $round = 0)
     {
         $text = "";
         foreach ($parameters as $param) {
-            for ($i = 0; $i < $level; $i++) {
-                $text .= "\t";
+            if (! is_array($param['value'])) {
+                $text .= $param['name'];
             }
 
-            $text .= "- " . $param['name'];
-
             $text = is_array($param['value'])
-                ? $text . PHP_EOL . $this->parseParameters($param['value'], $level + 1)
-                : $text . ' of ' . $param['value'];
+                ? $text . $this->parseParameters($param['value'], $round + 1)
+                : $text . ' of ' . $param['value'] . ', ';
+        }
 
-            $text .= PHP_EOL;
+        if ($round == 0) {
+            return rtrim($text, ', ') . '.';
         }
 
         return $text;

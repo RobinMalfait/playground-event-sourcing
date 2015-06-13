@@ -101,8 +101,7 @@ class Documentation
 
     private function parseThen($tests)
     {
-        return array_map(function($test)
-        {
+        return array_map(function ($test) {
             $test['name'] = trim(ucfirst(str_replace("_", " ", $test['name'])));
 
             return $test;

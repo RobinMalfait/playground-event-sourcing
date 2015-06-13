@@ -68,7 +68,14 @@ abstract class Specification extends PHPUnit_Framework_TestCase
 
         $documentation->generateFor(new static, static::$tests);
     }
-    
+
+    /**
+     * @param Exception $exception
+     */
+    protected function throws(Exception $exception)
+    {
+        $this->assertInstanceOf(get_class($exception), $this->caughtException);
+    }
 
     /**
      *

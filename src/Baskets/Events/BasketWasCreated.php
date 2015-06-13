@@ -6,11 +6,8 @@ final class BasketWasCreated implements DomainEvent
 {
     public $id;
 
-    public $items;
-
-    public function __construct($id, $items)
+    public function __construct($id)
     {
         $this->id = $id;
-        $this->items = $items;
     }
 }
