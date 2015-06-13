@@ -27,7 +27,7 @@ final class AccountProjector
 
     public function projectMoneyWasDeposited(MoneyWasDeposited $event)
     {
-        $this->jsonDatabase->update($event->accountId, function ($row) use ($event) {
+        $this->jsonDatabase->update($event, function ($row) use ($event) {
             $row['balance'] += $event->balance->amount;
 
             return $row;
@@ -36,7 +36,7 @@ final class AccountProjector
 
     public function projectMoneyWasWithdrawn(MoneyWasWithdrawn $event)
     {
-        $this->jsonDatabase->update($event->accountId, function ($row) use ($event) {
+        $this->jsonDatabase->update($event, function ($row) use ($event) {
             $row['balance'] -= $event->balance->amount;
 
             return $row;
@@ -45,7 +45,7 @@ final class AccountProjector
 
     public function projectAccountWasClosed(AccountWasClosed $event)
     {
-        $this->jsonDatabase->update($event->id, function ($row) {
+        $this->jsonDatabase->update($event, function ($row) {
             $row['closed'] = true;
 
             return $row;

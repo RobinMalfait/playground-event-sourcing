@@ -1,14 +1,14 @@
 <?php namespace KBC\Baskets\Commands;
 
-use KBC\Baskets\Item;
+use KBC\Baskets\Product;
 
-final class AddItem
+final class AddProduct
 {
     public $basketId;
 
     public $item;
 
-    public function __construct($basketId, Item $item)
+    public function __construct($basketId, Product $item)
     {
         $this->basketId = $basketId;
         $this->item = $item;

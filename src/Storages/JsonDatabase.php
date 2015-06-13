@@ -1,5 +1,6 @@
 <?php namespace KBC\Storages;
 
+use KBC\EventSourcing\Events\DomainEvent;
 use Rhumsaa\Uuid\Console\Exception;
 
 class JsonDatabase
@@ -18,12 +19,12 @@ class JsonDatabase
         $this->writeContents($rows);
     }
 
-    public function update($id, callable $callback)
+    public function update(DomainEvent $event, callable $callback)
     {
         $rows = $this->all();
 
         foreach ($rows as &$row) {
-            if ($row['id'] == $id) {
+            if ($row['id'] == $event->getAggregateId()) {
                 $row = $callback($row);
             }
         }

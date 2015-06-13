@@ -2,5 +2,5 @@
 
 interface DomainEvent
 {
-    //
+    public function getAggregateId();
 }

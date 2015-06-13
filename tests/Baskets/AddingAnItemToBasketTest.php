@@ -2,11 +2,12 @@
 
 use Command;
 use KBC\Baskets\BasketRepository;
-use KBC\Baskets\Commands\AddItem;
-use KBC\Baskets\Commands\AddItemHandler;
+use KBC\Baskets\Commands\AddProduct;
+use KBC\Baskets\Commands\AddProductHandler;
 use KBC\Baskets\Events\BasketWasCreated;
-use KBC\Baskets\Events\ItemWasAddedToBasket;
-use KBC\Baskets\Item;
+use KBC\Baskets\Events\ProductWasAddedToBasket;
+use KBC\Baskets\Product;
+use KBC\Baskets\ProductId;
 use Specification;
 
 class AddingAnItemToBasketTest extends Specification
@@ -28,7 +29,7 @@ class AddingAnItemToBasketTest extends Specification
      */
     public function when()
     {
-        return new AddItem(123, new Item('Test Item'));
+        return new AddProduct(123, new Product(new ProductId('TestId'), 'Test Item'));
     }
 
     /**
@@ -37,7 +38,7 @@ class AddingAnItemToBasketTest extends Specification
      */
     public function handler($repository)
     {
-        return new AddItemHandler(new BasketRepository($repository));
+        return new AddProductHandler(new BasketRepository($repository));
     }
 
     /**
@@ -51,8 +52,8 @@ class AddingAnItemToBasketTest extends Specification
     /**
      * @test
      */
-    public function a_ItemWasAddedToBasket_event_was_produced()
+    public function a_ProductWasAddedToBasket_event_was_produced()
     {
-        $this->assertInstanceOf(ItemWasAddedToBasket::class, $this->producedEvents[0]);
+        $this->assertInstanceOf(ProductWasAddedToBasket::class, $this->producedEvents[0]);
     }
 }

@@ -1,7 +1,8 @@
 <?php namespace KBC\Baskets;
 
 use KBC\Baskets\Events\BasketWasCreated;
-use KBC\Baskets\Events\ItemWasAddedToBasket;
+use KBC\Baskets\Events\ProductWasAddedToBasket;
+use KBC\Baskets\Events\ProductWasDeletedFromBasket;
 use KBC\Core\BaseModel;
 
 final class Basket extends BaseModel
@@ -19,11 +20,15 @@ final class Basket extends BaseModel
         return $me;
     }
 
-    public function addItem(Item $item)
+    public function addProduct(Product $item)
     {
-        $this->apply(new ItemWasAddedToBasket($this->id, $item));
+        $this->apply(new ProductWasAddedToBasket($this->id, $item));
     }
 
+    public function removeProduct(ProductId $productId)
+    {
+        $this->apply(new ProductWasDeletedFromBasket($this->id, $productId));
+    }
 
     public function applyBasketWasCreated(BasketWasCreated $event)
     {
@@ -31,8 +36,17 @@ final class Basket extends BaseModel
         $this->items = [];
     }
 
-    public function applyItemWasAddedToBasket(ItemWasAddedToBasket $event)
+    public function applyProductWasAddedToBasket(ProductWasAddedToBasket $event)
     {
         $this->items[] = $event->item;
+    }
+
+    public function applyProductWasDeletedFromBasket(ProductWasDeletedFromBasket $event)
+    {
+        foreach ($this->items as $key => $item) {
+            if ($item->productId == $event->productId) {
+                unset($this->items[$key]);
+            }
+        }
     }
 }

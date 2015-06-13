@@ -10,4 +10,9 @@ final class AccountWasClosed implements DomainEvent
     {
         $this->id = $id;
     }
+
+    public function getAggregateId()
+    {
+        return $this->id;
+    }
 }

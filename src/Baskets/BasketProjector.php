@@ -1,7 +1,8 @@
 <?php namespace KBC\Baskets;
 
 use KBC\Baskets\Events\BasketWasCreated;
-use KBC\Baskets\Events\ItemWasAddedToBasket;
+use KBC\Baskets\Events\ProductWasAddedToBasket;
+use KBC\Baskets\Events\ProductWasDeletedFromBasket;
 use KBC\Storages\JsonDatabase;
 
 final class BasketProjector
@@ -21,11 +22,28 @@ final class BasketProjector
         ]);
     }
 
-    public function projectItemWasAddedToBasket(ItemWasAddedToBasket $event)
+    public function projectProductWasAddedToBasket(ProductWasAddedToBasket $event)
     {
-        $this->jsonDatabase->update($event->id, function ($row) use ($event) {
-            $row['items'][] = $event->item;
+        $this->jsonDatabase->update($event, function ($row) use ($event) {
+            $row['items'][] = [
+                'productId' => $event->item->productId->id,
+                'name' => $event->item->name
+            ];
 
+            return $row;
+        });
+    }
+
+    public function projectProductWasDeletedFromBasket(ProductWasDeletedFromBasket $event)
+    {
+        $this->jsonDatabase->update($event, function ($row) use ($event) {
+            foreach ($row['items'] as $key => $item) {
+                if ($item['productId'] == $event->productId->id) {
+                    unset($row['items'][$key]);
+                }
+            }
+
+            $row['items'] = array_values($row['items']);
             return $row;
         });
     }

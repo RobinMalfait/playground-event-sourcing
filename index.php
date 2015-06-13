@@ -18,11 +18,13 @@ use KBC\Accounts\Listeners\WhenMoneyWasDeposited;
 use KBC\Accounts\Name;
 use KBC\Baskets\Basket;
 use KBC\Baskets\BasketProjector;
-use KBC\Baskets\Commands\AddItem;
+use KBC\Baskets\Commands\AddProduct;
 use KBC\Baskets\Commands\CreateBasket;
+use KBC\Baskets\Commands\RemoveItem;
 use KBC\Baskets\Events\BasketWasCreated;
-use KBC\Baskets\Item;
+use KBC\Baskets\Product;
 use KBC\Baskets\Listeners\WhenBasketWasCreated;
+use KBC\Baskets\ProductId;
 use KBC\EventSourcing\Events\Dispatcher;
 use KBC\EventSourcing\EventSourcingRepository;
 use KBC\EventSourcing\EventStore;
@@ -106,7 +108,14 @@ $basketId = (String) Uuid::uuid4();
 // Create a basket
 dispatch(new CreateBasket($basketId));
 
+// Product IDs
+$macbook = new ProductId((String) Uuid::uuid4());
+$iphone = new ProductId((String) Uuid::uuid4());
+$ipad = new ProductId((String) Uuid::uuid4());
+
 // Add some items
-dispatch(new AddItem($basketId, new Item('Macbook Pro')));
-dispatch(new AddItem($basketId, new Item('iPhone 6')));
-dispatch(new AddItem($basketId, new Item('iPad Air')));
+dispatch(new AddProduct($basketId, new Product($macbook, 'Macbook Pro')));
+dispatch(new AddProduct($basketId, new Product($iphone, 'iPhone 6')));
+dispatch(new AddProduct($basketId, new Product($ipad, 'iPad Air')));
+
+dispatch(new RemoveItem($basketId, $macbook));

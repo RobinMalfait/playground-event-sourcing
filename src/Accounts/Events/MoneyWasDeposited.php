@@ -14,4 +14,9 @@ final class MoneyWasDeposited implements DomainEvent
         $this->accountId = $accountId;
         $this->balance = $balance;
     }
+
+    public function getAggregateId()
+    {
+        return $this->accountId;
+    }
 }

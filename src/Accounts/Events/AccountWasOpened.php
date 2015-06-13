@@ -21,4 +21,9 @@ final class AccountWasOpened implements DomainEvent
         $this->balance = $balance;
         $this->closed = false;
     }
+
+    public function getAggregateId()
+    {
+        return $this->id;
+    }
 }
