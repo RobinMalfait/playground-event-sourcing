@@ -44,6 +44,6 @@ class DepositMoneyAfterClosingAnAccountAnAccountTest extends Specification
      */
     public function an_AccountClosedException_was_thrown()
     {
-        $this->throws(new AccountClosedException);
+        $this->throws(new AccountClosedException());
     }
 }
