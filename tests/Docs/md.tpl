@@ -13,5 +13,6 @@
 ### Then:
 
 {{assertions}}
+
 ---
 *Rendered {{date}}.*

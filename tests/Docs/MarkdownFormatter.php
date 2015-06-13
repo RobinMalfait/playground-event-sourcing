@@ -92,7 +92,7 @@ class MarkdownFormatter implements Formatter
 
         return implode(PHP_EOL, array_map(function($event)
         {
-            return "- " . $event['name'] . " with " . $this->parseParameters($event['parameters']) . PHP_EOL;
+            return "- " . $event['name'] . " with " . $this->parseParameters($event['parameters']);
         }, $given));
     }
 
