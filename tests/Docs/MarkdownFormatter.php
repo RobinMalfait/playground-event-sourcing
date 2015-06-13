@@ -10,6 +10,14 @@ class MarkdownFormatter implements Formatter
 
     protected $then;
 
+    protected $template;
+
+    function __construct()
+    {
+        $this->template = $this->getTemplate();
+    }
+
+
     /**
      * Get an extension
      *
@@ -42,32 +50,13 @@ class MarkdownFormatter implements Formatter
      */
     public function render($given, $when, $then)
     {
-        $text = "## Scenario:" . PHP_EOL . PHP_EOL;
-        $text .= "> " . $this->scenario . PHP_EOL . PHP_EOL;
-
-        $text .= "### Given:" . PHP_EOL . PHP_EOL;
-
-        if (! empty($given)) {
-            foreach ($given as $event) {
-                $text .= "- " . $event['name'] . " with ";
-
-                $text .= $this->parseParameters($event['parameters']) . PHP_EOL;
-            }
-        } else {
-            $text .= "/" . PHP_EOL;
-        }
-
-        $text .= PHP_EOL . "### When:" . PHP_EOL . PHP_EOL;
-        $text .=  $when['name'] . " with " . $this->parseParameters($when['parameters']) . PHP_EOL . PHP_EOL;
-
-        $text .= "### Then:" . PHP_EOL . PHP_EOL;
-        foreach ($then as $event) {
-            $text .= "- <font style='color: " . ($event['status'] == 0 ? 'green' : 'red') . " !important;'>" . $event['name'] . '.</font>' . PHP_EOL;
-        }
-
-        $text .= PHP_EOL . "---" . PHP_EOL . "*Rendered " . (new \DateTime())->format("d-m-Y") . ".*";
-
-        return $text . PHP_EOL;
+        return $this->parse([
+            'scenario' => $this->scenario,
+            'given' => $this->getGiven($given),
+            'when' => $this->getWhen($when),
+            'assertions' => $this->getAssertions($then),
+            'date' => (new \DateTime())->format("d-m-Y")
+        ]);
     }
 
     /**
@@ -94,4 +83,50 @@ class MarkdownFormatter implements Formatter
 
         return $text;
     }
+
+    private function getGiven($given)
+    {
+        if (empty($given)) {
+            return '/';
+        }
+
+        return implode(PHP_EOL, array_map(function($event)
+        {
+            return "- " . $event['name'] . " with " . $this->parseParameters($event['parameters']) . PHP_EOL;
+        }, $given));
+    }
+
+    private function getWhen($when)
+    {
+        return $when['name'] . " with " . $this->parseParameters($when['parameters']);
+    }
+
+    private function getAssertions($assertions)
+    {
+        return implode(PHP_EOL, array_map(function($event)
+        {
+            return "- <font style='color: " . ($event['status'] == 0 ? 'green' : 'red') . " !important;'>" . $event['name'] . '.</font>';
+        }, $assertions));
+    }
+
+    /**
+     * @return string
+     */
+    private function getTemplate()
+    {
+        return file_get_contents(realpath('./tests/Docs/' . $this->getExtension() . '.tpl'));
+    }
+
+    private function parse($data)
+    {
+        $template = $this->template;
+
+        foreach($data as $key => $value)
+        {
+            $template = str_replace("{{" . $key . "}}", $value, $template);
+        }
+
+        return $template;
+    }
+
 }

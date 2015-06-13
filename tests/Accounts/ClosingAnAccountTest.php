@@ -1,5 +1,6 @@
 <?php namespace Test\Accounts;
 
+use Command;
 use KBC\Accounts\AccountRepository;
 use KBC\Accounts\Amount;
 use KBC\Accounts\Commands\CloseAccount;
@@ -11,6 +12,11 @@ use Specification;
 
 class ClosingAnAccountTest extends Specification
 {
+    /**
+     * Given events to build the aggregate
+     *
+     * @return array
+     */
     public function given()
     {
         return [
@@ -18,11 +24,22 @@ class ClosingAnAccountTest extends Specification
         ];
     }
 
+    /**
+     * Command to fire
+     *
+     * @return Command
+     */
     public function when()
     {
         return new CloseAccount(123);
     }
 
+    /**
+     * The command handler
+     *
+     * @param $repository
+     * @return mixed
+     */
     public function handler($repository)
     {
         return new CloseAccountHandler(new AccountRepository($repository));

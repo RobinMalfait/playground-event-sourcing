@@ -12,6 +12,11 @@ use Specification;
 
 class WithdrawMoneyTest extends Specification
 {
+    /**
+     * Given events to build the aggregate
+     *
+     * @return array
+     */
     public function given()
     {
         return [
@@ -20,11 +25,22 @@ class WithdrawMoneyTest extends Specification
         ];
     }
 
+    /**
+     * Command to fire
+     *
+     * @return Command
+     */
     public function when()
     {
         return new WithdrawMoney(123, new Amount(75));
     }
 
+    /**
+     * The command handler
+     *
+     * @param $repository
+     * @return mixed
+     */
     public function handler($repository)
     {
         return new WithdrawMoneyHandler(new AccountRepository($repository));

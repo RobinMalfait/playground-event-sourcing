@@ -1,6 +1,5 @@
 <?php namespace Test\Accounts;
 
-use KBC\Accounts\Account;
 use KBC\Accounts\AccountClosedException;
 use KBC\Accounts\AccountRepository;
 use KBC\Accounts\Amount;
@@ -11,8 +10,13 @@ use KBC\Accounts\Events\AccountWasOpened;
 use KBC\Accounts\Name;
 use Specification;
 
-class DepositMoneyAfterClosingAnAccountAnAccountTest extends Specification
+class DepositMoneyAfterClosingAnAccountTest extends Specification
 {
+    /**
+     * Given events to build the aggregate
+     *
+     * @return array
+     */
     public function given()
     {
         return [
@@ -21,11 +25,22 @@ class DepositMoneyAfterClosingAnAccountAnAccountTest extends Specification
         ];
     }
 
+    /**
+     * Command to fire
+     *
+     * @return Command
+     */
     public function when()
     {
         return new DepositMoney(123, new Amount(50));
     }
 
+    /**
+     * The command handler
+     *
+     * @param $repository
+     * @return mixed
+     */
     public function handler($repository)
     {
         return new DepositMoneyHandler(new AccountRepository($repository));

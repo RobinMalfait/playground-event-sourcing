@@ -46,7 +46,7 @@ class TextFormatter implements Formatter
     {
         $text = "Scenario: " . $this->scenario . PHP_EOL . PHP_EOL;
 
-        $text .= "Given: " . PHP_EOL;
+        $text .= "Given:" . PHP_EOL;
 
         if (! empty($given)) {
             foreach ($given as $event) {

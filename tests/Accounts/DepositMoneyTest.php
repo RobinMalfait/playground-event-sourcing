@@ -11,6 +11,11 @@ use Specification;
 
 class DepositMoneyTest extends Specification
 {
+    /**
+     * Given events to build the aggregate
+     *
+     * @return array
+     */
     public function given()
     {
         return [
@@ -18,11 +23,22 @@ class DepositMoneyTest extends Specification
         ];
     }
 
+    /**
+     * Command to fire
+     *
+     * @return Command
+     */
     public function when()
     {
         return new DepositMoney(123, new Amount(50));
     }
 
+    /**
+     * The command handler
+     *
+     * @param $repository
+     * @return mixed
+     */
     public function handler($repository)
     {
         return new DepositMoneyHandler(new AccountRepository($repository));

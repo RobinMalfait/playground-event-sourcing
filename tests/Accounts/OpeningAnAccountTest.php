@@ -9,16 +9,32 @@ use Specification;
 
 class OpeningAnAccountTest extends Specification
 {
+    /**
+     * Given events to build the aggregate
+     *
+     * @return array
+     */
     public function given()
     {
         return [];
     }
 
+    /**
+     * Command to fire
+     *
+     * @return Command
+     */
     public function when()
     {
         return new OpenAccount(123, new Name("John", "Doe"));
     }
 
+    /**
+     * The command handler
+     *
+     * @param $repository
+     * @return mixed
+     */
     public function handler($repository)
     {
         return new OpenAccountHandler(new AccountRepository($repository));

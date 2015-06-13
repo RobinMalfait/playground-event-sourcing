@@ -10,7 +10,7 @@ use Specification;
 class CreatingABasketTest extends Specification
 {
     /**
-     * Given events
+     * Given events to build the aggregate
      *
      * @return array
      */
@@ -20,6 +20,8 @@ class CreatingABasketTest extends Specification
     }
 
     /**
+     * Command to fire
+     *
      * @return Command
      */
     public function when()
@@ -28,6 +30,8 @@ class CreatingABasketTest extends Specification
     }
 
     /**
+     * The command handler
+     *
      * @param $repository
      * @return mixed
      */

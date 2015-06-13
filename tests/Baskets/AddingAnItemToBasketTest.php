@@ -13,7 +13,7 @@ use Specification;
 class AddingAnItemToBasketTest extends Specification
 {
     /**
-     * Given events
+     * Given events to build the aggregate
      *
      * @return array
      */
@@ -25,6 +25,8 @@ class AddingAnItemToBasketTest extends Specification
     }
 
     /**
+     * Command to fire
+     *
      * @return Command
      */
     public function when()
@@ -33,6 +35,8 @@ class AddingAnItemToBasketTest extends Specification
     }
 
     /**
+     * The command handler
+     *
      * @param $repository
      * @return mixed
      */
