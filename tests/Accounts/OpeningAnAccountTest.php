@@ -61,7 +61,7 @@ class OpeningAnAccountTest extends Specification
      */
     public function the_balance_should_be_0()
     {
-        $this->assertEquals(0, $this->aggregate->balance->amount);
+        $this->assertEquals(0, $this->aggregate->balance->getAmount());
     }
 
     /**

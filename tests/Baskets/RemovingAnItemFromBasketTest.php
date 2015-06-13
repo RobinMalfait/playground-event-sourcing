@@ -12,7 +12,6 @@ use Specification;
 
 class RemovingAnItemFromBasketTest extends Specification
 {
-
     /**
      * Given events to build the aggregate
      *
@@ -70,5 +69,4 @@ class RemovingAnItemFromBasketTest extends Specification
     {
         $this->assertCount(0, $this->aggregate->items);
     }
-
 }

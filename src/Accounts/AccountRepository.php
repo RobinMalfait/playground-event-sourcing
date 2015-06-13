@@ -4,7 +4,7 @@ use KBC\EventSourcing\EventSourcingRepository;
 
 final class AccountRepository
 {
-    protected $repository;
+    private $repository;
 
     public function __construct(EventSourcingRepository $repository)
     {

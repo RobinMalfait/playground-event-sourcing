@@ -1,13 +1,30 @@
 <?php namespace KBC\Baskets;
 
-class Product
+final class Product
 {
-    public $productId;
-    public $name;
+    private $productId;
+
+    private $name;
 
     public function __construct(ProductId $productId, $name)
     {
         $this->productId = $productId;
         $this->name = $name;
+    }
+
+    /**
+     * @return ProductId
+     */
+    public function getProductId()
+    {
+        return $this->productId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }

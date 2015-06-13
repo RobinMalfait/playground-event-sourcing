@@ -66,7 +66,7 @@ class DepositMoneyTest extends Specification
      */
     public function the_account_has_been_deposited_with_50()
     {
-        $this->assertEquals(50, $this->producedEvents[0]->balance->amount);
+        $this->assertEquals(50, $this->producedEvents[0]->getBalance()->getAmount());
     }
 
     /**
@@ -74,6 +74,6 @@ class DepositMoneyTest extends Specification
      */
     public function the_current_balance_should_be_50()
     {
-        $this->assertEquals(50, $this->aggregate->balance->amount);
+        $this->assertEquals(50, $this->aggregate->balance->getAmount());
     }
 }

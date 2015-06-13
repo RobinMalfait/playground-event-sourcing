@@ -17,7 +17,7 @@ final class BasketProjector
     public function projectBasketWasCreated(BasketWasCreated $event)
     {
         $this->jsonDatabase->insert([
-            'id' => $event->id,
+            'id' => $event->getId(),
             'items' => []
         ]);
     }
@@ -26,8 +26,8 @@ final class BasketProjector
     {
         $this->jsonDatabase->update($event, function ($row) use ($event) {
             $row['items'][] = [
-                'productId' => $event->item->productId->id,
-                'name' => $event->item->name
+                'productId' => $event->getItem()->getProductId()->getId(),
+                'name' => $event->getItem()->getName()
             ];
 
             return $row;
@@ -38,7 +38,7 @@ final class BasketProjector
     {
         $this->jsonDatabase->update($event, function ($row) use ($event) {
             foreach ($row['items'] as $key => $item) {
-                if ($item['productId'] == $event->productId->id) {
+                if ($item['productId'] == $event->getProductId()->getId()) {
                     unset($row['items'][$key]);
                 }
             }

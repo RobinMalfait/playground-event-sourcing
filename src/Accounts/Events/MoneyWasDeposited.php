@@ -5,9 +5,9 @@ use KBC\EventSourcing\Events\DomainEvent;
 
 final class MoneyWasDeposited implements DomainEvent
 {
-    public $accountId;
+    private $accountId;
 
-    public $balance;
+    private $balance;
 
     public function __construct($accountId, Amount $balance)
     {
@@ -18,5 +18,21 @@ final class MoneyWasDeposited implements DomainEvent
     public function getAggregateId()
     {
         return $this->accountId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAccountId()
+    {
+        return $this->accountId;
+    }
+
+    /**
+     * @return Amount
+     */
+    public function getBalance()
+    {
+        return $this->balance;
     }
 }

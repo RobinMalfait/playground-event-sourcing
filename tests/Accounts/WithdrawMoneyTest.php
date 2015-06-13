@@ -67,6 +67,6 @@ class WithdrawMoneyTest extends Specification
      */
     public function the_new_saldo_is_25()
     {
-        $this->assertEquals(25, $this->aggregate->balance->amount);
+        $this->assertEquals(25, $this->aggregate->balance->getAmount());
     }
 }

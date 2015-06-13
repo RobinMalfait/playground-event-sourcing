@@ -2,15 +2,31 @@
 
 use KBC\Accounts\Amount;
 
-class WithdrawMoney
+final class WithdrawMoney
 {
-    public $id;
+    private $id;
 
-    public $balance;
+    private $balance;
 
     public function __construct($id, Amount $balance)
     {
         $this->id = $id;
         $this->balance = $balance;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return Amount
+     */
+    public function getBalance()
+    {
+        return $this->balance;
     }
 }

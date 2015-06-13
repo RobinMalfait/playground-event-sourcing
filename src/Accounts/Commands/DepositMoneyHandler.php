@@ -2,9 +2,9 @@
 
 use KBC\Accounts\AccountRepository;
 
-class DepositMoneyHandler
+final class DepositMoneyHandler
 {
-    protected $repository;
+    private $repository;
 
     public function __construct(AccountRepository $repository)
     {
@@ -13,9 +13,9 @@ class DepositMoneyHandler
 
     public function handle(DepositMoney $command)
     {
-        $account = $this->repository->load($command->id);
+        $account = $this->repository->load($command->getId());
 
-        $account->deposit($command->balance);
+        $account->deposit($command->getBalance());
 
         $this->repository->save($account);
     }

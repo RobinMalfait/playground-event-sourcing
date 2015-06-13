@@ -2,9 +2,9 @@
 
 use KBC\Baskets\BasketRepository;
 
-class RemoveItemHandler
+final class RemoveItemHandler
 {
-    protected $repository;
+    private $repository;
 
     public function __construct(BasketRepository $repository)
     {
@@ -13,9 +13,9 @@ class RemoveItemHandler
 
     public function handle(RemoveItem $command)
     {
-        $basket = $this->repository->load($command->basketId);
+        $basket = $this->repository->load($command->getBasketId());
 
-        $basket->removeProduct($command->productId);
+        $basket->removeProduct($command->getProductId());
 
         $this->repository->save($basket);
     }

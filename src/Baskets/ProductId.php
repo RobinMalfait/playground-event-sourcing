@@ -1,11 +1,19 @@
 <?php namespace KBC\Baskets;
 
-class ProductId
+final class ProductId
 {
-    public $id;
+    private $id;
 
     public function __construct($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

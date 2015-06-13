@@ -4,13 +4,29 @@ use KBC\Baskets\Product;
 
 final class AddProduct
 {
-    public $basketId;
+    private $basketId;
 
-    public $item;
+    private $item;
 
     public function __construct($basketId, Product $item)
     {
         $this->basketId = $basketId;
         $this->item = $item;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBasketId()
+    {
+        return $this->basketId;
+    }
+
+    /**
+     * @return Product
+     */
+    public function getItem()
+    {
+        return $this->item;
     }
 }

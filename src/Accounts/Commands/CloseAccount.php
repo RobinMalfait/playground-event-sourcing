@@ -1,11 +1,16 @@
 <?php namespace KBC\Accounts\Commands;
 
-class CloseAccount
+final class CloseAccount
 {
-    public $id;
+    private $id;
 
     public function __construct($id)
     {
         $this->id = $id;
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 }

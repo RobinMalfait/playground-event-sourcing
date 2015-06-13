@@ -3,9 +3,9 @@
 use KBC\Baskets\Basket;
 use KBC\Baskets\BasketRepository;
 
-class CreateBasketHandler
+final class CreateBasketHandler
 {
-    protected $repository;
+    private $repository;
 
     public function __construct(BasketRepository $repository)
     {
@@ -14,7 +14,7 @@ class CreateBasketHandler
 
     public function handle(CreateBasket $command)
     {
-        $basket = Basket::create($command->id);
+        $basket = Basket::create($command->getId());
 
         $this->repository->save($basket);
     }

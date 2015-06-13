@@ -43,9 +43,9 @@ final class Account extends BaseModel
     /* Respond to events */
     public function applyAccountWasOpened(AccountWasOpened $event)
     {
-        $this->id = $event->id;
-        $this->balance = $event->balance;
-        $this->name = $event->name;
+        $this->id = $event->getId();
+        $this->balance = $event->getBalance();
+        $this->name = $event->getName();
         $this->closed = false;
     }
 
@@ -55,7 +55,9 @@ final class Account extends BaseModel
             throw new AccountClosedException();
         }
 
-        $this->balance->amount += $event->balance->amount;
+        $this->balance = new Amount(
+            $this->balance->getAmount() + $event->getBalance()->getAmount()
+        );
     }
 
     public function applyMoneyWasWithdrawn(MoneyWasWithdrawn $event)
@@ -64,7 +66,9 @@ final class Account extends BaseModel
             throw new AccountClosedException();
         }
 
-        $this->balance->amount -= $event->balance->amount;
+        $this->balance = new Amount(
+            $this->balance->getAmount() - $event->getBalance()->getAmount()
+        );
     }
 
     public function applyAccountWasClosed(AccountWasClosed $event)

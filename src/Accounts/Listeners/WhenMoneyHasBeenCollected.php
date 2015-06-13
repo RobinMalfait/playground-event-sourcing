@@ -7,6 +7,6 @@ final class WhenMoneyHasBeenCollected implements Listener
 {
     public function handle(DomainEvent $event)
     {
-        var_dump("€{$event->balance->amount} has been withdrawn.");
+        var_dump("€{$event->getBalance()->getAmount()} has been withdrawn.");
     }
 }

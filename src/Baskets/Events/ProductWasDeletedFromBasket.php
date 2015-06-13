@@ -3,11 +3,11 @@
 use KBC\Baskets\ProductId;
 use KBC\EventSourcing\Events\DomainEvent;
 
-class ProductWasDeletedFromBasket implements DomainEvent
+final class ProductWasDeletedFromBasket implements DomainEvent
 {
-    public $basketId;
+    private $basketId;
 
-    public $productId;
+    private $productId;
 
     public function __construct($basketId, ProductId $productId)
     {
@@ -15,9 +15,24 @@ class ProductWasDeletedFromBasket implements DomainEvent
         $this->productId = $productId;
     }
 
-
     public function getAggregateId()
     {
         return $this->basketId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBasketId()
+    {
+        return $this->basketId;
+    }
+
+    /**
+     * @return ProductId
+     */
+    public function getProductId()
+    {
+        return $this->productId;
     }
 }

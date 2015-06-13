@@ -5,8 +5,9 @@ use KBC\EventSourcing\Events\DomainEvent;
 
 final class ProductWasAddedToBasket implements DomainEvent
 {
-    public $basketId;
-    public $item;
+    private $basketId;
+
+    private $item;
 
     public function __construct($basketId, Product $item)
     {
@@ -17,5 +18,21 @@ final class ProductWasAddedToBasket implements DomainEvent
     public function getAggregateId()
     {
         return $this->basketId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBasketId()
+    {
+        return $this->basketId;
+    }
+
+    /**
+     * @return Product
+     */
+    public function getItem()
+    {
+        return $this->item;
     }
 }

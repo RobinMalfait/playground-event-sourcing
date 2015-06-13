@@ -32,19 +32,19 @@ final class Basket extends BaseModel
 
     public function applyBasketWasCreated(BasketWasCreated $event)
     {
-        $this->id = $event->id;
+        $this->id = $event->getId();
         $this->items = [];
     }
 
     public function applyProductWasAddedToBasket(ProductWasAddedToBasket $event)
     {
-        $this->items[] = $event->item;
+        $this->items[] = $event->getItem();
     }
 
     public function applyProductWasDeletedFromBasket(ProductWasDeletedFromBasket $event)
     {
         foreach ($this->items as $key => $item) {
-            if ($item->productId == $event->productId) {
+            if ($item->getProductId() == $event->getProductId()) {
                 unset($this->items[$key]);
             }
         }

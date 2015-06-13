@@ -4,7 +4,7 @@ use KBC\EventSourcing\Events\DomainEvent;
 
 final class AccountWasClosed implements DomainEvent
 {
-    public $id;
+    private $id;
 
     public function __construct($id)
     {
@@ -12,6 +12,14 @@ final class AccountWasClosed implements DomainEvent
     }
 
     public function getAggregateId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
     {
         return $this->id;
     }

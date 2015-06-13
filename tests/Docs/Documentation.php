@@ -118,10 +118,10 @@ class Documentation
 
         foreach ($parameters as $param) {
             $value = ! $param->getClass()
-                ? $class->{$param->name}
+                ? $reflection->getProperty($param->name)
                 : $this->parseParameters(
-                    get_class($class->{$param->name}),
-                    $class->{$param->name}
+                    get_class($reflection->getProperty($param->name)),
+                    $reflection->getProperty($param->name)
                 );
 
             $data[] = [

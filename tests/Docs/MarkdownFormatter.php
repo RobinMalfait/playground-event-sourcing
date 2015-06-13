@@ -12,7 +12,7 @@ class MarkdownFormatter implements Formatter
 
     protected $template;
 
-    function __construct()
+    public function __construct()
     {
         $this->template = $this->getTemplate();
     }
@@ -90,8 +90,7 @@ class MarkdownFormatter implements Formatter
             return '/';
         }
 
-        return implode(PHP_EOL, array_map(function($event)
-        {
+        return implode(PHP_EOL, array_map(function ($event) {
             return "- " . $event['name'] . " with " . $this->parseParameters($event['parameters']);
         }, $given));
     }
@@ -103,8 +102,7 @@ class MarkdownFormatter implements Formatter
 
     private function getAssertions($assertions)
     {
-        return implode(PHP_EOL, array_map(function($event)
-        {
+        return implode(PHP_EOL, array_map(function ($event) {
             return "- <font style='color: " . ($event['status'] == 0 ? 'green' : 'red') . " !important;'>" . $event['name'] . '.</font>';
         }, $assertions));
     }
@@ -121,12 +119,10 @@ class MarkdownFormatter implements Formatter
     {
         $template = $this->template;
 
-        foreach($data as $key => $value)
-        {
+        foreach ($data as $key => $value) {
             $template = str_replace("{{" . $key . "}}", $value, $template);
         }
 
         return $template;
     }
-
 }
