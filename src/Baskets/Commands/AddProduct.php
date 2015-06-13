@@ -1,6 +1,6 @@
 <?php namespace KBC\Baskets\Commands;
 
-use KBC\Baskets\Product;
+use KBC\Baskets\VO\Product;
 
 final class AddProduct
 {

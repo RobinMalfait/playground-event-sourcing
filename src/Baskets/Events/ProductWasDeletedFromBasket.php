@@ -1,6 +1,6 @@
 <?php namespace KBC\Baskets\Events;
 
-use KBC\Baskets\ProductId;
+use KBC\Baskets\VO\ProductId;
 use KBC\EventSourcing\Events\DomainEvent;
 
 final class ProductWasDeletedFromBasket implements DomainEvent

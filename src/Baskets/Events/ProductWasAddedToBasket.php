@@ -1,6 +1,6 @@
 <?php namespace KBC\Baskets\Events;
 
-use KBC\Baskets\Product;
+use KBC\Baskets\VO\Product;
 use KBC\EventSourcing\Events\DomainEvent;
 
 final class ProductWasAddedToBasket implements DomainEvent

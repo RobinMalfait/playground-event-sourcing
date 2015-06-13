@@ -1,4 +1,4 @@
-<?php namespace KBC\Baskets;
+<?php namespace KBC\Baskets\VO;
 
 final class Product
 {

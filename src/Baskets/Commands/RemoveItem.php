@@ -1,6 +1,6 @@
 <?php namespace KBC\Baskets\Commands;
 
-use KBC\Baskets\ProductId;
+use KBC\Baskets\VO\ProductId;
 
 final class RemoveItem
 {

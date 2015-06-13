@@ -6,8 +6,8 @@ use KBC\Baskets\Commands\AddProduct;
 use KBC\Baskets\Commands\AddProductHandler;
 use KBC\Baskets\Events\BasketWasCreated;
 use KBC\Baskets\Events\ProductWasAddedToBasket;
-use KBC\Baskets\Product;
-use KBC\Baskets\ProductId;
+use KBC\Baskets\VO\Product;
+use KBC\Baskets\VO\ProductId;
 use Specification;
 
 class AddingAnItemToBasketTest extends Specification

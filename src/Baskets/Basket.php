@@ -3,6 +3,8 @@
 use KBC\Baskets\Events\BasketWasCreated;
 use KBC\Baskets\Events\ProductWasAddedToBasket;
 use KBC\Baskets\Events\ProductWasDeletedFromBasket;
+use KBC\Baskets\VO\Product;
+use KBC\Baskets\VO\ProductId;
 use KBC\Core\BaseModel;
 
 final class Basket extends BaseModel
