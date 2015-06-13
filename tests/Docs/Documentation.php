@@ -117,11 +117,15 @@ class Documentation
         $data = [];
 
         foreach ($parameters as $param) {
+            $property = $reflection->getProperty($param->name);
+            $property->setAccessible(true);
+            $property = $property->getValue($class);
+
             $value = ! $param->getClass()
-                ? $reflection->getProperty($param->name)
+                ? $property
                 : $this->parseParameters(
-                    get_class($reflection->getProperty($param->name)),
-                    $reflection->getProperty($param->name)
+                    get_class($property),
+                    $property
                 );
 
             $data[] = [
