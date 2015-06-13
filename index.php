@@ -118,4 +118,5 @@ dispatch(new AddProduct($basketId, new Product($macbook, 'Macbook Pro')));
 dispatch(new AddProduct($basketId, new Product($iphone, 'iPhone 6')));
 dispatch(new AddProduct($basketId, new Product($ipad, 'iPad Air')));
 
+// Removing an item
 dispatch(new RemoveItem($basketId, $macbook));
