@@ -4,23 +4,23 @@ use KBC\EventSourcing\Events\DomainEvent;
 
 final class AccountWasClosed implements DomainEvent
 {
-    private $id;
+    private $accountId;
 
-    public function __construct($id)
+    public function __construct($accountId)
     {
-        $this->id = $id;
+        $this->accountId = $accountId;
     }
 
     public function getAggregateId()
     {
-        return $this->id;
+        return $this->accountId;
     }
 
     /**
      * @return mixed
      */
-    public function getId()
+    public function getAccountId()
     {
-        return $this->id;
+        return $this->accountId;
     }
 }
