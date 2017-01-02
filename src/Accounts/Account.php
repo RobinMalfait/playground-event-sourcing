@@ -40,6 +40,10 @@ final class Account extends AggregateRoot
 
     public function deposit($balance)
     {
+        if ($this->closed) {
+            throw new AccountClosedException();
+        }
+
         $this->apply(new MoneyWasDeposited($this->id, $balance));
     }
 
@@ -63,10 +67,6 @@ final class Account extends AggregateRoot
 
     public function applyMoneyWasDeposited(MoneyWasDeposited $event)
     {
-        if ($this->closed) {
-            throw new AccountClosedException();
-        }
-
         $this->balance = new Amount(
             $this->balance->getAmount() + $event->getBalance()->getAmount()
         );
