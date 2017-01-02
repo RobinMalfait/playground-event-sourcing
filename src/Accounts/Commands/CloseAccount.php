@@ -1,11 +1,11 @@
-<?php namespace KBC\Accounts\Commands;
+<?php namespace Acme\Accounts\Commands;
 
-use KBC\Accounts\VO\AccountId;
+use Acme\Accounts\VO\AccountId;
 
 final class CloseAccount
 {
 
-    /** @var \KBC\Accounts\VO\AccountId */
+    /** @var \Acme\Accounts\VO\AccountId */
     private $accountId;
 
     public function __construct(AccountId $accountId)

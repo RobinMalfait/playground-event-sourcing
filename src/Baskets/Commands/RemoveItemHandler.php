@@ -1,10 +1,10 @@
-<?php namespace KBC\Baskets\Commands;
+<?php namespace Acme\Baskets\Commands;
 
-use KBC\Baskets\BasketRepository;
+use Acme\Baskets\BasketRepository;
 
 final class RemoveItemHandler
 {
-    /** @var \KBC\Baskets\BasketRepository */
+    /** @var \Acme\Baskets\BasketRepository */
     private $repository;
 
     public function __construct(BasketRepository $repository)

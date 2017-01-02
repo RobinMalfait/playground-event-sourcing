@@ -1,10 +1,10 @@
-<?php namespace KBC\Baskets\Commands;
+<?php namespace Acme\Baskets\Commands;
 
-use KBC\Baskets\VO\BasketId;
+use Acme\Baskets\VO\BasketId;
 
 final class PickUpBasket
 {
-    /** @var \KBC\Baskets\VO\BasketId */
+    /** @var \Acme\Baskets\VO\BasketId */
     private $basketId;
 
     public function __construct(BasketId $basketId)

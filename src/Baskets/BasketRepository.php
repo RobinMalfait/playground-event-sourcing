@@ -1,6 +1,6 @@
-<?php namespace KBC\Baskets;
+<?php namespace Acme\Baskets;
 
-use KBC\EventSourcing\EventSourcingRepository;
+use Acme\EventSourcing\EventSourcingRepository;
 
 final class BasketRepository
 {

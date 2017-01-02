@@ -1,14 +1,14 @@
 <?php namespace Test\Baskets;
 
 use Command;
-use KBC\Baskets\BasketRepository;
-use KBC\Baskets\Commands\AddProduct;
-use KBC\Baskets\Commands\AddProductHandler;
-use KBC\Baskets\Events\BasketWasCreated;
-use KBC\Baskets\Events\ProductWasAddedToBasket;
-use KBC\Baskets\VO\BasketId;
-use KBC\Baskets\VO\Product;
-use KBC\Baskets\VO\ProductId;
+use Acme\Baskets\BasketRepository;
+use Acme\Baskets\Commands\AddProduct;
+use Acme\Baskets\Commands\AddProductHandler;
+use Acme\Baskets\Events\BasketWasCreated;
+use Acme\Baskets\Events\ProductWasAddedToBasket;
+use Acme\Baskets\VO\BasketId;
+use Acme\Baskets\VO\Product;
+use Acme\Baskets\VO\ProductId;
 use Specification;
 
 class AddingAnItemToBasketTest extends Specification

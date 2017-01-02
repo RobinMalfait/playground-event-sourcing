@@ -1,6 +1,6 @@
-<?php namespace KBC\EventSourcing\Serialization;
+<?php namespace Acme\EventSourcing\Serialization;
 
-use KBC\EventSourcing\Events\DomainEvent;
+use Acme\EventSourcing\Events\DomainEvent;
 use ReflectionClass;
 
 trait Serializer

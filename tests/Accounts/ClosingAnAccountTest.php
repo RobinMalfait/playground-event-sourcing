@@ -1,14 +1,14 @@
 <?php namespace Test\Accounts;
 
 use Command;
-use KBC\Accounts\AccountRepository;
-use KBC\Accounts\Commands\CloseAccount;
-use KBC\Accounts\Commands\CloseAccountHandler;
-use KBC\Accounts\Events\AccountWasClosed;
-use KBC\Accounts\Events\AccountWasOpened;
-use KBC\Accounts\VO\AccountId;
-use KBC\Accounts\VO\Amount;
-use KBC\Accounts\VO\Name;
+use Acme\Accounts\AccountRepository;
+use Acme\Accounts\Commands\CloseAccount;
+use Acme\Accounts\Commands\CloseAccountHandler;
+use Acme\Accounts\Events\AccountWasClosed;
+use Acme\Accounts\Events\AccountWasOpened;
+use Acme\Accounts\VO\AccountId;
+use Acme\Accounts\VO\Amount;
+use Acme\Accounts\VO\Name;
 use Specification;
 
 class ClosingAnAccountTest extends Specification

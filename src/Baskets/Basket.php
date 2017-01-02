@@ -1,17 +1,17 @@
-<?php namespace KBC\Baskets;
+<?php namespace Acme\Baskets;
 
-use KBC\Baskets\Events\BasketWasCreated;
-use KBC\Baskets\Events\ProductWasAddedToBasket;
-use KBC\Baskets\Events\ProductWasDeletedFromBasket;
-use KBC\Baskets\VO\BasketId;
-use KBC\Baskets\VO\Product;
-use KBC\Baskets\VO\ProductId;
-use KBC\Core\AggregateRoot;
+use Acme\Baskets\Events\BasketWasCreated;
+use Acme\Baskets\Events\ProductWasAddedToBasket;
+use Acme\Baskets\Events\ProductWasDeletedFromBasket;
+use Acme\Baskets\VO\BasketId;
+use Acme\Baskets\VO\Product;
+use Acme\Baskets\VO\ProductId;
+use Acme\Core\AggregateRoot;
 
 final class Basket extends AggregateRoot
 {
 
-    /** @var \KBC\Baskets\VO\BasketId */
+    /** @var \Acme\Baskets\VO\BasketId */
     public $id;
 
     /** @var array */

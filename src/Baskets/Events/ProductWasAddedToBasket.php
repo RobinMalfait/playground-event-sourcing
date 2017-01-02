@@ -1,15 +1,15 @@
-<?php namespace KBC\Baskets\Events;
+<?php namespace Acme\Baskets\Events;
 
-use KBC\Baskets\VO\BasketId;
-use KBC\Baskets\VO\Product;
-use KBC\EventSourcing\Events\DomainEvent;
+use Acme\Baskets\VO\BasketId;
+use Acme\Baskets\VO\Product;
+use Acme\EventSourcing\Events\DomainEvent;
 
 final class ProductWasAddedToBasket implements DomainEvent
 {
-    /** @var \KBC\Baskets\VO\BasketId */
+    /** @var \Acme\Baskets\VO\BasketId */
     private $basketId;
 
-    /** @var \KBC\Baskets\VO\Product */
+    /** @var \Acme\Baskets\VO\Product */
     private $item;
 
     public function __construct(BasketId $basketId, Product $item)

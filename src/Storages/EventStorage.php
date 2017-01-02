@@ -1,4 +1,4 @@
-<?php namespace KBC\Storages;
+<?php namespace Acme\Storages;
 
 interface EventStorage
 {

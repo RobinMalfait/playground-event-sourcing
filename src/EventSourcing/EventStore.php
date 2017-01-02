@@ -1,9 +1,9 @@
-<?php namespace KBC\EventSourcing;
+<?php namespace Acme\EventSourcing;
 
-use KBC\EventSourcing\Events\Dispatcher;
-use KBC\EventSourcing\Serialization\Deserializer;
-use KBC\EventSourcing\Serialization\Serializer;
-use KBC\Storages\EventStorage;
+use Acme\EventSourcing\Events\Dispatcher;
+use Acme\EventSourcing\Serialization\Deserializer;
+use Acme\EventSourcing\Serialization\Serializer;
+use Acme\Storages\EventStorage;
 use ReflectionClass;
 
 final class EventStore

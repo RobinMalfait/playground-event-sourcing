@@ -1,14 +1,14 @@
-<?php namespace KBC\Baskets\Commands;
+<?php namespace Acme\Baskets\Commands;
 
-use KBC\Baskets\VO\BasketId;
-use KBC\Baskets\VO\Product;
+use Acme\Baskets\VO\BasketId;
+use Acme\Baskets\VO\Product;
 
 final class AddProduct
 {
-    /** @var \KBC\Baskets\VO\BasketId */
+    /** @var \Acme\Baskets\VO\BasketId */
     private $basketId;
 
-    /** @var \KBC\Baskets\VO\Product */
+    /** @var \Acme\Baskets\VO\Product */
     private $item;
 
     public function __construct(BasketId $basketId, Product $item)

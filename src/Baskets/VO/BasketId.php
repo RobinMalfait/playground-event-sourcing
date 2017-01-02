@@ -1,4 +1,4 @@
-<?php namespace KBC\Baskets\VO;
+<?php namespace Acme\Baskets\VO;
 
 final class BasketId
 {

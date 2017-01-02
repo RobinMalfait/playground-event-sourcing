@@ -1,4 +1,4 @@
-<?php namespace KBC\EventSourcing;
+<?php namespace Acme\EventSourcing;
 
 class EventStoreRepository implements EventSourcingRepository
 {

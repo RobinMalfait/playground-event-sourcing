@@ -1,20 +1,20 @@
-<?php namespace KBC\Accounts\Events;
+<?php namespace Acme\Accounts\Events;
 
-use KBC\Accounts\VO\AccountId;
-use KBC\Accounts\VO\Amount;
-use KBC\Accounts\VO\Name;
-use KBC\EventSourcing\Events\DomainEvent;
+use Acme\Accounts\VO\AccountId;
+use Acme\Accounts\VO\Amount;
+use Acme\Accounts\VO\Name;
+use Acme\EventSourcing\Events\DomainEvent;
 
 final class AccountWasOpened implements DomainEvent
 {
 
-    /** @var \KBC\Accounts\VO\AccountId */
+    /** @var \Acme\Accounts\VO\AccountId */
     private $accountId;
 
-    /** @var \KBC\Accounts\VO\Name */
+    /** @var \Acme\Accounts\VO\Name */
     private $name;
 
-    /** @var \KBC\Accounts\VO\Amount */
+    /** @var \Acme\Accounts\VO\Amount */
     private $balance;
 
     /** @var bool */

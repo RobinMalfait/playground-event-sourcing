@@ -1,11 +1,11 @@
-<?php namespace KBC\Baskets\Commands;
+<?php namespace Acme\Baskets\Commands;
 
-use KBC\Baskets\Basket;
-use KBC\Baskets\BasketRepository;
+use Acme\Baskets\Basket;
+use Acme\Baskets\BasketRepository;
 
 final class PickUpBasketHandler
 {
-    /** @var \KBC\Baskets\BasketRepository */
+    /** @var \Acme\Baskets\BasketRepository */
     private $repository;
 
     public function __construct(BasketRepository $repository)

@@ -1,9 +1,9 @@
-<?php namespace KBC\Baskets;
+<?php namespace Acme\Baskets;
 
-use KBC\Baskets\Events\BasketWasCreated;
-use KBC\Baskets\Events\ProductWasAddedToBasket;
-use KBC\Baskets\Events\ProductWasDeletedFromBasket;
-use KBC\Storages\JsonDatabase;
+use Acme\Baskets\Events\BasketWasCreated;
+use Acme\Baskets\Events\ProductWasAddedToBasket;
+use Acme\Baskets\Events\ProductWasDeletedFromBasket;
+use Acme\Storages\JsonDatabase;
 
 final class BasketProjector
 {

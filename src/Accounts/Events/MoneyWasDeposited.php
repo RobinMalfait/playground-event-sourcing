@@ -1,16 +1,16 @@
-<?php namespace KBC\Accounts\Events;
+<?php namespace Acme\Accounts\Events;
 
-use KBC\Accounts\VO\AccountId;
-use KBC\Accounts\VO\Amount;
-use KBC\EventSourcing\Events\DomainEvent;
+use Acme\Accounts\VO\AccountId;
+use Acme\Accounts\VO\Amount;
+use Acme\EventSourcing\Events\DomainEvent;
 
 final class MoneyWasDeposited implements DomainEvent
 {
 
-    /** @var \KBC\Accounts\VO\AccountId */
+    /** @var \Acme\Accounts\VO\AccountId */
     private $accountId;
 
-    /** @var \KBC\Accounts\VO\Amount */
+    /** @var \Acme\Accounts\VO\Amount */
     private $balance;
 
     public function __construct(AccountId $accountId, Amount $balance)

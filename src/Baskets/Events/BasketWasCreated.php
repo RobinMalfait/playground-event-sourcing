@@ -1,11 +1,11 @@
-<?php namespace KBC\Baskets\Events;
+<?php namespace Acme\Baskets\Events;
 
-use KBC\Baskets\VO\BasketId;
-use KBC\EventSourcing\Events\DomainEvent;
+use Acme\Baskets\VO\BasketId;
+use Acme\EventSourcing\Events\DomainEvent;
 
 final class BasketWasCreated implements DomainEvent
 {
-    /** @var \KBC\Baskets\VO\BasketId */
+    /** @var \Acme\Baskets\VO\BasketId */
     private $basketId;
 
     public function __construct(BasketId $basketId)

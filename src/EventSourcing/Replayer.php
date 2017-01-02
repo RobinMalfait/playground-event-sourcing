@@ -1,6 +1,6 @@
-<?php namespace KBC\EventSourcing;
+<?php namespace Acme\EventSourcing;
 
-use KBC\EventSourcing\Events\DomainEvent;
+use Acme\EventSourcing\Events\DomainEvent;
 use ReflectionClass;
 
 trait Replayer

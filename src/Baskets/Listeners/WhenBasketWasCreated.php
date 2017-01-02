@@ -1,7 +1,7 @@
-<?php namespace KBC\Baskets\Listeners;
+<?php namespace Acme\Baskets\Listeners;
 
-use KBC\EventSourcing\Events\DomainEvent;
-use KBC\EventSourcing\Events\Listener;
+use Acme\EventSourcing\Events\DomainEvent;
+use Acme\EventSourcing\Events\Listener;
 
 final class WhenBasketWasCreated implements Listener
 {

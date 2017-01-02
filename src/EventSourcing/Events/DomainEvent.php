@@ -1,4 +1,4 @@
-<?php namespace KBC\EventSourcing\Events;
+<?php namespace Acme\EventSourcing\Events;
 
 interface DomainEvent
 {

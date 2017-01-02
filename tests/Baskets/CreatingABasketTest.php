@@ -1,11 +1,11 @@
 <?php namespace Test\Baskets;
 
 use Command;
-use KBC\Baskets\BasketRepository;
-use KBC\Baskets\Commands\PickUpBasket;
-use KBC\Baskets\Commands\PickUpBasketHandler;
-use KBC\Baskets\Events\BasketWasCreated;
-use KBC\Baskets\VO\BasketId;
+use Acme\Baskets\BasketRepository;
+use Acme\Baskets\Commands\PickUpBasket;
+use Acme\Baskets\Commands\PickUpBasketHandler;
+use Acme\Baskets\Events\BasketWasCreated;
+use Acme\Baskets\VO\BasketId;
 use Specification;
 
 class CreatingABasketTest extends Specification

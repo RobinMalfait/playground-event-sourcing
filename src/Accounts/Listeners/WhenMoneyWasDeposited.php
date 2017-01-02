@@ -1,7 +1,7 @@
-<?php namespace KBC\Accounts\Listeners;
+<?php namespace Acme\Accounts\Listeners;
 
-use KBC\EventSourcing\Events\DomainEvent;
-use KBC\EventSourcing\Events\Listener;
+use Acme\EventSourcing\Events\DomainEvent;
+use Acme\EventSourcing\Events\Listener;
 
 final class WhenMoneyWasDeposited implements Listener
 {

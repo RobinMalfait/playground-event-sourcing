@@ -1,11 +1,11 @@
-<?php namespace KBC\Accounts\Commands;
+<?php namespace Acme\Accounts\Commands;
 
-use KBC\Accounts\AccountRepository;
+use Acme\Accounts\AccountRepository;
 
 final class DepositMoneyHandler
 {
 
-    /** @var \KBC\Accounts\AccountRepository */
+    /** @var \Acme\Accounts\AccountRepository */
     private $repository;
 
     public function __construct(AccountRepository $repository)

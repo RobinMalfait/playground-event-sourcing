@@ -1,4 +1,4 @@
-<?php namespace KBC\Accounts\VO;
+<?php namespace Acme\Accounts\VO;
 
 final class Name
 {

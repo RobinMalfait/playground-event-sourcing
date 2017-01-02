@@ -1,6 +1,6 @@
-<?php namespace KBC\Accounts;
+<?php namespace Acme\Accounts;
 
-use KBC\EventSourcing\EventSourcingRepository;
+use Acme\EventSourcing\EventSourcingRepository;
 
 final class AccountRepository
 {

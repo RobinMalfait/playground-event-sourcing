@@ -1,11 +1,11 @@
-<?php namespace KBC\Accounts\Events;
+<?php namespace Acme\Accounts\Events;
 
-use KBC\Accounts\VO\AccountId;
-use KBC\EventSourcing\Events\DomainEvent;
+use Acme\Accounts\VO\AccountId;
+use Acme\EventSourcing\Events\DomainEvent;
 
 final class AccountWasClosed implements DomainEvent
 {
-    /** @var \KBC\Accounts\VO\AccountId */
+    /** @var \Acme\Accounts\VO\AccountId */
     private $accountId;
 
     public function __construct(AccountId $accountId)

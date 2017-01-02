@@ -1,6 +1,6 @@
-<?php namespace KBC\Storages;
+<?php namespace Acme\Storages;
 
-use KBC\EventSourcing\Events\DomainEvent;
+use Acme\EventSourcing\Events\DomainEvent;
 use Rhumsaa\Uuid\Console\Exception;
 
 class JsonDatabase

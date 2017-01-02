@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Container\Container;
-use KBC\EventSourcing\Commands\Dispatcher;
+use Acme\EventSourcing\Commands\Dispatcher;
 use Rhumsaa\Uuid\Uuid;
 
 // Setting the container instance

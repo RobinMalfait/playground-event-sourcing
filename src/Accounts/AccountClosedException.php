@@ -1,4 +1,4 @@
-<?php namespace KBC\Accounts;
+<?php namespace Acme\Accounts;
 
 use Exception;
 

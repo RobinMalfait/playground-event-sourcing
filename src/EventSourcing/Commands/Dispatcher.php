@@ -1,4 +1,4 @@
-<?php namespace KBC\EventSourcing\Commands;
+<?php namespace Acme\EventSourcing\Commands;
 
 class Dispatcher
 {

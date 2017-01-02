@@ -1,7 +1,7 @@
-<?php namespace KBC\Core;
+<?php namespace Acme\Core;
 
-use KBC\EventSourcing\Events\EventGenerator;
-use KBC\EventSourcing\Replayer;
+use Acme\EventSourcing\Events\EventGenerator;
+use Acme\EventSourcing\Replayer;
 
 abstract class AggregateRoot
 {

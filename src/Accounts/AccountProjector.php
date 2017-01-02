@@ -1,10 +1,10 @@
-<?php namespace KBC\Accounts;
+<?php namespace Acme\Accounts;
 
-use KBC\Accounts\Events\AccountWasClosed;
-use KBC\Accounts\Events\AccountWasOpened;
-use KBC\Accounts\Events\MoneyWasWithdrawn;
-use KBC\Accounts\Events\MoneyWasDeposited;
-use KBC\Storages\JsonDatabase;
+use Acme\Accounts\Events\AccountWasClosed;
+use Acme\Accounts\Events\AccountWasOpened;
+use Acme\Accounts\Events\MoneyWasWithdrawn;
+use Acme\Accounts\Events\MoneyWasDeposited;
+use Acme\Storages\JsonDatabase;
 
 final class AccountProjector
 {

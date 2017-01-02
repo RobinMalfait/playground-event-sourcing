@@ -1,8 +1,8 @@
-<?php namespace KBC\Baskets\VO;
+<?php namespace Acme\Baskets\VO;
 
 final class Product
 {
-    /** @var \KBC\Baskets\VO\ProductId */
+    /** @var \Acme\Baskets\VO\ProductId */
     private $productId;
 
     /** @var string */

@@ -1,24 +1,24 @@
-<?php namespace KBC\Accounts;
+<?php namespace Acme\Accounts;
 
-use KBC\Accounts\Events\AccountWasClosed;
-use KBC\Accounts\Events\AccountWasOpened;
-use KBC\Accounts\Events\MoneyWasWithdrawn;
-use KBC\Accounts\Events\MoneyWasDeposited;
-use KBC\Accounts\VO\AccountId;
-use KBC\Accounts\VO\Amount;
-use KBC\Accounts\VO\Name;
-use KBC\Core\AggregateRoot;
+use Acme\Accounts\Events\AccountWasClosed;
+use Acme\Accounts\Events\AccountWasOpened;
+use Acme\Accounts\Events\MoneyWasWithdrawn;
+use Acme\Accounts\Events\MoneyWasDeposited;
+use Acme\Accounts\VO\AccountId;
+use Acme\Accounts\VO\Amount;
+use Acme\Accounts\VO\Name;
+use Acme\Core\AggregateRoot;
 
 final class Account extends AggregateRoot
 {
 
-    /** @var \KBC\Accounts\VO\Name */
+    /** @var \Acme\Accounts\VO\Name */
     public $name;
 
-    /** @var \KBC\Accounts\VO\Amount */
+    /** @var \Acme\Accounts\VO\Amount */
     public $balance;
 
-    /** @var \KBC\Accounts\VO\AccountId */
+    /** @var \Acme\Accounts\VO\AccountId */
     public $id;
 
     /** @var bool */
