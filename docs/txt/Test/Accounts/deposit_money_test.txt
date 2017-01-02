@@ -8,7 +8,7 @@ When:
 
 Then:
   One event has been produced.
-  An `MoneyWasDeposited` event was produced.
+  A `MoneyWasDeposited` event was produced.
   The account has been deposited with 50.
   The current balance should be 50.
 

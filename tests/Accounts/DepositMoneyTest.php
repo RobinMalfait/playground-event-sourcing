@@ -55,7 +55,7 @@ class DepositMoneyTest extends Specification
     /**
      * @test
      */
-    public function an_MoneyWasDeposited_event_was_produced()
+    public function a_MoneyWasDeposited_event_was_produced()
     {
         $this->assertInstanceOf(MoneyWasDeposited::class, $this->producedEvents[0]);
     }

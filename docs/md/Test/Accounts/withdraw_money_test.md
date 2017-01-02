@@ -14,7 +14,7 @@ Withdraw money with id of 123, amount of 75.
 ### Then:
 
 - <font style='color: green !important;'>One event has been produced.</font>
-- <font style='color: green !important;'>An `MoneyWasWithdrawn` event was produced.</font>
+- <font style='color: green !important;'>A `MoneyWasWithdrawn` event was produced.</font>
 - <font style='color: green !important;'>The new saldo is 25.</font>
 
 ---

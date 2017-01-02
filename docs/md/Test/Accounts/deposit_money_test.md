@@ -13,7 +13,7 @@ Deposit money with id of 123, amount of 50.
 ### Then:
 
 - <font style='color: green !important;'>One event has been produced.</font>
-- <font style='color: green !important;'>An `MoneyWasDeposited` event was produced.</font>
+- <font style='color: green !important;'>A `MoneyWasDeposited` event was produced.</font>
 - <font style='color: green !important;'>The account has been deposited with 50.</font>
 - <font style='color: green !important;'>The current balance should be 50.</font>
 

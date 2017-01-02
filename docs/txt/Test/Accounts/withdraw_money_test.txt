@@ -9,7 +9,7 @@ When:
 
 Then:
   One event has been produced.
-  An `MoneyWasWithdrawn` event was produced.
+  A `MoneyWasWithdrawn` event was produced.
   The new saldo is 25.
 
 Rendered 02-01-2017.

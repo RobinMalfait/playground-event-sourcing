@@ -57,7 +57,7 @@ class WithdrawMoneyTest extends Specification
     /**
      * @test
      */
-    public function an_MoneyWasWithdrawn_event_was_produced()
+    public function a_MoneyWasWithdrawn_event_was_produced()
     {
         $this->assertInstanceOf(MoneyWasWithdrawn::class, $this->producedEvents[0]);
     }
