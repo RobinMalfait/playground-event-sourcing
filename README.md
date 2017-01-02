@@ -25,3 +25,7 @@ vendor/bin/phpunit
 Just open your terminal and run `php index.php`
 
 If you want to work with queues, install beanstalkd and run `php run.php` in another tab.
+
+## Docs
+
+When you run `phpunit`, a docs folder will be generated. This has `md` and `txt` versions of your tests.
