@@ -8,7 +8,7 @@
 
 ### When:
 
-Pick up basket with id of __*123*__.
+Pick up basket with an id of __*123*__.
 
 ### Then:
 

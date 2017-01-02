@@ -4,11 +4,11 @@
 
 ### Given:
 
-- Account was opened with id of __*123*__, first name of __*John*__, last name of __*Doe*__, amount of __*0*__.
+- Account was opened with an id of __*123*__, a first name of __*John*__, a last name of __*Doe*__, an amount of __*0*__.
 
 ### When:
 
-Close account with id of __*123*__.
+Close account with an id of __*123*__.
 
 ### Then:
 

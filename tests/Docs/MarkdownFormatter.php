@@ -68,8 +68,10 @@ class MarkdownFormatter implements Formatter
     {
         $text = "";
         foreach ($parameters as $param) {
+            $name = $param['name'];
+
             if (! is_array($param['value'])) {
-                $text .= $param['name'];
+                $text .= $this->anOrA($name) . " " . $name;
             }
 
             $text = is_array($param['value'])
@@ -124,5 +126,12 @@ class MarkdownFormatter implements Formatter
         }
 
         return $template;
+    }
+
+    private function anOrA($input)
+    {
+        $firstChar = $input[0];
+
+        return in_array($firstChar, ['a', 'e', 'i', 'o', 'u', 'h']) ? 'an' : 'a';
     }
 }

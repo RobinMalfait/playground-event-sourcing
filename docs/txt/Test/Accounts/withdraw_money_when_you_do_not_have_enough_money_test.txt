@@ -1,10 +1,10 @@
 Scenario: Withdraw money when you do not have enough money
 
 Given:
-  Account was opened with id of "123", first name of "John", last name of "Doe", amount of "0".
+  Account was opened with an id of "123", a first name of "John", a last name of "Doe", an amount of "0".
 
 When:
-  Withdraw money with id of "123", amount of "75".
+  Withdraw money with an id of "123", an amount of "75".
 
 Then:
   None events have been produced.
