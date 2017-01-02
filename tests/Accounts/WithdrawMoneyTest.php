@@ -49,25 +49,19 @@ class WithdrawMoneyTest extends Specification
         return new WithdrawMoneyHandler(new AccountRepository($repository));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function one_event_has_been_produced()
     {
         $this->assertCount(1, $this->producedEvents);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function a_MoneyWasWithdrawn_event_was_produced()
     {
         $this->assertInstanceOf(MoneyWasWithdrawn::class, $this->producedEvents[0]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function the_new_saldo_is_25()
     {
         $this->assertEquals(25, $this->aggregate->balance->getAmount());

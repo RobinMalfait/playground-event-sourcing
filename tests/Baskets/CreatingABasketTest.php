@@ -41,17 +41,13 @@ class CreatingABasketTest extends Specification
         return new PickUpBasketHandler(new BasketRepository($repository));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function one_event_was_produced()
     {
         $this->assertCount(1, $this->producedEvents);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function a_BasketWasCreated_event_was_produced()
     {
         $this->assertInstanceOf(BasketWasCreated::class, $this->producedEvents[0]);

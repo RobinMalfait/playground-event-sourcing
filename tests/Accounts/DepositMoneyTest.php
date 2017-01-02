@@ -45,34 +45,26 @@ class DepositMoneyTest extends Specification
         return new DepositMoneyHandler(new AccountRepository($repository));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function one_event_has_been_produced()
     {
         $this->assertCount(1, $this->producedEvents);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function a_MoneyWasDeposited_event_was_produced()
     {
         $this->assertInstanceOf(MoneyWasDeposited::class, $this->producedEvents[0]);
     }
 
 
-    /**
-     * @test
-     */
+    /** @test */
     public function the_account_has_been_deposited_with_50()
     {
         $this->assertEquals(50, $this->producedEvents[0]->getBalance()->getAmount());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function the_current_balance_should_be_50()
     {
         $this->assertEquals(50, $this->aggregate->balance->getAmount());

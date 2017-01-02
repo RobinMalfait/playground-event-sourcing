@@ -49,17 +49,13 @@ class DepositMoneyAfterClosingAnAccountTest extends Specification
         return new DepositMoneyHandler(new AccountRepository($repository));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function none_events_have_been_produced()
     {
         $this->assertCount(0, $this->producedEvents);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function an_AccountClosedException_was_thrown()
     {
         $this->throws(new AccountClosedException());

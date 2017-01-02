@@ -47,25 +47,19 @@ class RemovingAnItemFromBasketTest extends Specification
         return new RemoveItemHandler(new BasketRepository($repository));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function one_event_was_produced()
     {
         $this->assertCount(1, $this->producedEvents);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function a_ProductWasDeletedFromBasket_event_was_produced()
     {
         $this->assertInstanceOf(ProductWasDeletedFromBasket::class, $this->producedEvents[0]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function there_are_no_items_in_the_basket()
     {
         $this->assertCount(0, $this->aggregate->items);

@@ -52,25 +52,19 @@ class ClosingAnAccountTest extends Specification
         return new CloseAccountHandler(new AccountRepository($repository));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function one_event_has_been_produced()
     {
         $this->assertCount(1, $this->producedEvents);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function an_AccountWasClosed_event_was_produced()
     {
         $this->assertInstanceOf(AccountWasClosed::class, $this->producedEvents[0]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function the_account_is_closed()
     {
         $this->assertTrue($this->aggregate->closed);

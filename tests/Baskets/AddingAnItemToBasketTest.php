@@ -46,17 +46,13 @@ class AddingAnItemToBasketTest extends Specification
         return new AddProductHandler(new BasketRepository($repository));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function one_event_has_been_produced()
     {
         $this->assertCount(1, $this->producedEvents);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function a_ProductWasAddedToBasket_event_was_produced()
     {
         $this->assertInstanceOf(ProductWasAddedToBasket::class, $this->producedEvents[0]);

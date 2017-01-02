@@ -41,33 +41,25 @@ class OpeningAnAccountTest extends Specification
         return new OpenAccountHandler(new AccountRepository($repository));
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function one_event_has_been_produced()
     {
         $this->assertCount(1, $this->producedEvents);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function an_AccountWasOpened_event_was_produced()
     {
         $this->assertInstanceOf(AccountWasOpened::class, $this->producedEvents[0]);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function the_balance_should_be_0()
     {
         $this->assertEquals(0, $this->aggregate->balance->getAmount());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function the_full_name_should_be_john_doe()
     {
         $this->assertEquals("John Doe", $this->aggregate->name->getFullName());
