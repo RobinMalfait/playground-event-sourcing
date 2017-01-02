@@ -54,7 +54,7 @@ app()->bind(EventStorage::class, function () use ($eventStorageDatabase) {
 });
 
 app()->bind(EventSourcingRepository::class, function () {
-   return app()->make(EventStoreRepository::class);
+    return app()->make(EventStoreRepository::class);
 });
 
 app()->singleton(Dispatcher::class);
