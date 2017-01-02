@@ -1,9 +1,10 @@
 <?php
 
-// Setting the container instance
 use Illuminate\Container\Container;
 use KBC\EventSourcing\Commands\Dispatcher;
+use Rhumsaa\Uuid\Uuid;
 
+// Setting the container instance
 Container::setInstance(new Container());
 
 /**
@@ -26,6 +27,16 @@ function app($make = null, $parameters = [])
 function dispatch($command)
 {
     app(Dispatcher::class)->dispatch($command);
+}
+
+function id()
+{
+    return (String) Uuid::uuid4();
+}
+
+function setupDatabase($path, $contents = '')
+{
+    file_put_contents($path, $contents);
 }
 
 function dd()

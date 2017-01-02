@@ -32,21 +32,20 @@ use KBC\EventSourcing\EventStoreRepository;
 use KBC\Storages\EventStorage;
 use KBC\Storages\FileStorage;
 use KBC\Storages\JsonDatabase;
-use Rhumsaa\Uuid\Uuid;
 
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 date_default_timezone_set("Europe/Brussels");
 
 // Some 'Databases'
+$eventStorageDatabase = 'database/.events';
 $accountsDatabase = 'database/accounts.db.json';
 $basketsDatabase = 'database/baskets.db.json';
-$eventStorageDatabase = 'database/.events';
 
 /* ---- DO NOT DO THIS IN PRODUCTION ---- */
-file_put_contents($eventStorageDatabase, '');
-file_put_contents($accountsDatabase, '');
-file_put_contents($basketsDatabase, '');
+setupDatabase($eventStorageDatabase);
+setupDatabase($accountsDatabase);
+setupDatabase($basketsDatabase);
 /* ---- DO NOT DO THIS IN PRODUCTION ---- */
 
 // Doing some bindings
@@ -63,10 +62,6 @@ app()->singleton(Dispatcher::class);
 // Setup some stuff
 $eventStore = app(EventStore::class);
 $eventDispatcher = app(Dispatcher::class);
-
-function id() {
-    return (String) Uuid::uuid4();
-}
 
 // Register some DomainEvent Listeners
 $eventDispatcher->addListener(AccountWasOpened::class, new WhenAccountWasOpened());
