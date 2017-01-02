@@ -29,3 +29,4 @@ If you want to work with queues, install beanstalkd and run `php run.php` in ano
 ## Docs
 
 When you run `phpunit`, a docs folder will be generated. This has `md` and `txt` versions of your tests.
+You can find some generated [docs here](https://github.com/RobinMalfait/playground-event-sourcing/tree/master/docs).
