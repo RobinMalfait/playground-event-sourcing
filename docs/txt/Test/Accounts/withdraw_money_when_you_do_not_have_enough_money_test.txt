@@ -1,0 +1,13 @@
+Scenario: Withdraw money when you do not have enough money
+
+Given:
+  Account was opened with id of "123", first name of "John", last name of "Doe", amount of "0".
+
+When:
+  Withdraw money with id of "123", amount of "75".
+
+Then:
+  None events have been produced.
+  An `AccountDoesNotHaveEnoughMoneyException` was thrown.
+
+Rendered 02-01-2017.

@@ -53,6 +53,10 @@ final class Account extends AggregateRoot
             throw new AccountClosedException();
         }
 
+        if ($this->balance->getAmount() <= 0) {
+            throw new AccountDoesNotHaveEnoughMoneyException();
+        }
+
         $this->apply(new MoneyWasWithdrawn($this->id, $balance));
     }
 
