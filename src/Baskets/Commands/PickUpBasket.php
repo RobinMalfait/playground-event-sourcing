@@ -1,6 +1,6 @@
 <?php namespace KBC\Baskets\Commands;
 
-final class CreateBasket
+final class PickUpBasket
 {
     private $id;
 

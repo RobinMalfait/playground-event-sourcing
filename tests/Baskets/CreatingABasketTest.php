@@ -2,8 +2,8 @@
 
 use Command;
 use KBC\Baskets\BasketRepository;
-use KBC\Baskets\Commands\CreateBasket;
-use KBC\Baskets\Commands\CreateBasketHandler;
+use KBC\Baskets\Commands\PickUpBasket;
+use KBC\Baskets\Commands\PickUpBasketHandler;
 use KBC\Baskets\Events\BasketWasCreated;
 use Specification;
 
@@ -26,7 +26,7 @@ class CreatingABasketTest extends Specification
      */
     public function when()
     {
-        return new CreateBasket(123);
+        return new PickUpBasket(123);
     }
 
     /**
@@ -37,7 +37,7 @@ class CreatingABasketTest extends Specification
      */
     public function handler($repository)
     {
-        return new CreateBasketHandler(new BasketRepository($repository));
+        return new PickUpBasketHandler(new BasketRepository($repository));
     }
 
     /**

@@ -19,7 +19,7 @@ use KBC\Accounts\VO\Name;
 use KBC\Baskets\Basket;
 use KBC\Baskets\BasketProjector;
 use KBC\Baskets\Commands\AddProduct;
-use KBC\Baskets\Commands\CreateBasket;
+use KBC\Baskets\Commands\PickUpBasket;
 use KBC\Baskets\Commands\RemoveItem;
 use KBC\Baskets\Events\BasketWasCreated;
 use KBC\Baskets\Listeners\WhenBasketWasCreated;
@@ -106,7 +106,7 @@ dispatch(new CloseAccount($janeDoeId));
 $basketId = (String) Uuid::uuid4();
 
 // Create a basket
-dispatch(new CreateBasket($basketId));
+dispatch(new PickUpBasket($basketId));
 
 // Product IDs
 $macbook = new ProductId((String) Uuid::uuid4());

@@ -3,7 +3,7 @@
 use KBC\Baskets\Basket;
 use KBC\Baskets\BasketRepository;
 
-final class CreateBasketHandler
+final class PickUpBasketHandler
 {
     private $repository;
 
@@ -12,7 +12,7 @@ final class CreateBasketHandler
         $this->repository = $repository;
     }
 
-    public function handle(CreateBasket $command)
+    public function handle(PickUpBasket $command)
     {
         $basket = Basket::create($command->getId());
 
