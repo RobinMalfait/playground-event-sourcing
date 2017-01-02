@@ -13,23 +13,28 @@ final class FileStorage implements EventStorage
 
     public function storeEvent($rootId, $version, $event)
     {
-        $event = json_encode([
+        $events = $this->loadAll();
+
+        $events[] = [
             'aggregate_id' => $rootId,
             'version' => $version,
             'recorded_at' => new DateTime(),
             'data' => $event
-        ]);
+        ];
 
-        $contents = file_get_contents($this->file);
-
-        $contents = (! $contents) ? $contents . $event : $contents . PHP_EOL . $event;
-
-        file_put_contents($this->file, $contents);
+        file_put_contents($this->file, json_encode($events, JSON_PRETTY_PRINT));
     }
 
     public function loadAll()
     {
-        return explode("\n", file_get_contents($this->file));
+        $contents = file_get_contents($this->file);
+        $events = [];
+
+        if ($contents) {
+            $events = json_decode($contents, true);
+        }
+
+        return $events;
     }
 
     public function searchEventsFor($id, callable $map)
@@ -49,6 +54,6 @@ final class FileStorage implements EventStorage
 
     private function objectifyEvent($event)
     {
-        return json_decode($event);
+        return json_decode(json_encode($event));
     }
 }
