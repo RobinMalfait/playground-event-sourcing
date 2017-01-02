@@ -38,7 +38,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 date_default_timezone_set("Europe/Brussels");
 
-// Some Databases
+// Some 'Databases'
 $accountsDatabase = 'database/accounts.db.json';
 $basketsDatabase = 'database/baskets.db.json';
 $eventStorageDatabase = 'database/.events';
@@ -57,9 +57,6 @@ app()->bind(EventStorage::class, function () use ($eventStorageDatabase) {
 app()->bind(EventSourcingRepository::class, function () {
    return app()->make(EventStoreRepository::class);
 });
-
-// Who doesn't like queues
-$queue = new Queue('127.0.0.1', 'default');
 
 app()->singleton(Dispatcher::class);
 
