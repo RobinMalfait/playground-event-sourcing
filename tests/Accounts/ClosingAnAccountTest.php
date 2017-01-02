@@ -36,9 +36,9 @@ class ClosingAnAccountTest extends Specification
      */
     public function when()
     {
-        return new CloseAccount(
-            AccountId::fromString("123")
-        );
+        $john = AccountId::fromString("123");
+
+        return CloseAccount::of($john);
     }
 
     /**

@@ -96,7 +96,7 @@ dispatch(new DepositMoney($johnDoe, new Amount(30)));
 dispatch(new WithdrawMoney($johnDoe, new Amount(50)));
 
 // Delete account
-dispatch(new CloseAccount($janeDoe));
+dispatch(CloseAccount::of($janeDoe));
 
 /**
  * Baskets
