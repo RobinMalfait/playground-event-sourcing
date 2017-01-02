@@ -5,9 +5,9 @@ use KBC\Baskets\Events\ProductWasAddedToBasket;
 use KBC\Baskets\Events\ProductWasDeletedFromBasket;
 use KBC\Baskets\VO\Product;
 use KBC\Baskets\VO\ProductId;
-use KBC\Core\BaseModel;
+use KBC\Core\AggregateRoot;
 
-final class Basket extends BaseModel
+final class Basket extends AggregateRoot
 {
     public $id;
 

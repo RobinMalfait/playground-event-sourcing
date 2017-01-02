@@ -3,7 +3,7 @@
 use KBC\EventSourcing\Events\EventGenerator;
 use KBC\EventSourcing\Replayer;
 
-abstract class BaseModel
+abstract class AggregateRoot
 {
     use EventGenerator, Replayer;
 

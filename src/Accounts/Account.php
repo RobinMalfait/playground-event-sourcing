@@ -6,9 +6,9 @@ use KBC\Accounts\Events\MoneyWasWithdrawn;
 use KBC\Accounts\Events\MoneyWasDeposited;
 use KBC\Accounts\VO\Amount;
 use KBC\Accounts\VO\Name;
-use KBC\Core\BaseModel;
+use KBC\Core\AggregateRoot;
 
-final class Account extends BaseModel
+final class Account extends AggregateRoot
 {
     public $name;
 
