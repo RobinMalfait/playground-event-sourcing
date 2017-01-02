@@ -104,7 +104,7 @@ dispatch(new CloseAccount($janeDoe));
 $basket = BasketId::fromString(id());
 
 // Pick up a basket
-dispatch(new PickUpBasket($basket));
+dispatch(PickUpBasket::withId($basket));
 
 // Generate some product ids
 $macbook = ProductId::fromString(id());

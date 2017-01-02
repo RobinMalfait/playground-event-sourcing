@@ -27,7 +27,7 @@ class CreatingABasketTest extends Specification
      */
     public function when()
     {
-        return new PickUpBasket(BasketId::fromString("123"));
+        return PickUpBasket::withId(BasketId::fromString("123"));
     }
 
     /**
