@@ -1,10 +1,10 @@
 Scenario: Closing an account
 
 Given:
-  Account was opened with id of 123, first name of John, last name of Doe, amount of 0.
+  Account was opened with id of "123", first name of "John", last name of "Doe", amount of "0".
 
 When:
-  Close account with id of 123.
+  Close account with id of "123".
 
 Then:
   One event has been produced.

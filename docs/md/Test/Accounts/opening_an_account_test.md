@@ -8,7 +8,7 @@
 
 ### When:
 
-Open account with id of 123, first name of John, last name of Doe.
+Open account with id of __*123*__, first name of __*John*__, last name of __*Doe*__.
 
 ### Then:
 

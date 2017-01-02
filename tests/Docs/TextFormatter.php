@@ -85,7 +85,7 @@ class TextFormatter implements Formatter
 
             $text = is_array($param['value'])
                 ? $text . $this->parseParameters($param['value'], $round + 1)
-                : $text . ' of ' . $param['value'] . ', ';
+                : $text . ' of "' . $param['value'] . '", ';
         }
 
         if ($round == 0) {

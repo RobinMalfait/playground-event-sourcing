@@ -4,11 +4,11 @@
 
 ### Given:
 
-- Account was opened with id of 123, first name of John, last name of Doe, amount of 0.
+- Account was opened with id of __*123*__, first name of __*John*__, last name of __*Doe*__, amount of __*0*__.
 
 ### When:
 
-Deposit money with id of 123, amount of 50.
+Deposit money with id of __*123*__, amount of __*50*__.
 
 ### Then:
 

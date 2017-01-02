@@ -4,12 +4,12 @@
 
 ### Given:
 
-- Account was opened with id of 123, first name of John, last name of Doe, amount of 0.
-- Money was deposited with id of 123, amount of 100.
+- Account was opened with id of __*123*__, first name of __*John*__, last name of __*Doe*__, amount of __*0*__.
+- Money was deposited with id of __*123*__, amount of __*100*__.
 
 ### When:
 
-Withdraw money with id of 123, amount of 75.
+Withdraw money with id of __*123*__, amount of __*75*__.
 
 ### Then:
 

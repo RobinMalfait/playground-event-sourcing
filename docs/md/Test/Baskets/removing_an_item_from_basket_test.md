@@ -4,12 +4,12 @@
 
 ### Given:
 
-- Basket was created with id of 123.
-- Product was added to basket with id of 123, id of 321, name of Test Product.
+- Basket was created with id of __*123*__.
+- Product was added to basket with id of __*123*__, id of __*321*__, name of __*Test Product*__.
 
 ### When:
 
-Remove item with id of 123, id of 321.
+Remove item with id of __*123*__, id of __*321*__.
 
 ### Then:
 

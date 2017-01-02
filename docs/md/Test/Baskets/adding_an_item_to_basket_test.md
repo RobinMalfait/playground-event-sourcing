@@ -4,11 +4,11 @@
 
 ### Given:
 
-- Basket was created with id of 123.
+- Basket was created with id of __*123*__.
 
 ### When:
 
-Add product with id of 123, id of TestId, name of Test Item.
+Add product with id of __*123*__, id of __*TestId*__, name of __*Test Item*__.
 
 ### Then:
 

@@ -4,7 +4,7 @@ Given:
   /
 
 When:
-  Open account with id of 123, first name of John, last name of Doe.
+  Open account with id of "123", first name of "John", last name of "Doe".
 
 Then:
   One event has been produced.
