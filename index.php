@@ -64,6 +64,10 @@ app()->singleton(Dispatcher::class);
 $eventStore = app(EventStore::class);
 $eventDispatcher = app(Dispatcher::class);
 
+function id() {
+    return (String) Uuid::uuid4();
+}
+
 // Register some DomainEvent Listeners
 $eventDispatcher->addListener(AccountWasOpened::class, new WhenAccountWasOpened());
 $eventDispatcher->addListener(MoneyWasDeposited::class, new WhenMoneyWasDeposited());
@@ -79,8 +83,8 @@ $eventDispatcher->addProjector(Basket::class, new BasketProjector(new JsonDataba
  * Accounts
  */
 // Generate UUID
-$johnDoeId = (String) Uuid::uuid4();
-$janeDoeId = (String) Uuid::uuid4();
+$johnDoeId = id();
+$janeDoeId = id();
 
 // Open Account
 dispatch(new OpenAccount($johnDoeId, new Name('John', 'Doe')));
@@ -100,15 +104,15 @@ dispatch(new CloseAccount($janeDoeId));
 /**
  * Baskets
  */
-$basketId = (String) Uuid::uuid4();
+$basketId = id();
 
 // Create a basket
 dispatch(new PickUpBasket($basketId));
 
 // Product IDs
-$macbook = new ProductId((String) Uuid::uuid4());
-$iphone = new ProductId((String) Uuid::uuid4());
-$ipad = new ProductId((String) Uuid::uuid4());
+$macbook = new ProductId(id());
+$iphone = new ProductId(id());
+$ipad = new ProductId(id());
 
 // Add some items
 dispatch(new AddProduct($basketId, new Product($macbook, 'Macbook Pro')));
