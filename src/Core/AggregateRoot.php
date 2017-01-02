@@ -7,5 +7,5 @@ abstract class AggregateRoot
 {
     use EventGenerator, Replayer;
 
-    public $playhead = -1;
+    public $version = -1;
 }

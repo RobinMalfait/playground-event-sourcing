@@ -11,11 +11,11 @@ final class FileStorage implements EventStorage
         $this->file = $file;
     }
 
-    public function storeEvent($rootId, $playhead, $event)
+    public function storeEvent($rootId, $version, $event)
     {
         $event = json_encode([
             'aggregate_id' => $rootId,
-            'playhead' => $playhead,
+            'version' => $version,
             'recorded_at' => new DateTime(),
             'data' => $event
         ]);

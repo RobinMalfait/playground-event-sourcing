@@ -19,7 +19,7 @@ trait Replayer
 
         call_user_func([$this, $method], $event);
 
-        $this->playhead++;
+        $this->version++;
 
         return $this;
     }

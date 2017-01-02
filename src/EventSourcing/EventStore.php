@@ -31,7 +31,7 @@ final class EventStore
         $rootId = $aggregate->id;
 
         foreach ($events as $event) {
-            $this->storage->storeEvent($rootId, $aggregate->playhead, $this->serialize($event));
+            $this->storage->storeEvent($rootId, $aggregate->version, $this->serialize($event));
         }
 
         $this->dispatcher->dispatch((new ReflectionClass($aggregate))->getName(), $events);
