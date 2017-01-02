@@ -1,0 +1,15 @@
+Scenario: Opening an account
+
+Given:
+  /
+
+When:
+  Open account with id of 123, first name of John, last name of Doe.
+
+Then:
+  One event has been produced.
+  An `AccountWasOpened` event was produced.
+  The balance should be 0.
+  The full name should be john doe.
+
+Rendered 02-01-2017.

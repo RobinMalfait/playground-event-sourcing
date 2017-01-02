@@ -1,0 +1,13 @@
+Scenario: Creating basket
+
+Given:
+  /
+
+When:
+  Pick up basket with id of 123.
+
+Then:
+  One event was produced.
+  A `BasketWasCreated` event was produced.
+
+Rendered 02-01-2017.

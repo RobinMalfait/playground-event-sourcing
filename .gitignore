@@ -2,5 +2,3 @@
 composer.phar
 database/*
 vendor
-docs
-!tests/Docs

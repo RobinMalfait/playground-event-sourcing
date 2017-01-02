@@ -1,0 +1,15 @@
+Scenario: Deposit money
+
+Given:
+  Account was opened with id of 123, first name of John, last name of Doe, amount of 0.
+
+When:
+  Deposit money with id of 123, amount of 50.
+
+Then:
+  One event has been produced.
+  An `MoneyWasDeposited` event was produced.
+  The account has been deposited with 50.
+  The current balance should be 50.
+
+Rendered 02-01-2017.
