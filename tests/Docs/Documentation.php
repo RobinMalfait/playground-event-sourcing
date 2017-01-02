@@ -102,7 +102,14 @@ class Documentation
     private function parseThen($tests)
     {
         return array_map(function ($test) {
-            $test['name'] = trim(ucfirst(str_replace("_", " ", $test['name'])));
+            $testName = $test['name'];
+            $testName = trim(ucfirst(str_replace("_", " ", $testName)));
+
+            // Wrap camelcased words in backticks
+            $testName = $this->wrapCamelCasedWordsWith($testName);
+
+            // Update test name
+            $test['name'] = $testName;
 
             return $test;
         }, $tests);
@@ -147,6 +154,19 @@ class Documentation
         }
 
         return implode($delimiter, $ret);
+    }
+
+    private function wrapCamelCasedWordsWith($input, $before = '`', $after = '`')
+    {
+        preg_match_all('((?:[A-Z][a-z0-9]+){2,})', $input, $matches);
+
+        $matches = $matches[0];
+
+        foreach ($matches as $match) {
+            $input = str_replace($match, $before . $match . $after, $input);
+        }
+
+        return $input;
     }
 
     /**
