@@ -6,6 +6,7 @@ use KBC\Baskets\Commands\AddProduct;
 use KBC\Baskets\Commands\AddProductHandler;
 use KBC\Baskets\Events\BasketWasCreated;
 use KBC\Baskets\Events\ProductWasAddedToBasket;
+use KBC\Baskets\VO\BasketId;
 use KBC\Baskets\VO\Product;
 use KBC\Baskets\VO\ProductId;
 use Specification;
@@ -20,7 +21,7 @@ class AddingAnItemToBasketTest extends Specification
     public function given()
     {
         return [
-            new BasketWasCreated(123)
+            new BasketWasCreated(BasketId::fromString("123"))
         ];
     }
 
@@ -31,7 +32,7 @@ class AddingAnItemToBasketTest extends Specification
      */
     public function when()
     {
-        return new AddProduct(123, new Product(new ProductId('TestId'), 'Test Item'));
+        return new AddProduct(BasketId::fromString("123"), new Product(ProductId::fromString('TestId'), 'Test Item'));
     }
 
     /**

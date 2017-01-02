@@ -6,6 +6,7 @@ use KBC\Accounts\Commands\CloseAccount;
 use KBC\Accounts\Commands\CloseAccountHandler;
 use KBC\Accounts\Events\AccountWasClosed;
 use KBC\Accounts\Events\AccountWasOpened;
+use KBC\Accounts\VO\AccountId;
 use KBC\Accounts\VO\Amount;
 use KBC\Accounts\VO\Name;
 use Specification;
@@ -20,7 +21,11 @@ class ClosingAnAccountTest extends Specification
     public function given()
     {
         return [
-            new AccountWasOpened(123, new Name("John", "Doe"), new Amount(0))
+            new AccountWasOpened(
+                AccountId::fromString("123"),
+                new Name("John", "Doe"),
+                new Amount(0)
+            )
         ];
     }
 
@@ -31,7 +36,9 @@ class ClosingAnAccountTest extends Specification
      */
     public function when()
     {
-        return new CloseAccount(123);
+        return new CloseAccount(
+            AccountId::fromString("123")
+        );
     }
 
     /**

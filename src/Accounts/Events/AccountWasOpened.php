@@ -1,22 +1,28 @@
 <?php namespace KBC\Accounts\Events;
 
+use KBC\Accounts\VO\AccountId;
 use KBC\Accounts\VO\Amount;
 use KBC\Accounts\VO\Name;
 use KBC\EventSourcing\Events\DomainEvent;
 
 final class AccountWasOpened implements DomainEvent
 {
-    private $id;
 
+    /** @var \KBC\Accounts\VO\AccountId */
+    private $accountId;
+
+    /** @var \KBC\Accounts\VO\Name */
     private $name;
 
+    /** @var \KBC\Accounts\VO\Amount */
     private $balance;
 
+    /** @var bool */
     private $closed;
 
-    public function __construct($id, Name $name, Amount $balance)
+    public function __construct(AccountId $accountId, Name $name, Amount $balance)
     {
-        $this->id = $id;
+        $this->accountId = $accountId;
         $this->name = $name;
         $this->balance = $balance;
         $this->closed = false;
@@ -24,36 +30,24 @@ final class AccountWasOpened implements DomainEvent
 
     public function getAggregateId()
     {
-        return $this->id;
+        return $this->accountId->getId();
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
+    public function getAccountId()
     {
-        return $this->id;
+        return $this->accountId;
     }
 
-    /**
-     * @return Name
-     */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     * @return Amount
-     */
     public function getBalance()
     {
         return $this->balance;
     }
 
-    /**
-     * @return boolean
-     */
     public function isClosed()
     {
         return $this->closed;

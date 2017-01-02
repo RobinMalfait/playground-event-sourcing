@@ -6,6 +6,7 @@ use KBC\Accounts\Commands\DepositMoney;
 use KBC\Accounts\Commands\DepositMoneyHandler;
 use KBC\Accounts\Events\AccountWasClosed;
 use KBC\Accounts\Events\AccountWasOpened;
+use KBC\Accounts\VO\AccountId;
 use KBC\Accounts\VO\Amount;
 use KBC\Accounts\VO\Name;
 use Specification;
@@ -19,9 +20,11 @@ class DepositMoneyAfterClosingAnAccountTest extends Specification
      */
     public function given()
     {
+        $accountId = AccountId::fromString("123");
+
         return [
-            new AccountWasOpened(123, new Name("John", "Doe"), new Amount(0)),
-            new AccountWasClosed(123)
+            new AccountWasOpened($accountId, new Name("John", "Doe"), new Amount(0)),
+            new AccountWasClosed($accountId)
         ];
     }
 
@@ -32,7 +35,7 @@ class DepositMoneyAfterClosingAnAccountTest extends Specification
      */
     public function when()
     {
-        return new DepositMoney(123, new Amount(50));
+        return new DepositMoney(AccountId::fromString("123"), new Amount(50));
     }
 
     /**

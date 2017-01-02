@@ -5,6 +5,7 @@ use KBC\Baskets\BasketRepository;
 
 final class PickUpBasketHandler
 {
+    /** @var \KBC\Baskets\BasketRepository */
     private $repository;
 
     public function __construct(BasketRepository $repository)
@@ -14,7 +15,7 @@ final class PickUpBasketHandler
 
     public function handle(PickUpBasket $command)
     {
-        $basket = Basket::create($command->getId());
+        $basket = Basket::pickUp($command->getBasketId());
 
         $this->repository->save($basket);
     }

@@ -4,21 +4,27 @@ use KBC\Accounts\Events\AccountWasClosed;
 use KBC\Accounts\Events\AccountWasOpened;
 use KBC\Accounts\Events\MoneyWasWithdrawn;
 use KBC\Accounts\Events\MoneyWasDeposited;
+use KBC\Accounts\VO\AccountId;
 use KBC\Accounts\VO\Amount;
 use KBC\Accounts\VO\Name;
 use KBC\Core\AggregateRoot;
 
 final class Account extends AggregateRoot
 {
+
+    /** @var \KBC\Accounts\VO\Name */
     public $name;
 
+    /** @var \KBC\Accounts\VO\Amount */
     public $balance;
 
+    /** @var \KBC\Accounts\VO\AccountId */
     public $id;
 
+    /** @var bool */
     public $closed;
 
-    public static function open($id, Name $name)
+    public static function open(AccountId $id, Name $name)
     {
         $me = new static();
 
@@ -39,13 +45,17 @@ final class Account extends AggregateRoot
 
     public function withdraw($balance)
     {
+        if ($this->closed) {
+            throw new AccountClosedException();
+        }
+
         $this->apply(new MoneyWasWithdrawn($this->id, $balance));
     }
 
     /* Respond to events */
     public function applyAccountWasOpened(AccountWasOpened $event)
     {
-        $this->id = $event->getId();
+        $this->id = $event->getAccountId();
         $this->balance = $event->getBalance();
         $this->name = $event->getName();
         $this->closed = false;
@@ -64,10 +74,6 @@ final class Account extends AggregateRoot
 
     public function applyMoneyWasWithdrawn(MoneyWasWithdrawn $event)
     {
-        if ($this->closed) {
-            throw new AccountClosedException();
-        }
-
         $this->balance = new Amount(
             $this->balance->getAmount() - $event->getBalance()->getAmount()
         );

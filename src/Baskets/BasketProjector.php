@@ -17,7 +17,7 @@ final class BasketProjector
     public function projectBasketWasCreated(BasketWasCreated $event)
     {
         $this->jsonDatabase->insert([
-            'id' => $event->getId(),
+            'id' => $event->getBasketId()->getId(),
             'items' => []
         ]);
     }

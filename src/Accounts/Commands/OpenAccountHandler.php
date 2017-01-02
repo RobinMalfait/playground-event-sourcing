@@ -5,6 +5,7 @@ use KBC\Accounts\AccountRepository;
 
 final class OpenAccountHandler
 {
+    /** @var \KBC\Accounts\AccountRepository */
     private $repository;
 
     public function __construct(AccountRepository $repository)
@@ -14,7 +15,10 @@ final class OpenAccountHandler
 
     public function handle(OpenAccount $command)
     {
-        $account = Account::open($command->getId(), $command->getName());
+        $account = Account::open(
+            $command->getAccountId(),
+            $command->getName()
+        );
 
         $this->repository->save($account);
     }

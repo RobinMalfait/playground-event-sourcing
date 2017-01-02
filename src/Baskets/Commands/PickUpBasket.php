@@ -1,19 +1,19 @@
 <?php namespace KBC\Baskets\Commands;
 
+use KBC\Baskets\VO\BasketId;
+
 final class PickUpBasket
 {
-    private $id;
+    /** @var \KBC\Baskets\VO\BasketId */
+    private $basketId;
 
-    public function __construct($id)
+    public function __construct(BasketId $basketId)
     {
-        $this->id = $id;
+        $this->basketId = $basketId;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
+    public function getBasketId()
     {
-        return $this->id;
+        return $this->basketId;
     }
 }

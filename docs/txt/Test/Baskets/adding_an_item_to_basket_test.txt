@@ -4,7 +4,7 @@ Given:
   Basket was created with id of 123.
 
 When:
-  Add product with basket id of 123, id of TestId, name of Test Item.
+  Add product with id of 123, id of TestId, name of Test Item.
 
 Then:
   One event has been produced.

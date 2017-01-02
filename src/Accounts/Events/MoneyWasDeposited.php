@@ -1,15 +1,19 @@
 <?php namespace KBC\Accounts\Events;
 
+use KBC\Accounts\VO\AccountId;
 use KBC\Accounts\VO\Amount;
 use KBC\EventSourcing\Events\DomainEvent;
 
 final class MoneyWasDeposited implements DomainEvent
 {
+
+    /** @var \KBC\Accounts\VO\AccountId */
     private $accountId;
 
+    /** @var \KBC\Accounts\VO\Amount */
     private $balance;
 
-    public function __construct($accountId, Amount $balance)
+    public function __construct(AccountId $accountId, Amount $balance)
     {
         $this->accountId = $accountId;
         $this->balance = $balance;
@@ -17,20 +21,14 @@ final class MoneyWasDeposited implements DomainEvent
 
     public function getAggregateId()
     {
-        return $this->accountId;
+        return $this->accountId->getId();
     }
 
-    /**
-     * @return mixed
-     */
     public function getAccountId()
     {
         return $this->accountId;
     }
 
-    /**
-     * @return Amount
-     */
     public function getBalance()
     {
         return $this->balance;

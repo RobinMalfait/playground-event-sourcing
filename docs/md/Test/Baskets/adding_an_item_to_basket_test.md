@@ -8,7 +8,7 @@
 
 ### When:
 
-Add product with basket id of 123, id of TestId, name of Test Item.
+Add product with id of 123, id of TestId, name of Test Item.
 
 ### Then:
 

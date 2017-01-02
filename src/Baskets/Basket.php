@@ -3,17 +3,21 @@
 use KBC\Baskets\Events\BasketWasCreated;
 use KBC\Baskets\Events\ProductWasAddedToBasket;
 use KBC\Baskets\Events\ProductWasDeletedFromBasket;
+use KBC\Baskets\VO\BasketId;
 use KBC\Baskets\VO\Product;
 use KBC\Baskets\VO\ProductId;
 use KBC\Core\AggregateRoot;
 
 final class Basket extends AggregateRoot
 {
+
+    /** @var \KBC\Baskets\VO\BasketId */
     public $id;
 
+    /** @var array */
     public $items;
 
-    public static function create($id)
+    public static function pickUp(BasketId $id)
     {
         $me = new static();
 
@@ -34,7 +38,7 @@ final class Basket extends AggregateRoot
 
     public function applyBasketWasCreated(BasketWasCreated $event)
     {
-        $this->id = $event->getId();
+        $this->id = $event->getBasketId();
         $this->items = [];
     }
 

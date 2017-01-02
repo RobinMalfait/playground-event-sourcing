@@ -4,6 +4,7 @@ use KBC\Baskets\BasketRepository;
 
 final class AddProductHandler
 {
+    /** @var \KBC\Baskets\BasketRepository */
     private $repository;
 
     public function __construct(BasketRepository $repository)
@@ -13,7 +14,9 @@ final class AddProductHandler
 
     public function handle(AddProduct $command)
     {
-        $basket = $this->repository->load($command->getBasketId());
+        $basket = $this->repository->load(
+            $command->getBasketId()->getId()
+        );
 
         $basket->addProduct($command->getItem());
 

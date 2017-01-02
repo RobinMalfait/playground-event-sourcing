@@ -5,6 +5,7 @@ use KBC\Baskets\BasketRepository;
 use KBC\Baskets\Commands\PickUpBasket;
 use KBC\Baskets\Commands\PickUpBasketHandler;
 use KBC\Baskets\Events\BasketWasCreated;
+use KBC\Baskets\VO\BasketId;
 use Specification;
 
 class CreatingABasketTest extends Specification
@@ -26,7 +27,7 @@ class CreatingABasketTest extends Specification
      */
     public function when()
     {
-        return new PickUpBasket(123);
+        return new PickUpBasket(BasketId::fromString("123"));
     }
 
     /**

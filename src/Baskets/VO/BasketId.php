@@ -1,8 +1,7 @@
 <?php namespace KBC\Baskets\VO;
 
-final class ProductId
+final class BasketId
 {
-
     /** @var string */
     private $id;
 
@@ -17,6 +16,11 @@ final class ProductId
     }
 
     public function getId()
+    {
+        return $this->id;
+    }
+
+    public function __toString()
     {
         return $this->id;
     }

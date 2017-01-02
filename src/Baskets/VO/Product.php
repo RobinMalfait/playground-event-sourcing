@@ -2,8 +2,10 @@
 
 final class Product
 {
+    /** @var \KBC\Baskets\VO\ProductId */
     private $productId;
 
+    /** @var string */
     private $name;
 
     public function __construct(ProductId $productId, $name)
@@ -12,17 +14,11 @@ final class Product
         $this->name = $name;
     }
 
-    /**
-     * @return ProductId
-     */
     public function getProductId()
     {
         return $this->productId;
     }
 
-    /**
-     * @return mixed
-     */
     public function getName()
     {
         return $this->name;

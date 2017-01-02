@@ -18,7 +18,7 @@ final class AccountProjector
     public function projectAccountWasOpened(AccountWasOpened $event)
     {
         $this->jsonDatabase->insert([
-            'id' => $event->getId(),
+            'id' => $event->getAccountId()->getId(),
             'name' => $event->getName()->getFullName(),
             'balance' => $event->getBalance()->getAmount(),
             'closed' => $event->isClosed()

@@ -4,6 +4,7 @@ use KBC\Accounts\AccountRepository;
 use KBC\Accounts\Commands\OpenAccount;
 use KBC\Accounts\Commands\OpenAccountHandler;
 use KBC\Accounts\Events\AccountWasOpened;
+use KBC\Accounts\VO\AccountId;
 use KBC\Accounts\VO\Name;
 use Specification;
 
@@ -26,7 +27,7 @@ class OpeningAnAccountTest extends Specification
      */
     public function when()
     {
-        return new OpenAccount(123, new Name("John", "Doe"));
+        return new OpenAccount(AccountId::fromString("123"), new Name("John", "Doe"));
     }
 
     /**

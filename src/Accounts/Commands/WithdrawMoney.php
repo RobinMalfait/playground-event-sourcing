@@ -1,30 +1,27 @@
 <?php namespace KBC\Accounts\Commands;
 
+use KBC\Accounts\VO\AccountId;
 use KBC\Accounts\VO\Amount;
 
 final class WithdrawMoney
 {
-    private $id;
+    /** @var \KBC\Accounts\VO\AccountId */
+    private $accountId;
 
+    /** @var \KBC\Accounts\VO\Amount */
     private $balance;
 
-    public function __construct($id, Amount $balance)
+    public function __construct(AccountId $accountId, Amount $balance)
     {
-        $this->id = $id;
+        $this->accountId = $accountId;
         $this->balance = $balance;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
+    public function getAccountId()
     {
-        return $this->id;
+        return $this->accountId;
     }
 
-    /**
-     * @return Amount
-     */
     public function getBalance()
     {
         return $this->balance;

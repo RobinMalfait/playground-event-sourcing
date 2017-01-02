@@ -5,7 +5,7 @@
 ### Given:
 
 - Account was opened with id of 123, first name of John, last name of Doe, amount of 0.
-- Money was deposited with account id of 123, amount of 100.
+- Money was deposited with id of 123, amount of 100.
 
 ### When:
 

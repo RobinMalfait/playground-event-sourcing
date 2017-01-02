@@ -1,26 +1,25 @@
 <?php namespace KBC\Baskets\Events;
 
+use KBC\Baskets\VO\BasketId;
 use KBC\EventSourcing\Events\DomainEvent;
 
 final class BasketWasCreated implements DomainEvent
 {
-    private $id;
+    /** @var \KBC\Baskets\VO\BasketId */
+    private $basketId;
 
-    public function __construct($id)
+    public function __construct(BasketId $basketId)
     {
-        $this->id = $id;
+        $this->basketId = $basketId;
     }
 
     public function getAggregateId()
     {
-        return $this->id;
+        return $this->basketId->getId();
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
+    public function getBasketId()
     {
-        return $this->id;
+        return $this->basketId;
     }
 }

@@ -6,6 +6,7 @@ use KBC\Accounts\Commands\WithdrawMoneyHandler;
 use KBC\Accounts\Events\AccountWasOpened;
 use KBC\Accounts\Events\MoneyWasWithdrawn;
 use KBC\Accounts\Events\MoneyWasDeposited;
+use KBC\Accounts\VO\AccountId;
 use KBC\Accounts\VO\Amount;
 use KBC\Accounts\VO\Name;
 use Specification;
@@ -19,9 +20,11 @@ class WithdrawMoneyTest extends Specification
      */
     public function given()
     {
+        $accountId = AccountId::fromString("123");
+
         return [
-            new AccountWasOpened(123, new Name("John", "Doe"), new Amount(0)),
-            new MoneyWasDeposited(123, new Amount(100)),
+            new AccountWasOpened($accountId, new Name("John", "Doe"), new Amount(0)),
+            new MoneyWasDeposited($accountId, new Amount(100)),
         ];
     }
 
@@ -32,7 +35,7 @@ class WithdrawMoneyTest extends Specification
      */
     public function when()
     {
-        return new WithdrawMoney(123, new Amount(75));
+        return new WithdrawMoney(AccountId::fromString("123"), new Amount(75));
     }
 
     /**

@@ -5,11 +5,11 @@
 ### Given:
 
 - Basket was created with id of 123.
-- Product was added to basket with basket id of 123, id of 321, name of Test Product.
+- Product was added to basket with id of 123, id of 321, name of Test Product.
 
 ### When:
 
-Remove item with basket id of 123, id of 321.
+Remove item with id of 123, id of 321.
 
 ### Then:
 

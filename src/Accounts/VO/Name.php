@@ -2,8 +2,10 @@
 
 final class Name
 {
+    /** @var string */
     private $firstName;
 
+    /** @var string */
     private $lastName;
 
     public function __construct($firstName, $lastName)
@@ -12,17 +14,11 @@ final class Name
         $this->lastName = $lastName;
     }
 
-    /**
-     * @return mixed
-     */
     public function getFirstName()
     {
         return $this->firstName;
     }
 
-    /**
-     * @return mixed
-     */
     public function getLastName()
     {
         return $this->lastName;

@@ -1,16 +1,20 @@
 <?php namespace KBC\Accounts\Commands;
 
+use KBC\Accounts\VO\AccountId;
+
 final class CloseAccount
 {
-    private $id;
 
-    public function __construct($id)
+    /** @var \KBC\Accounts\VO\AccountId */
+    private $accountId;
+
+    public function __construct(AccountId $accountId)
     {
-        $this->id = $id;
+        $this->accountId = $accountId;
     }
 
-    public function getId()
+    public function getAccountId()
     {
-        return $this->id;
+        return $this->accountId;
     }
 }

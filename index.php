@@ -14,6 +14,7 @@ use KBC\Accounts\Listeners\WhenAccountWasClosed;
 use KBC\Accounts\Listeners\WhenAccountWasOpened;
 use KBC\Accounts\Listeners\WhenMoneyHasBeenCollected;
 use KBC\Accounts\Listeners\WhenMoneyWasDeposited;
+use KBC\Accounts\VO\AccountId;
 use KBC\Accounts\VO\Amount;
 use KBC\Accounts\VO\Name;
 use KBC\Baskets\Basket;
@@ -23,6 +24,7 @@ use KBC\Baskets\Commands\PickUpBasket;
 use KBC\Baskets\Commands\RemoveItem;
 use KBC\Baskets\Events\BasketWasCreated;
 use KBC\Baskets\Listeners\WhenBasketWasCreated;
+use KBC\Baskets\VO\BasketId;
 use KBC\Baskets\VO\Product;
 use KBC\Baskets\VO\ProductId;
 use KBC\EventSourcing\Events\Dispatcher;
@@ -78,41 +80,41 @@ $eventDispatcher->addProjector(Basket::class, new BasketProjector(new JsonDataba
  * Accounts
  */
 // Generate UUID
-$johnDoeId = id();
-$janeDoeId = id();
+$johnDoe = AccountId::fromString(id());
+$janeDoe = AccountId::fromString(id());
 
 // Open Account
-dispatch(new OpenAccount($johnDoeId, new Name('John', 'Doe')));
-dispatch(new OpenAccount($janeDoeId, new Name('Jane', 'Doe')));
+dispatch(new OpenAccount($johnDoe, new Name('John', 'Doe')));
+dispatch(new OpenAccount($janeDoe, new Name('Jane', 'Doe')));
 
 // Deposit some money
-dispatch(new DepositMoney($johnDoeId, new Amount(20)));
-dispatch(new DepositMoney($johnDoeId, new Amount(10)));
-dispatch(new DepositMoney($johnDoeId, new Amount(30)));
+dispatch(new DepositMoney($johnDoe, new Amount(20)));
+dispatch(new DepositMoney($johnDoe, new Amount(10)));
+dispatch(new DepositMoney($johnDoe, new Amount(30)));
 
 // Withdraw some money
-dispatch(new WithdrawMoney($johnDoeId, new Amount(50)));
+dispatch(new WithdrawMoney($johnDoe, new Amount(50)));
 
 // Delete account
-dispatch(new CloseAccount($janeDoeId));
+dispatch(new CloseAccount($janeDoe));
 
 /**
  * Baskets
  */
-$basketId = id();
+$basket = BasketId::fromString(id());
 
-// Create a basket
-dispatch(new PickUpBasket($basketId));
+// Pick up a basket
+dispatch(new PickUpBasket($basket));
 
-// Product IDs
-$macbook = new ProductId(id());
-$iphone = new ProductId(id());
-$ipad = new ProductId(id());
+// Generate some product ids
+$macbook = ProductId::fromString(id());
+$iphone = ProductId::fromString(id());
+$ipad = ProductId::fromString(id());
 
 // Add some items
-dispatch(new AddProduct($basketId, new Product($macbook, 'Macbook Pro')));
-dispatch(new AddProduct($basketId, new Product($iphone, 'iPhone 6')));
-dispatch(new AddProduct($basketId, new Product($ipad, 'iPad Air')));
+dispatch(new AddProduct($basket, new Product($macbook, 'Macbook Pro')));
+dispatch(new AddProduct($basket, new Product($iphone, 'iPhone 6')));
+dispatch(new AddProduct($basket, new Product($ipad, 'iPad Air')));
 
 // Removing an item
-dispatch(new RemoveItem($basketId, $macbook));
+dispatch(new RemoveItem($basket, $macbook));

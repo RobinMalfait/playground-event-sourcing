@@ -26,12 +26,12 @@ final class EventStore
 
         foreach ($events as $event) {
             $aggregate->applyAnEvent($event);
-        }
 
-        $rootId = $aggregate->id;
-
-        foreach ($events as $event) {
-            $this->storage->storeEvent($rootId, $aggregate->version, $this->serialize($event));
+            $this->storage->storeEvent(
+                $event->getAggregateId(),
+                $aggregate->version,
+                $this->serialize($event)
+            );
         }
 
         $this->dispatcher->dispatch((new ReflectionClass($aggregate))->getName(), $events);

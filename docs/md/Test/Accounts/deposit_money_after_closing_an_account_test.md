@@ -5,7 +5,7 @@
 ### Given:
 
 - Account was opened with id of 123, first name of John, last name of Doe, amount of 0.
-- Account was closed with account id of 123.
+- Account was closed with id of 123.
 
 ### When:
 

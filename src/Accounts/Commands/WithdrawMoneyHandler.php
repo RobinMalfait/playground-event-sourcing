@@ -4,6 +4,7 @@ use KBC\Accounts\AccountRepository;
 
 final class WithdrawMoneyHandler
 {
+    /** @var \KBC\Accounts\AccountRepository */
     private $repository;
 
     public function __construct(AccountRepository $repository)
@@ -13,7 +14,9 @@ final class WithdrawMoneyHandler
 
     public function handle(WithdrawMoney $command)
     {
-        $account = $this->repository->load($command->getId());
+        $account = $this->repository->load(
+            $command->getAccountId()->getId()
+        );
 
         $account->withdraw($command->getBalance());
 

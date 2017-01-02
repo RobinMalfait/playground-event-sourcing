@@ -1,30 +1,28 @@
 <?php namespace KBC\Accounts\Commands;
 
+use KBC\Accounts\VO\AccountId;
 use KBC\Accounts\VO\Name;
 
 final class OpenAccount
 {
-    private $id;
 
+    /** @var \KBC\Accounts\VO\AccountId */
+    private $accountId;
+
+    /** @var \KBC\Accounts\VO\Name */
     private $name;
 
-    public function __construct($id, Name $name)
+    public function __construct(AccountId $accountId, Name $name)
     {
-        $this->id = $id;
+        $this->accountId = $accountId;
         $this->name = $name;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
+    public function getAccountId()
     {
-        return $this->id;
+        return $this->accountId;
     }
 
-    /**
-     * @return Name
-     */
     public function getName()
     {
         return $this->name;

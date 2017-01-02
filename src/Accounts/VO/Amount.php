@@ -2,6 +2,7 @@
 
 final class Amount
 {
+    /** @var double */
     private $amount;
 
     public function __construct($amount)
@@ -9,9 +10,6 @@ final class Amount
         $this->amount = $amount;
     }
 
-    /**
-     * @return mixed
-     */
     public function getAmount()
     {
         return $this->amount;

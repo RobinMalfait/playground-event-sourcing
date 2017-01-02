@@ -6,6 +6,7 @@ use KBC\Baskets\Commands\RemoveItemHandler;
 use KBC\Baskets\Events\BasketWasCreated;
 use KBC\Baskets\Events\ProductWasAddedToBasket;
 use KBC\Baskets\Events\ProductWasDeletedFromBasket;
+use KBC\Baskets\VO\BasketId;
 use KBC\Baskets\VO\Product;
 use KBC\Baskets\VO\ProductId;
 use Specification;
@@ -20,8 +21,8 @@ class RemovingAnItemFromBasketTest extends Specification
     public function given()
     {
         return [
-            new BasketWasCreated(123),
-            new ProductWasAddedToBasket(123, new Product(new ProductId(321), "Test Product"))
+            new BasketWasCreated(BasketId::fromString("123")),
+            new ProductWasAddedToBasket(BasketId::fromString("123"), new Product(ProductId::fromString('321'), "Test Product"))
         ];
     }
 
@@ -32,7 +33,7 @@ class RemovingAnItemFromBasketTest extends Specification
      */
     public function when()
     {
-        return new RemoveItem(123, new ProductId(321));
+        return new RemoveItem(BasketId::fromString("123"), ProductId::fromString('321'));
     }
 
     /**
